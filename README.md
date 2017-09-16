@@ -1,2 +1,2 @@
-# regex-generator
-Regular expression generator app
+# Regular Expression Generator App
+Regular Expression Generator App - In Progress
