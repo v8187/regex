@@ -2,10 +2,11 @@
   "name": "regex-generator",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://v8187.github.io/regex-generator",
   "dependencies": {
+    "node-sass-chokidar": "0.0.3",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-scripts": "1.0.13"
+    "react-dom": "^15.6.1"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
@@ -17,6 +18,8 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "npm-run-all": "^4.1.1"
+    "gh-pages": "^1.0.0",
+    "npm-run-all": "^4.1.1",
+    "react-scripts": "1.0.13"
   }
 }
