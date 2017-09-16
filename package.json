@@ -1,6 +1,6 @@
 {
   "name": "regex-generator",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "homepage": "http://v8187.github.io/regex-generator",
   "devDependencies": {
