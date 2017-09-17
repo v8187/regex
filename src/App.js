@@ -5,7 +5,7 @@ class App extends Component {
     return (
       <form id="generator">
         <fieldset id="characterTypes">
-          <legend>Drag and Drop to re-arrange the following items:</legend>
+          <legend>Drag and Drop to re-arrange the following itemsaaaaa:</legend>
           <ul></ul>
         </fieldset>
         <output></output>
