@@ -1,24 +1,26 @@
 {
   "name": "regex-generator",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
-  "homepage": "http://v8187.github.io/regex-generator",
-  "devDependencies": {
-    "gh-pages": "^1.0.0",
-    "react-scripts": "1.0.13"
-  },
+  "homepage": "https://v8187.github.io/regex-generator",
   "dependencies": {
+    "node-sass-chokidar": "0.0.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build"
   },
-  "eslintConfig": {
-    "extends": "./node_modules/react-scripts/config/eslint.js"
+  "devDependencies": {
+    "gh-pages": "^1.0.0",
+    "npm-run-all": "^4.1.1",
+    "react-scripts": "1.0.13"
   }
 }
