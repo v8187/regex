@@ -7,26 +7,21 @@ export class ControlWrapper extends Component {
 
         super(props);
 
-        this.state = {
-            deleted: false
-        };
+        this.state = {};
     }
 
-    remove() {
-        this.setState({ deleted: true });
+    remove(evt) {
+        evt.preventDefault();
+        this.props.onRemove();
     }
 
     render() {
-        if (this.state.deleted) {
-            return null;
-        }
-        var index = document.querySelectorAll('.token-control').length;
 
         return (<li className={this.props.className}>
             <i className="icon handle-icon">:::</i>
-            <div className="token-control">
+            <div className="control-element">
                 {this.props.children}
-                <input id={`ctrlDel${index}`}
+                <input
                     onClick={this.remove.bind(this)}
                     type="button" className="del-btn" value="x" />
             </div>

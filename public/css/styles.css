@@ -41,19 +41,19 @@ ul, ol {
       left: 5px;
       top: calc(50% - 10px);
       user-select: none; }
-    #characterTypes li .token-control {
+    #characterTypes li .control-element {
       max-width: calc(100% - 30px);
       margin-left: 30px;
       position: relative;
       user-select: none; }
-      #characterTypes li .token-control > h2 {
+      #characterTypes li .control-element > h2 {
         font-size: 15px;
         font-weight: bold;
         user-select: none; }
-      #characterTypes li .token-control > div {
+      #characterTypes li .control-element > div {
         padding: 5px 5px 5px 0;
         user-select: none; }
-      #characterTypes li .token-control .del-btn {
+      #characterTypes li .control-element .del-btn {
         background: transparent;
         border: 0 none;
         outline: 0 none;
@@ -68,7 +68,7 @@ ul, ol {
         padding: 0 10px;
         margin: 0;
         cursor: pointer; }
-      #characterTypes li .token-control:hover .del-btn {
+      #characterTypes li .control-element:hover .del-btn {
         color: #175468;
         display: inline-block; }
     #characterTypes li:hover {
@@ -164,3 +164,5 @@ input,
 .check-box-container label {
   display: inline-block;
   padding: 0 10px; }
+
+/*# sourceMappingURL=styles.css.map */

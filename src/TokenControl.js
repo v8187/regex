@@ -56,9 +56,9 @@ export class TokenControl extends Component {
     }
 
     render() {
-        var index = document.querySelectorAll('.token-control').length;
+        var index = document.querySelectorAll('.control-element').length;
 
-        return (<ControlWrapper><div>
+        return (<ControlWrapper  {...this.props}><div>
             <input id={`ctrlInput${index}`}
                 type="text" placeholder={this.state.placeholder} />
             <CheckBox id={`ctrlAlphabet${index}`}

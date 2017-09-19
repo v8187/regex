@@ -35,9 +35,9 @@ export class Bracket extends Component {
     }
 
     render() {
-        var index = document.querySelectorAll('.token-control').length;
+        var index = document.querySelectorAll('.control-element').length;
 
-        return <ControlWrapper>
+        return <ControlWrapper {...this.props}>
             <h2>{this.props.label}</h2>
         </ControlWrapper>;
     }
