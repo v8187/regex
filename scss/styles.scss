@@ -32,7 +32,7 @@ $COLOR_PRIMARY: #175468;
 		 line-height: 25px;
 	 }
 
-	 ul {
+	> ul {
 		 margin: 15px;
 	 }
 
@@ -43,29 +43,34 @@ $COLOR_PRIMARY: #175468;
 		 padding: 10px;
 		 margin-top: 5px;
 		 position: relative;
+		 user-select: none;
 
 		 .icon {
-			 visibility: hidden;
+			//  visibility: hidden;
 			 font-weight: bold;
 			 cursor: move;
 			 position: absolute;
 			 left: 5px;
 			 top: calc(50% - 10px);
+			 user-select: none;
 		 }
 
-		 .category-controls {
+		 .token-control {
 			 
 			 max-width: calc(100% - 30px);
 			 margin-left: 30px;
 			 position: relative;
+			 user-select: none;
 
 			 > h2 {
 				font-size: 15px;
 				font-weight: bold;
+				user-select: none;
 			 }
 
 			 > div {
 				 padding: 5px 5px 5px 0;
+				 user-select: none;
 			 }
 			 
 			 .del-btn {
@@ -81,6 +86,7 @@ $COLOR_PRIMARY: #175468;
 				font-weight: bold;
 				text-align: center;
 				padding: 0 10px;
+				margin: 0;
 				cursor: pointer;
 			}
 
@@ -97,7 +103,7 @@ $COLOR_PRIMARY: #175468;
 			 border-color: #ccc;
 
 			 .icon {
-				 visibility: visible;
+				//  visibility: visible;
 			 }
 		 }
 	 }
@@ -123,7 +129,8 @@ input {
 }
 
 input,
-.toggle-switch-container {
+.toggle-switch-container,
+.check-box-container {
 	vertical-align: middle;
 	margin: 10px 10px 0 0;
 }
@@ -133,7 +140,8 @@ input,
  *----------------------------------------------*/
 $TRANSITION: all 200ms linear;
 
-.toggle-switch-container {
+.toggle-switch-container,
+.check-box-container {
 
     font-size: 13px;
     line-height: 23px;
@@ -208,4 +216,12 @@ $TRANSITION: all 200ms linear;
         transition: $TRANSITION;
 		width: calc(50% - 2px);
     }
+}
+
+.check-box-container {
+
+	label {
+		display: inline-block;
+		padding: 0 10px;
+	}
 }

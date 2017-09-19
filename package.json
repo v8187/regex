@@ -6,7 +6,8 @@
   "dependencies": {
     "node-sass-chokidar": "0.0.3",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "sortablejs": "^1.6.1"
   },
   "scripts": {
     "build-css": "node-sass-chokidar scss/ -o public/css/",
