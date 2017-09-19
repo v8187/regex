@@ -24,7 +24,7 @@ ul, ol {
   #characterTypes legend {
     font-size: 15px;
     line-height: 25px; }
-  #characterTypes ul {
+  #characterTypes > ul {
     margin: 15px; }
   #characterTypes li {
     background: white;
@@ -32,24 +32,28 @@ ul, ol {
     font-size: 13px;
     padding: 10px;
     margin-top: 5px;
-    position: relative; }
+    position: relative;
+    user-select: none; }
     #characterTypes li .icon {
-      visibility: hidden;
       font-weight: bold;
       cursor: move;
       position: absolute;
       left: 5px;
-      top: calc(50% - 10px); }
-    #characterTypes li .category-controls {
+      top: calc(50% - 10px);
+      user-select: none; }
+    #characterTypes li .token-control {
       max-width: calc(100% - 30px);
       margin-left: 30px;
-      position: relative; }
-      #characterTypes li .category-controls > h2 {
+      position: relative;
+      user-select: none; }
+      #characterTypes li .token-control > h2 {
         font-size: 15px;
-        font-weight: bold; }
-      #characterTypes li .category-controls > div {
-        padding: 5px 5px 5px 0; }
-      #characterTypes li .category-controls .del-btn {
+        font-weight: bold;
+        user-select: none; }
+      #characterTypes li .token-control > div {
+        padding: 5px 5px 5px 0;
+        user-select: none; }
+      #characterTypes li .token-control .del-btn {
         background: transparent;
         border: 0 none;
         outline: 0 none;
@@ -62,14 +66,13 @@ ul, ol {
         font-weight: bold;
         text-align: center;
         padding: 0 10px;
+        margin: 0;
         cursor: pointer; }
-      #characterTypes li .category-controls:hover .del-btn {
+      #characterTypes li .token-control:hover .del-btn {
         color: #175468;
         display: inline-block; }
     #characterTypes li:hover {
       border-color: #ccc; }
-      #characterTypes li:hover .icon {
-        visibility: visible; }
 
 .icon {
   display: inline-block;
@@ -86,54 +89,68 @@ input {
     width: 50px; }
 
 input,
-.toggle-switch-container {
+.toggle-switch-container,
+.check-box-container {
   vertical-align: middle;
   margin: 10px 10px 0 0; }
 
 /*----------------------------------------------
  * Toggle Switch Control Styles
  *----------------------------------------------*/
-.toggle-switch-container {
+.toggle-switch-container,
+.check-box-container {
   font-size: 13px;
   line-height: 23px;
   display: inline-block;
   position: relative; }
-  .toggle-switch-container input[type=checkbox] {
+  .toggle-switch-container input[type=checkbox],
+  .check-box-container input[type=checkbox] {
     display: none; }
-    .toggle-switch-container input[type=checkbox]:checked + label {
+    .toggle-switch-container input[type=checkbox]:checked + label,
+    .check-box-container input[type=checkbox]:checked + label {
       background: #175468;
       border-color: #175468;
       color: white; }
-      .toggle-switch-container input[type=checkbox]:checked + label .tog-swh-btn {
+      .toggle-switch-container input[type=checkbox]:checked + label .tog-swh-btn,
+      .check-box-container input[type=checkbox]:checked + label .tog-swh-btn {
         left: calc(50% + 1px);
         color: #175468; }
-      .toggle-switch-container input[type=checkbox]:checked + label:hover {
+      .toggle-switch-container input[type=checkbox]:checked + label:hover,
+      .check-box-container input[type=checkbox]:checked + label:hover {
         background: #0e323e; }
-        .toggle-switch-container input[type=checkbox]:checked + label:hover .tog-swh-btn {
+        .toggle-switch-container input[type=checkbox]:checked + label:hover .tog-swh-btn,
+        .check-box-container input[type=checkbox]:checked + label:hover .tog-swh-btn {
           color: #175468;
           letter-spacing: 1px; }
-  .toggle-switch-container label {
+  .toggle-switch-container label,
+  .check-box-container label {
     background: #ccc;
     border: 1px solid #bbb;
     color: #777;
     display: table-row;
     cursor: pointer;
     transition: all 200ms linear; }
-    .toggle-switch-container label:hover {
+    .toggle-switch-container label:hover,
+    .check-box-container label:hover {
       background: #bbb; }
-      .toggle-switch-container label:hover .tog-swh-btn {
+      .toggle-switch-container label:hover .tog-swh-btn,
+      .check-box-container label:hover .tog-swh-btn {
         color: #175468;
         letter-spacing: 1px; }
   .toggle-switch-container .tog-swh-text,
-  .toggle-switch-container .tog-swh-btn {
+  .toggle-switch-container .tog-swh-btn,
+  .check-box-container .tog-swh-text,
+  .check-box-container .tog-swh-btn {
     display: table-cell;
     border: 0 none;
     text-align: center;
     user-select: none; }
-  .toggle-switch-container .tog-swh-text {
+  .toggle-switch-container .tog-swh-text,
+  .check-box-container .tog-swh-text {
     width: 50%;
     padding: 0 5px; }
-  .toggle-switch-container .tog-swh-btn {
+  .toggle-switch-container .tog-swh-btn,
+  .check-box-container .tog-swh-btn {
     background: white;
     color: #aaa;
     font-size: 11px;
@@ -143,3 +160,7 @@ input,
     left: 1px;
     transition: all 200ms linear;
     width: calc(50% - 2px); }
+
+.check-box-container label {
+  display: inline-block;
+  padding: 0 10px; }
