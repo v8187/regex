@@ -6,7 +6,9 @@ export class ToggleSwitch extends Component {
 
         super(props);
 
-        this.state = {};
+        this.state = {
+            isOn: false
+        };
 
         this.handleChange = this.handleChange.bind(this);
     }
@@ -37,7 +39,7 @@ export class ToggleSwitch extends Component {
                 <input type="checkbox"
                     ref={input => { this.control = input }}
                     id={this.props.id}
-                    defaultChecked={this.state.isOn || false}
+                    checked={this.state.isOn || false}
                     onChange={this.handleChange}
                 />
                 <label htmlFor={this.props.id}>

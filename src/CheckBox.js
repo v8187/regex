@@ -6,7 +6,9 @@ export class CheckBox extends Component {
 
         super(props);
 
-        this.state = {};
+        this.state = {
+            checked: false
+        };
 
         this.handleChange = this.handleChange.bind(this);
     }
@@ -26,10 +28,6 @@ export class CheckBox extends Component {
             checked: this.props.checked
         });
     }
-    // When Component gets destroyed
-    componentWillUnmount() {
-
-    }
 
     render() {
         return (
@@ -37,7 +35,7 @@ export class CheckBox extends Component {
                 <input type="checkbox"
                     ref={input => { this.control = input }}
                     id={this.props.id}
-                    defaultChecked={this.state.checked || false}
+                    checked={this.state.checked || false}
                     onChange={this.handleChange}
                 />
                 <label htmlFor={this.props.id}>{this.props.label}</label>
