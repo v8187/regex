@@ -1,20 +1,5 @@
 class BaseModel {
     id = '';
-
-    constructor() {
-        this.updateId(true);
-    }
-
-    updateId(isNew) {
-        var len = document.querySelectorAll(`.${this.className}`).length;
-        if (len && this.type !== 'token') {
-            len = len / 2;
-        }
-        if (!isNew) {
-            len--;
-        }
-        this.id = `ctrl${this.type}${len}`;
-    }
 };
 
 export class Token extends BaseModel {

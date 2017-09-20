@@ -2,44 +2,21 @@ import React, { Component } from 'react';
 import Sortable from 'sortablejs';
 
 import { TokenControl } from './TokenControl';
-import { Bracket } from './Bracket';
-import { BGroup, EGroup, Token, BList, EList } from './models';
+import { Token } from './models';
 
-const _renderElements = (ctx) => {
-    console.log('_renderElements ', ctx.state.elements.length);
-    return ctx.state.elements.map((ele, i) => {
-        console.log(ele.id);
+const _renderTokenControls = (ctx) => {
+    return ctx.state.tokenControls.map((token, i) => {
         let _obj = {
             key: i,
             onRemove: () => {
-                let pair = [ele.id];
-
-                if(ele.type !== 'token') {
-                    let tempId = ele.id,
-                    isB = ele.type.indexOf('b') === 0;
-
-                    pair.push(tempId.replace(isB ? 'ctrlb' : 'ctrle', isB ? 'ctrle' : 'ctrlb'));
-                }
-                ctx.removeElement(pair);
+                ctx.removeToken(token.id);
             },
-            label: ele.label,
-            className: ele.className
+            id: token.id,
+            index: token.index,
+            className: token.className
         };
 
-        switch (ele.type) {
-            case 'bGroup':
-                return <Bracket {..._obj} />;
-            case 'bList':
-                return <Bracket {..._obj} />;
-            case 'token':
-                return <TokenControl {..._obj} />;
-            case 'eList':
-                return <Bracket {..._obj} />;
-            case 'eGroup':
-                return <Bracket {..._obj} />;
-            default:
-                return null;
-        }
+        return <TokenControl {..._obj} />;
     });
 };
 
@@ -50,21 +27,16 @@ class App extends Component {
         super(props);
 
         this.state = {
-            elements: [
-                new BGroup(),
-                new BList(),
-                new Token(),
-                new EList(),
-                new EGroup()
-            ]
+            tokenControls: []
         };
 
-        this.addGroup = this.addGroup.bind(this);
-        this.addList = this.addList.bind(this);
         this.addToken = this.addToken.bind(this);
+        this.removeToken = this.removeToken.bind(this);
     }
 
     componentDidMount() {
+        this.addToken();
+
         this.sortable = new Sortable(this.elUl, {
             handle: '.handle-icon',
             sort: true
@@ -75,39 +47,32 @@ class App extends Component {
         this.sortable = null;
     }
 
-    addGroup(evt) {
-        evt.preventDefault();
-
-        this.setState({
-            elements: this.state.elements.concat(new BGroup(), new EGroup())
-        });
-    }
-
-    addList(evt) {
-        evt.preventDefault();
-
-        this.setState({
-            elements: this.state.elements.concat(new BList(), new EList())
-        });
-    }
-
     addToken(evt) {
-        evt.preventDefault();
+        evt && evt.preventDefault();
 
         this.setState({
-            elements: this.state.elements.concat(new Token())
+            tokenControls: this.state.tokenControls.concat(this.setTokenId(new Token(), this.state.tokenControls.length))
         });
     }
 
-    removeElement(ids) {
-        var _filteredList = this.state.elements.filter(ele => {
-            return ele.id !== ids[0] && ele.id !== ids[1];
+    setTokenId(token, index) {
+        token.index = index;
+        token.id = `ctrlToken${index}`;
+
+        return token;
+    }
+
+    removeToken(id) {
+        var _filteredControls = this.state.tokenControls.filter(token => {
+            return token.id !== id;
         });
 
-        _filteredList.map(ele => ele.updateId());
+        _filteredControls.map((token, i) => {
+            this.setTokenId(token, i);
+        });
 
         this.setState({
-            elements: _filteredList
+            tokenControls: _filteredControls
         });
     }
 
@@ -116,12 +81,10 @@ class App extends Component {
             <form id="generator">
                 <fieldset id="characterTypes">
                     <legend>Drag and Drop to re-arrange the following items:
-            <button onClick={this.addGroup}>Add Group</button>
                         <button onClick={this.addToken}>Add Token Control</button>
-                        <button onClick={this.addList}>Add List</button>
                     </legend>
                     <ul ref={ul => { this.elUl = ul; }}>
-                        {_renderElements(this)}
+                        {_renderTokenControls(this)}
                     </ul>
                 </fieldset>
                 <output></output>

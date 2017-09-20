@@ -5,17 +5,13 @@ import { ToggleSwitch } from './ToggleSwitch';
 import { CheckBox } from './CheckBox';
 
 export class TokenControl extends Component {
-    source;
 
     constructor(props) {
 
         super(props);
 
-        this.state = {
-            placeholder: 'Selected characters'
-        };
+        this.state = {};
 
-        // this.handleChange = this.handleChange.bind(this);
         this.handleAlphaChange = this.handleAlphaChange.bind(this);
         this.handleNumberChange = this.handleNumberChange.bind(this);
         this.handleSpecialChange = this.handleSpecialChange.bind(this);
@@ -24,17 +20,12 @@ export class TokenControl extends Component {
         this.handleIncludeChange = this.handleIncludeChange.bind(this);
         this.handleInfiniteChange = this.handleInfiniteChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-
+        this.handleMinChange = this.handleMinChange.bind(this);
+        this.handleMaxChange = this.handleMaxChange.bind(this);
+        this.handleIsListChange = this.handleIsListChange.bind(this);
+        this.handleIsGroupChange = this.handleIsGroupChange.bind(this);
     }
 
-    handleChange(evt) {
-        evt.stopPropagation();
-        this.setState({
-            isOn: this.control.checked
-        }, () => {
-            this.props.onToggle && this.props.onToggle(this.state.isOn);
-        });
-    }
     handleAlphaChange(evt) { }
     handleNumberChange(evt) { }
     handleSpecialChange(evt) { }
@@ -43,6 +34,10 @@ export class TokenControl extends Component {
     handleIncludeChange(evt) { }
     handleInfiniteChange(evt) { }
     handleInputChange(evt) { }
+    handleMinChange(evt) { }
+    handleMaxChange(evt) { }
+    handleIsListChange(evt) { }
+    handleIsGroupChange(evt) { }
 
     // Runs after the component output has been rendered to the DOM
     componentDidMount() {
@@ -50,17 +45,14 @@ export class TokenControl extends Component {
             isOn: this.props.isOn
         });
     }
-    // When Component gets destroyed
-    componentWillUnmount() {
-
-    }
 
     render() {
-        var index = document.querySelectorAll('.control-element').length;
+        let { index } = this.props;
 
         return (<ControlWrapper  {...this.props}><div>
             <input id={`ctrlInput${index}`}
-                type="text" placeholder={this.state.placeholder} />
+                type="text" placeholder="Selected characters"
+                onChange={this.handleInputChange} />
             <CheckBox id={`ctrlAlphabet${index}`}
                 label="Alphabets"
                 onToggle={this.handleAlphaChange} />
@@ -73,6 +65,12 @@ export class TokenControl extends Component {
             <CheckBox id={`ctrlSpace${index}`}
                 label="Space"
                 onToggle={this.handleSpaceChange} />
+            <CheckBox id={`ctrlIsGroup${index}`}
+                label="Is Group"
+                onToggle={this.handleIsGroupChange} />
+            <CheckBox id={`ctrlIsList${index}`}
+                label="Is List"
+                onToggle={this.handleIsListChange} />
             <ToggleSwitch id={`ctrlInclude${index}`}
                 onLabel="Include" offLabel="Exclude"
                 onToggle={this.handleIncludeChange} />
@@ -83,9 +81,11 @@ export class TokenControl extends Component {
                 onLabel="Infinite" offLabel="Limited"
                 onToggle={this.handleInfiniteChange} />
             <input id={`ctrlMin${index}`}
-                type="number" min="0" placeholder="Min" />
+                type="number" min="0" placeholder="Min"
+                onChange={this.handleMinChange} />
             <input id={`ctrlMax${index}`}
-                type="number" min="1" placeholder="Max" />
+                type="number" min="1" placeholder="Max"
+                onChange={this.handleMaxChange} />
         </div></ControlWrapper>);
     }
 }
