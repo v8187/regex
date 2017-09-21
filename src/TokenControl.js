@@ -35,7 +35,9 @@ export class TokenControl extends Component {
         var val = '';
 
         // console.log(this.state.textValue.match(/^(a\-z)?(A\-Z)?(\d+)?([a-zA-Z]+)?(\s+)?([~`!@#$%^&*()_+\-=[]\\{}|:";',\.\/<>\?]+)?$/));
-        console.log(this.state.textValue.match(/^([a-z]-[a-z])?([A-Z]-[A-Z])?(\d+)?(.+)?$/));
+        console.log(this.state.textValue.match(/([a-z]-[a-z])/g));
+        console.log(this.state.textValue.match(/([A-Z]-[A-Z])/g));
+        console.log(this.state.textValue.match(/(\d-\d)/g));
         
         this.setState({
             compiledValue: val
