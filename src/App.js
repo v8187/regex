@@ -11,9 +11,11 @@ const _renderTokenControls = (ctx) => {
             onRemove: () => {
                 ctx.removeToken(token.id);
             },
+            onChange: ctx.onTokenValueChange,
             id: token.id,
             index: token.index,
-            className: token.className
+            className: token.className,
+            value: token.value
         };
 
         return <TokenControl {..._obj} />;
@@ -32,6 +34,7 @@ class App extends Component {
 
         this.addToken = this.addToken.bind(this);
         this.removeToken = this.removeToken.bind(this);
+        this.onTokenValueChange = this.onTokenValueChange.bind(this);
     }
 
     componentDidMount() {
@@ -74,6 +77,10 @@ class App extends Component {
         this.setState({
             tokenControls: _filteredControls
         });
+    }
+
+    onTokenValueChange(val) {
+        console.log('onTokenValueChange', val);
     }
 
     render() {

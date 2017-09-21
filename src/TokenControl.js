@@ -22,95 +22,39 @@ export class TokenControl extends Component {
             min: 1,
             max: 1,
             list: false,
-            group: false
+            group: false,
+            compiledValue: ''
         };
 
-        this.handleAlphaChange = this.handleAlphaChange.bind(this);
-        this.handleNumberChange = this.handleNumberChange.bind(this);
-        this.handleSpecialChange = this.handleSpecialChange.bind(this);
-        this.handleSpaceChange = this.handleSpaceChange.bind(this);
-        this.handleOptionalChange = this.handleOptionalChange.bind(this);
-        this.handleIncludeChange = this.handleIncludeChange.bind(this);
-        this.handleInfiniteChange = this.handleInfiniteChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleControlChange = this.handleControlChange.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleMinChange = this.handleMinChange.bind(this);
-        this.handleMaxChange = this.handleMaxChange.bind(this);
-        this.handleIsListChange = this.handleIsListChange.bind(this);
-        this.handleIsGroupChange = this.handleIsGroupChange.bind(this);
     }
 
-    handleAlphaChange(bool) {
+    handleChange() {
+        var val = '';
+
+        // console.log(this.state.textValue.match(/^(a\-z)?(A\-Z)?(\d+)?([a-zA-Z]+)?(\s+)?([~`!@#$%^&*()_+\-=[]\\{}|:";',\.\/<>\?]+)?$/));
+        console.log(this.state.textValue.match(/^([a-z]-[a-z])?([A-Z]-[A-Z])?(\d+)?(.+)?$/));
+        
         this.setState({
-            alpha: bool
+            compiledValue: val
+        }, () => {
+            this.props.onChange(this.state.compiledValue);
         });
     }
-    handleNumberChange(bool) {
-        this.setState({
-            number: bool
-        });
+
+    handleControlChange(key, value) {
+
+        let obj = {};
+        obj[key] = value;
+
+        this.setState(obj, this.handleChange);
     }
-    handleSpecialChange(bool) {
-        this.setState({
-            specialChar: bool
-        });
-    }
-    handleSpaceChange(bool) {
-        this.setState({
-            space: bool
-        });
-    }
-    handleOptionalChange(bool) {
-        this.setState({
-            optional: bool
-        });
-    }
-    handleIncludeChange(bool) {
-        this.setState({
-            include: bool
-        });
-    }
-    handleInfiniteChange(bool) {
-        this.setState({
-            infinite: bool
-        });
-    }
-    handleInputChange(evt) {
+
+    handleInputChange(evt, key) {
         evt.preventDefault();
-
-        this.setState({
-            textValue: evt.target.value
-        });
-    }
-    handleMinChange(evt) {
-        evt.preventDefault();
-
-        this.setState({
-            min: evt.target.value
-        });
-    }
-    handleMaxChange(evt) {
-        evt.preventDefault();
-
-        this.setState({
-            max: evt.target.value
-        });
-    }
-    handleIsListChange(bool) {
-        this.setState({
-            list: bool
-        });
-    }
-    handleIsGroupChange(bool) {
-        this.setState({
-            group: bool
-        });
-    }
-
-    // Runs after the component output has been rendered to the DOM
-    componentDidMount() {
-        this.setState({
-            isOn: this.props.isOn
-        });
+        this.handleControlChange(key, evt.target.value);
     }
 
     render() {
@@ -120,51 +64,51 @@ export class TokenControl extends Component {
             <input id={`ctrlInput${index}`}
                 type="text" placeholder="Selected characters"
                 value={this.state.textValue}
-                onChange={this.handleInputChange} />
+                onChange={(evt) => this.handleInputChange(evt, 'textValue')} />
             <CheckBox id={`ctrlAlphabet${index}`}
                 label="Alphabets"
                 checked={this.state.alpha}
-                onToggle={this.handleAlphaChange} />
+                onToggle={(bool) => this.handleControlChange('alpha', bool)} />
             <CheckBox id={`ctrlNumber${index}`}
                 label="Numbers"
                 checked={this.state.number}
-                onToggle={this.handleNumberChange} />
+                onToggle={(bool) => this.handleControlChange('number', bool)} />
             <CheckBox id={`ctrlSpecial${index}`}
                 label="Special Characters"
                 checked={this.state.specialChar}
-                onToggle={this.handleSpecialChange} />
+                onToggle={(bool) => this.handleControlChange('specialChar', bool)} />
             <CheckBox id={`ctrlSpace${index}`}
                 label="Space"
                 checked={this.state.space}
-                onToggle={this.handleSpaceChange} />
+                onToggle={(bool) => this.handleControlChange('space', bool)} />
             <CheckBox id={`ctrlIsGroup${index}`}
                 label="Is Group"
                 checked={this.state.group}
-                onToggle={this.handleIsGroupChange} />
+                onToggle={(bool) => this.handleControlChange('group', bool)} />
             <CheckBox id={`ctrlIsList${index}`}
                 label="Is List"
                 checked={this.state.list}
-                onToggle={this.handleIsListChange} />
+                onToggle={(bool) => this.handleControlChange('list', bool)} />
             <ToggleSwitch id={`ctrlInclude${index}`}
                 onLabel="Include" offLabel="Exclude"
                 isOn={this.state.include}
-                onToggle={this.handleIncludeChange} />
+                onToggle={(bool) => this.handleControlChange('include', bool)} />
             <ToggleSwitch id={`ctrlOptional${index}`}
                 onLabel="Optional" offLabel="Required"
                 isOn={this.state.optional}
-                onToggle={this.handleOptionalChange} />
+                onToggle={(bool) => this.handleControlChange('optional', bool)} />
             <ToggleSwitch id={`ctrlInfinite${index}`}
                 onLabel="Infinite" offLabel="Limited"
                 isOn={this.state.infinite}
-                onToggle={this.handleInfiniteChange} />
+                onToggle={(bool) => this.handleControlChange('infinite', bool)} />
             {!this.state.infinite && <input id={`ctrlMin${index}`}
                 type="number" min="0" placeholder="Min"
                 value={this.state.min}
-                onChange={this.handleMinChange} />}
+                onChange={(evt) => this.handleInputChange(evt, 'min')} />}
             {!this.state.infinite && <input id={`ctrlMax${index}`}
                 type="number" min="1" placeholder="Max"
                 value={this.state.max}
-                onChange={this.handleMaxChange} />}
+                onChange={(evt) => this.handleInputChange(evt, 'max')} />}
         </div></ControlWrapper>);
     }
 }
