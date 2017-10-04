@@ -1,3 +1,5 @@
+$COLOR_PRIMARY: #175468;
+
 * {
 	margin : 0;
 	padding : 0;
@@ -16,7 +18,17 @@ ul, ol {
 	list-style: none;
 }
 
-$COLOR_PRIMARY: #175468;
+input[type=text],
+input[type=number] {
+	border: 1px solid #bbb;
+	height: 25px;
+
+	&:hover,
+	&:focus {
+		outline: 0 none;
+		border-color: $COLOR_PRIMARY;
+	}
+}
 
 #generator {
 	padding: 15px;
@@ -40,7 +52,7 @@ $COLOR_PRIMARY: #175468;
 		 background: white;
 		 border: 1px solid #eee;
 		 font-size: 13px;
-		 padding: 10px;
+		 padding: 10px 10px 0;
 		 margin-top: 5px;
 		 position: relative;
 		 user-select: none;
@@ -139,7 +151,8 @@ input,
 .toggle-switch-container,
 .check-box-container {
 	vertical-align: middle;
-	margin: 10px 10px 0 0;
+	margin: 0 10px 0 0;
+	box-sizing: border-box;
 }
 
 /*----------------------------------------------
@@ -209,14 +222,13 @@ $TRANSITION: all 200ms linear;
 
 	.tog-swh-text {
 		width: 50%;
-		padding: 0 5px;
+		padding: 1px 5px;
 	}
 
     .tog-swh-btn {
         background: white;
         color: #aaa;
         font-size: 11px;
-		line-height: 21px;
         position: absolute;
         top: 1px;
         left: 1px;

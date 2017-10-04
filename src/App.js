@@ -70,9 +70,10 @@ class App extends Component {
             return token.id !== id;
         });
 
-        _filteredControls.map((token, i) => {
+        console.log(_filteredControls.map((token, i) => {
             this.setTokenId(token, i);
-        });
+            return token;
+        }));
 
         this.setState({
             tokenControls: _filteredControls

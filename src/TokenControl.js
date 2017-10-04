@@ -1,8 +1,25 @@
 import React, { Component } from 'react';
+import { OverlayTrigger } from 'react-bootstrap/lib';
 
 import { ControlWrapper } from './ControlWrapper';
 import { ToggleSwitch } from './ToggleSwitch';
 import { CheckBox } from './CheckBox';
+import { correctOrder } from './utils';
+import {
+    helpAlpha, helpGroup, helpList, helpNumber,
+    helpSpaceBefore, helpSpaceAfter, helpSpecialChar, helpExclude,
+    helpRequired, helpInfinite, helpMin, helpMax, helpInput
+} from './help_tips';
+
+const
+    CheckBoxAlphas = (props) => {
+        return (<CheckBox id={`ctrlAlphabet${props.ctx.props.index}`}
+            label="A - Z"
+            title="Any Alphabet"
+            checked={props.ctx.state.alpha}
+            onToggle={(bool) => props.ctx.handleControlChange('alpha', bool)} />);
+    }
+    ;
 
 export class TokenControl extends Component {
 
@@ -14,9 +31,10 @@ export class TokenControl extends Component {
             alpha: false,
             number: false,
             specialChar: false,
-            space: false,
+            spaceBefore: false,
+            spaceAfter: false,
             optional: false,
-            include: true,
+            exclude: false,
             infinite: false,
             textValue: '',
             min: 1,
@@ -32,15 +50,31 @@ export class TokenControl extends Component {
     }
 
     handleChange() {
-        var val = '';
+        console.clear();
+        var val = '',
+            textValue = this.state.textValue,
+            lwrAlphas = textValue.match(/([a-z]-[a-z])/g),
+            capAlphas = textValue.match(/([A-Z]-[A-Z])/g),
+            numbers = textValue.match(/(\d-\d)/g);
 
-        // console.log(this.state.textValue.match(/^(a\-z)?(A\-Z)?(\d+)?([a-zA-Z]+)?(\s+)?([~`!@#$%^&*()_+\-=[]\\{}|:";',\.\/<>\?]+)?$/));
-        console.log(this.state.textValue.match(/([a-z]-[a-z])/g));
-        console.log(this.state.textValue.match(/([A-Z]-[A-Z])/g));
-        console.log(this.state.textValue.match(/(\d-\d)/g));
-        
+        [].concat(lwrAlphas, capAlphas, numbers).forEach(val => {
+            val && console.log(val, correctOrder(val));
+            val && (textValue = textValue.replace(val, ''));
+        });
+
+        console.log('lwrAlphas', lwrAlphas);
+        console.log('capAlphas', capAlphas);
+        console.log('numbers', numbers);
+        console.log('textValue', textValue);
+
+        textValue = this.state.textValue.replace(/\[(?:((a-z)|(A-Z)|(0-9)))\]/g, '$1');
+
         this.setState({
-            compiledValue: val
+            textValue: textValue,
+            compiledValue: textValue
+                .replace(/(a-z)/g, '[$1]')
+                .replace(/(A-Z)/g, '[$1]')
+                .replace(/(0-9)/g, '\\d')
         }, () => {
             this.props.onChange(this.state.compiledValue);
         });
@@ -50,6 +84,22 @@ export class TokenControl extends Component {
 
         let obj = {};
         obj[key] = value;
+
+        let { alpha, number, specialChar } = this.state;
+
+        switch (key) {
+            case 'alpha':
+            case 'number':
+            case 'specialChar':
+                if (value) {
+                    this.elList.toggleState(obj.list = true);
+                }
+                break;
+            case 'list':
+                this.elList.toggleState(obj.list = alpha || number || specialChar || value);
+            default:
+                break;
+        }
 
         this.setState(obj, this.handleChange);
     }
@@ -63,54 +113,128 @@ export class TokenControl extends Component {
         let { index } = this.props;
 
         return (<ControlWrapper  {...this.props}><div>
-            <input id={`ctrlInput${index}`}
-                type="text" placeholder="Selected characters"
-                value={this.state.textValue}
-                onChange={(evt) => this.handleInputChange(evt, 'textValue')} />
-            <CheckBox id={`ctrlAlphabet${index}`}
-                label="Alphabets"
-                checked={this.state.alpha}
-                onToggle={(bool) => this.handleControlChange('alpha', bool)} />
-            <CheckBox id={`ctrlNumber${index}`}
-                label="Numbers"
-                checked={this.state.number}
-                onToggle={(bool) => this.handleControlChange('number', bool)} />
-            <CheckBox id={`ctrlSpecial${index}`}
-                label="Special Characters"
-                checked={this.state.specialChar}
-                onToggle={(bool) => this.handleControlChange('specialChar', bool)} />
-            <CheckBox id={`ctrlSpace${index}`}
-                label="Space"
-                checked={this.state.space}
-                onToggle={(bool) => this.handleControlChange('space', bool)} />
-            <CheckBox id={`ctrlIsGroup${index}`}
-                label="Is Group"
-                checked={this.state.group}
-                onToggle={(bool) => this.handleControlChange('group', bool)} />
-            <CheckBox id={`ctrlIsList${index}`}
-                label="Is List"
-                checked={this.state.list}
-                onToggle={(bool) => this.handleControlChange('list', bool)} />
-            <ToggleSwitch id={`ctrlInclude${index}`}
-                onLabel="Include" offLabel="Exclude"
-                isOn={this.state.include}
-                onToggle={(bool) => this.handleControlChange('include', bool)} />
-            <ToggleSwitch id={`ctrlOptional${index}`}
-                onLabel="Optional" offLabel="Required"
-                isOn={this.state.optional}
-                onToggle={(bool) => this.handleControlChange('optional', bool)} />
-            <ToggleSwitch id={`ctrlInfinite${index}`}
-                onLabel="Infinite" offLabel="Limited"
-                isOn={this.state.infinite}
-                onToggle={(bool) => this.handleControlChange('infinite', bool)} />
-            {!this.state.infinite && <input id={`ctrlMin${index}`}
-                type="number" min="0" placeholder="Min"
-                value={this.state.min}
-                onChange={(evt) => this.handleInputChange(evt, 'min')} />}
-            {!this.state.infinite && <input id={`ctrlMax${index}`}
-                type="number" min="1" placeholder="Max"
-                value={this.state.max}
-                onChange={(evt) => this.handleInputChange(evt, 'max')} />}
-        </div></ControlWrapper>);
+            <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpAlpha}>
+                <div>
+                    <CheckBox id={`ctrlAlphabet${index}`}
+                        ref={instance => { this.elAlpha = instance; }}
+                        label="A-Z"
+                        checked={this.state.alpha}
+                        onToggle={(bool) => this.handleControlChange('alpha', bool)} />
+                </div>
+            </OverlayTrigger>
+            <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpNumber}>
+                <div>
+                    <CheckBox id={`ctrlNumber${index}`}
+                        ref={instance => { this.elNumber = instance; }}
+                        label="0-9"
+                        checked={this.state.number}
+                        onToggle={(bool) => this.handleControlChange('number', bool)} />
+                </div>
+            </OverlayTrigger>
+            <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpSpecialChar}>
+                <div>
+                    <CheckBox id={`ctrlSpecial${index}`}
+                        ref={instance => { this.elSpecial = instance; }}
+                        label="! @ # ;"
+                        checked={this.state.specialChar}
+                        onToggle={(bool) => this.handleControlChange('specialChar', bool)} />
+                </div>
+            </OverlayTrigger>
+            <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpSpaceBefore}>
+                <div>
+                    <CheckBox id={`ctrlSpaceBefore${index}`}
+                        ref={instance => { this.elSpaceBefore = instance; }}
+                        label="_A"
+                        checked={this.state.spaceBefore}
+                        onToggle={(bool) => this.handleControlChange('spaceBefore', bool)} />
+                </div>
+            </OverlayTrigger>
+            <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpSpaceAfter}>
+                <div>
+                    <CheckBox id={`ctrlSpaceAfter${index}`}
+                        ref={instance => { this.elSpaceAfter = instance; }}
+                        label="A_"
+                        checked={this.state.spaceAfter}
+                        onToggle={(bool) => this.handleControlChange('spaceAfter', bool)} />
+                </div>
+            </OverlayTrigger>
+            <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpGroup}>
+                <div>
+                    <CheckBox id={`ctrlIsGroup${index}`}
+                        ref={instance => { this.elGroup = instance; }}
+                        label="( )"
+                        checked={this.state.group}
+                        onToggle={(bool) => this.handleControlChange('group', bool)} />
+                </div>
+            </OverlayTrigger>
+            <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpList}>
+                <div>
+                    <CheckBox id={`ctrlIsList${index}`}
+                        ref={instance => { this.elList = instance; }}
+                        label="[ ]"
+                        checked={this.state.list}
+                        onToggle={(bool) => this.handleControlChange('list', bool)} />
+                </div>
+            </OverlayTrigger>
+            <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpExclude}>
+                <div>
+                    <ToggleSwitch id={`ctrlExclude${index}`}
+                        ref={instance => { this.elExclude = instance; }}
+                        onLabel="Exclude" offLabel="Include"
+                        isOn={this.state.exclude}
+                        onToggle={(bool) => this.handleControlChange('exclude', bool)} />
+                </div>
+            </OverlayTrigger>
+            <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpRequired}>
+                <div>
+                    <ToggleSwitch id={`ctrlOptional${index}`}
+                        ref={instance => { this.elOptional = instance; }}
+                        onLabel="Optional" offLabel="Required"
+                        isOn={this.state.optional}
+                        onToggle={(bool) => this.handleControlChange('optional', bool)} />
+                </div>
+            </OverlayTrigger>
+            <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpInfinite}>
+                <div>
+                    <ToggleSwitch id={`ctrlInfinite${index}`}
+                        ref={instance => { this.elInfinite = instance; }}
+                        onLabel="Infinite" offLabel="Limited"
+                        isOn={this.state.infinite}
+                        onToggle={(bool) => this.handleControlChange('infinite', bool)} />
+                </div>
+            </OverlayTrigger>
+            {!this.state.infinite &&
+                <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpMin}>
+                    <div>
+                        <input id={`ctrlMin${index}`}
+                            ref={instance => { this.elMin = instance; }}
+                            type="number" min="0" placeholder="Min"
+                            value={this.state.min}
+                            onChange={(evt) => this.handleInputChange(evt, 'min')} />
+                    </div>
+                </OverlayTrigger>}
+            {!this.state.infinite &&
+                <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpMax}>
+                    <div>
+                        <input id={`ctrlMax${index}`}
+                            ref={instance => { this.elMax = instance; }}
+                            type="number" min="1" placeholder="Max"
+                            value={this.state.max}
+                            onChange={(evt) => this.handleInputChange(evt, 'max')} />
+                    </div>
+                </OverlayTrigger>}
+            {!(this.state.alpha && this.state.specialChar && this.state.number) &&
+                <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpInput}>
+                    <div>
+                        <input id={`ctrlInput${index}`}
+                            ref={instance => { this.elInput = instance; }}
+                            type="text" placeholder="Selected characters"
+                            value={this.state.textValue}
+                            onChange={(evt) => this.handleInputChange(evt, 'textValue')} />
+                    </div>
+                </OverlayTrigger>}
+        </div>
+            <output>{this.state.compiledValue}</output>
+        </ControlWrapper>);
     }
 }

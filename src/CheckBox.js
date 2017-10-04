@@ -22,6 +22,12 @@ export class CheckBox extends Component {
         });
     }
 
+    toggleState(bool) {
+        this.setState({
+            checked: bool
+        });
+    }
+
     // Runs after the component output has been rendered to the DOM
     componentDidMount() {
         this.setState({

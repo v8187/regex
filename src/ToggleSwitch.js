@@ -22,6 +22,12 @@ export class ToggleSwitch extends Component {
         });
     }
 
+    toggleState(bool) {
+        this.setState({
+            isOn: bool
+        });
+    }
+
     // Runs after the component output has been rendered to the DOM
     componentDidMount() {
         this.setState({
