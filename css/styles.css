@@ -14,6 +14,16 @@ body {
 ul, ol {
   list-style: none; }
 
+input[type=text],
+input[type=number] {
+  border: 1px solid #bbb;
+  height: 25px; }
+  input[type=text]:hover, input[type=text]:focus,
+  input[type=number]:hover,
+  input[type=number]:focus {
+    outline: 0 none;
+    border-color: #175468; }
+
 #generator {
   padding: 15px; }
 
@@ -30,7 +40,7 @@ ul, ol {
     background: white;
     border: 1px solid #eee;
     font-size: 13px;
-    padding: 10px;
+    padding: 10px 10px 0;
     margin-top: 5px;
     position: relative;
     user-select: none; }
@@ -99,7 +109,8 @@ input,
 .toggle-switch-container,
 .check-box-container {
   vertical-align: middle;
-  margin: 10px 10px 0 0; }
+  margin: 0 10px 0 0;
+  box-sizing: border-box; }
 
 /*----------------------------------------------
  * Toggle Switch Control Styles
@@ -155,13 +166,12 @@ input,
   .toggle-switch-container .tog-swh-text,
   .check-box-container .tog-swh-text {
     width: 50%;
-    padding: 0 5px; }
+    padding: 1px 5px; }
   .toggle-switch-container .tog-swh-btn,
   .check-box-container .tog-swh-btn {
     background: white;
     color: #aaa;
     font-size: 11px;
-    line-height: 21px;
     position: absolute;
     top: 1px;
     left: 1px;
