@@ -15,7 +15,8 @@ const _renderTokenControls = (ctx) => {
             id: token.id,
             index: token.index,
             className: token.className,
-            value: token.value
+            value: token.value,
+            canJoin: token.canJoin
         };
 
         return <TokenControl {..._obj} />;
@@ -42,7 +43,10 @@ class App extends Component {
 
         this.sortable = new Sortable(this.elUl, {
             handle: '.handle-icon',
-            sort: true
+            sort: true,
+            onSort: (evt) => {
+                console.log('Sortable: onSort', evt);
+            }
         });
     }
 
@@ -61,6 +65,7 @@ class App extends Component {
     setTokenId(token, index) {
         token.index = index;
         token.id = `ctrlToken${index}`;
+        token.canJoin = !!index;
 
         return token;
     }

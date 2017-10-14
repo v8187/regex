@@ -244,3 +244,39 @@ $TRANSITION: all 200ms linear;
 		padding: 0 10px;
 	}
 }
+
+.join-options-wrapper {
+	position: absolute;
+	top: -30px;
+	left: calc(50% - 77px);
+
+
+	.check-box-container {
+		margin: 0;
+
+		label {
+			font-weight: normal;
+			font-size: 12px;
+			line-height: 20px;
+
+			&:hover,
+			&:focus {
+				color: white;
+			}
+		}
+
+		&:not(:first-child) {
+			margin-left: -1px;
+		}
+	}
+}
+
+
+[role=tooltip] {
+	font-size: 13px;
+	line-height: 20px;
+
+	.popover-content {
+		padding: 5px;
+	}
+}

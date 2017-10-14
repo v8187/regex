@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { OverlayTrigger } from 'react-bootstrap/lib';
 
 export class ToggleSwitch extends Component {
 
@@ -41,25 +42,27 @@ export class ToggleSwitch extends Component {
 
     render() {
         return (
-            <div className={`toggle-switch-container ${this.props.className || ''}`} ref={div => { this.node = div }}>
-                <input type="checkbox"
-                    ref={input => { this.control = input }}
-                    id={this.props.id}
-                    checked={this.state.isOn || false}
-                    onChange={this.handleChange}
-                />
-                <label htmlFor={this.props.id}>
-                    <span className="tog-swh-text">
-                        {this.props.onLabel}
+            <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={this.props.helpContent}>
+                <div className={`toggle-switch-container ${this.props.className || ''}`} ref={div => { this.node = div }}>
+                    <input type="checkbox"
+                        ref={input => { this.control = input }}
+                        id={this.props.id}
+                        checked={this.state.isOn || false}
+                        onChange={this.handleChange}
+                    />
+                    <label htmlFor={this.props.id}>
+                        <span className="tog-swh-text">
+                            {this.props.onLabel}
+                        </span>
+                        <span className="tog-swh-text">
+                            {this.props.offLabel}
+                        </span>
+                        <span className="tog-swh-btn">
+                            IIII
                     </span>
-                    <span className="tog-swh-text">
-                        {this.props.offLabel}
-                    </span>
-                    <span className="tog-swh-btn">
-                        IIII
-                    </span>
-                </label>
-            </div>
+                    </label>
+                </div>
+            </OverlayTrigger>
         );
     }
 };

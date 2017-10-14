@@ -6,6 +6,7 @@ export class Token extends BaseModel {
     get className() { return 'token-control'; }
     get type() { return 'token'; }
     value = '';
+    canJoin = false;
 };
 
 export class BList extends BaseModel {

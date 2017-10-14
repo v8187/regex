@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { OverlayTrigger } from 'react-bootstrap/lib';
 
 export class CheckBox extends Component {
 
@@ -37,15 +38,17 @@ export class CheckBox extends Component {
 
     render() {
         return (
-            <div className={`check-box-container ${this.props.className || ''}`} ref={div => { this.node = div }}>
-                <input type="checkbox"
-                    ref={input => { this.control = input }}
-                    id={this.props.id}
-                    checked={this.state.checked || false}
-                    onChange={this.handleChange}
-                />
-                <label htmlFor={this.props.id}>{this.props.label}</label>
-            </div>
+            <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={this.props.helpContent}>
+                <div className={`check-box-container ${this.props.className || ''}`} ref={div => { this.node = div }}>
+                    <input type="checkbox"
+                        ref={input => { this.control = input }}
+                        id={this.props.id}
+                        checked={this.state.checked || false}
+                        onChange={this.handleChange}
+                    />
+                    <label htmlFor={this.props.id}>{this.props.label}</label>
+                </div>
+            </OverlayTrigger>
         );
     }
 };

@@ -182,4 +182,23 @@ input,
   display: inline-block;
   padding: 0 10px; }
 
-/*# sourceMappingURL=styles.css.map */
+.join-options-wrapper {
+  position: absolute;
+  top: -30px;
+  left: calc(50% - 77px); }
+  .join-options-wrapper .check-box-container {
+    margin: 0; }
+    .join-options-wrapper .check-box-container label {
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 20px; }
+      .join-options-wrapper .check-box-container label:hover, .join-options-wrapper .check-box-container label:focus {
+        color: white; }
+    .join-options-wrapper .check-box-container:not(:first-child) {
+      margin-left: -1px; }
+
+[role=tooltip] {
+  font-size: 13px;
+  line-height: 20px; }
+  [role=tooltip] .popover-content {
+    padding: 5px; }
