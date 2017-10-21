@@ -119,19 +119,19 @@ export class TokenControl extends Component {
         return (<ControlWrapper  {...this.props}>
             {this.props.canJoin && <div className="join-options-wrapper">
                 <CheckBox id={`ctrlJoinNext${index}`}
-                    ref={instance => { this.elJoinNext = instance; }}
+                    ref={el => { this.elJoinNext = el; }}
                     label="Next"
                     checked={this.state.joinedBy === 'joinNext'}
                     helpContent={helpJoinNext}
                     onToggle={(bool) => this.handleControlChange('joinNext', bool)} />
                 <CheckBox id={`ctrlJoinOR${index}`}
-                    ref={instance => { this.elJoinOr = instance; }}
+                    ref={el => { this.elJoinOr = el; }}
                     label="OR"
                     checked={this.state.joinedBy === 'joinOR'}
                     helpContent={helpJoinOR}
                     onToggle={(bool) => this.handleControlChange('joinOR', bool)} />
                 <CheckBox id={`ctrlJoinXOR${index}`}
-                    ref={instance => { this.elJoinXor = instance; }}
+                    ref={el => { this.elJoinXor = el; }}
                     label="XOR"
                     checked={this.state.joinedBy === 'joinXOR'}
                     helpContent={helpJoinXOR}
@@ -139,61 +139,61 @@ export class TokenControl extends Component {
             </div>}
             <div>
                 <CheckBox id={`ctrlAlphabet${index}`}
-                    ref={instance => { this.elAlpha = instance; }}
+                    ref={el => { this.elAlpha = el; }}
                     label="A-Z"
                     checked={this.state.alpha}
                     helpContent={helpAlpha}
                     onToggle={(bool) => this.handleControlChange('alpha', bool)} />
                 <CheckBox id={`ctrlNumber${index}`}
-                    ref={instance => { this.elNumber = instance; }}
+                    ref={el => { this.elNumber = el; }}
                     label="0-9"
                     checked={this.state.number}
                     helpContent={helpNumber}
                     onToggle={(bool) => this.handleControlChange('number', bool)} />
                 <CheckBox id={`ctrlSpecial${index}`}
-                    ref={instance => { this.elSpecial = instance; }}
+                    ref={el => { this.elSpecial = el; }}
                     label="! @ # ;"
                     checked={this.state.specialChar}
                     helpContent={helpSpecialChar}
                     onToggle={(bool) => this.handleControlChange('specialChar', bool)} />
                 <CheckBox id={`ctrlSpaceBefore${index}`}
-                    ref={instance => { this.elSpaceBefore = instance; }}
+                    ref={el => { this.elSpaceBefore = el; }}
                     label="_A"
                     checked={this.state.spaceBefore}
                     helpContent={helpSpaceBefore}
                     onToggle={(bool) => this.handleControlChange('spaceBefore', bool)} />
                 <CheckBox id={`ctrlSpaceAfter${index}`}
-                    ref={instance => { this.elSpaceAfter = instance; }}
+                    ref={el => { this.elSpaceAfter = el; }}
                     label="A_"
                     checked={this.state.spaceAfter}
                     helpContent={helpSpaceAfter}
                     onToggle={(bool) => this.handleControlChange('spaceAfter', bool)} />
                 <CheckBox id={`ctrlIsGroup${index}`}
-                    ref={instance => { this.elGroup = instance; }}
+                    ref={el => { this.elGroup = el; }}
                     label="( )"
                     checked={this.state.group}
                     helpContent={helpGroup}
                     onToggle={(bool) => this.handleControlChange('group', bool)} />
                 <CheckBox id={`ctrlIsList${index}`}
-                    ref={instance => { this.elList = instance; }}
+                    ref={el => { this.elList = el; }}
                     label="[ ]"
                     checked={this.state.list}
                     helpContent={helpList}
                     onToggle={(bool) => this.handleControlChange('list', bool)} />
                 <ToggleSwitch id={`ctrlExclude${index}`}
-                    ref={instance => { this.elExclude = instance; }}
+                    ref={el => { this.elExclude = el; }}
                     onLabel="Exclude" offLabel="Include"
                     isOn={this.state.exclude}
                     helpContent={helpExclude}
                     onToggle={(bool) => this.handleControlChange('exclude', bool)} />
                 <ToggleSwitch id={`ctrlOptional${index}`}
-                    ref={instance => { this.elOptional = instance; }}
+                    ref={el => { this.elOptional = el; }}
                     onLabel="Optional" offLabel="Required"
                     isOn={this.state.optional}
                     helpContent={helpRequired}
                     onToggle={(bool) => this.handleControlChange('optional', bool)} />
                 <ToggleSwitch id={`ctrlInfinite${index}`}
-                    ref={instance => { this.elInfinite = instance; }}
+                    ref={el => { this.elInfinite = el; }}
                     onLabel="Infinite" offLabel="Limited"
                     isOn={this.state.infinite}
                     helpContent={helpInfinite}
@@ -201,7 +201,7 @@ export class TokenControl extends Component {
                 {!this.state.infinite &&
                     <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpMin}>
                         <input id={`ctrlMin${index}`}
-                            ref={instance => { this.elMin = instance; }}
+                            ref={el => { this.elMin = el; }}
                             type="number" min="0" placeholder="Min"
                             value={this.state.min}
                             onChange={(evt) => this.handleInputChange(evt, 'min')} />
@@ -209,7 +209,7 @@ export class TokenControl extends Component {
                 {!this.state.infinite &&
                     <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpMax}>
                         <input id={`ctrlMax${index}`}
-                            ref={instance => { this.elMax = instance; }}
+                            ref={el => { this.elMax = el; }}
                             type="number" min="1" placeholder="Max"
                             value={this.state.max}
                             onChange={(evt) => this.handleInputChange(evt, 'max')} />
@@ -217,7 +217,7 @@ export class TokenControl extends Component {
                 {!(this.state.alpha && this.state.specialChar && this.state.number) &&
                     <OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpInput}>
                         <input id={`ctrlInput${index}`}
-                            ref={instance => { this.elInput = instance; }}
+                            ref={el => { this.elInput = el; }}
                             type="text" placeholder="Selected characters"
                             value={this.state.textValue}
                             onChange={(evt) => this.handleInputChange(evt, 'textValue')} />

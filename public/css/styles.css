@@ -38,7 +38,7 @@ input[type=number] {
     margin: 15px; }
   #characterTypes li {
     background: white;
-    border: 1px solid #eee;
+    border: 1px solid #ccc;
     font-size: 13px;
     padding: 10px 10px 0;
     margin-top: 5px;
@@ -89,7 +89,7 @@ input[type=number] {
         color: #175468;
         display: inline-block; }
     #characterTypes li:hover {
-      border-color: #ccc; }
+      border-color: #aaa; }
 
 .icon {
   display: inline-block;
@@ -109,7 +109,7 @@ input,
 .toggle-switch-container,
 .check-box-container {
   vertical-align: middle;
-  margin: 0 10px 0 0;
+  margin: 0 10px 10px 0;
   box-sizing: border-box; }
 
 /*----------------------------------------------
@@ -147,7 +147,8 @@ input,
     color: #777;
     display: table-row;
     cursor: pointer;
-    transition: all 200ms linear; }
+    transition: all 200ms linear;
+    margin: 0; }
     .toggle-switch-container label:hover,
     .check-box-container label:hover {
       background: #bbb; }
@@ -202,3 +203,5 @@ input,
   line-height: 20px; }
   [role=tooltip] .popover-content {
     padding: 5px; }
+
+/*# sourceMappingURL=styles.css.map */

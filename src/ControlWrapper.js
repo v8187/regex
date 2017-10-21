@@ -17,7 +17,7 @@ export class ControlWrapper extends Component {
 
     render() {
 
-        return (<li className={this.props.className}>
+        return (<li className={this.props.className} id={this.props.id}>
             <i className="icon handle-icon">:::</i>
             <div className="control-element">
                 {this.props.children}

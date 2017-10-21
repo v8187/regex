@@ -34,6 +34,7 @@ class App extends Component {
         };
 
         this.addToken = this.addToken.bind(this);
+        this.handleSort = this.handleSort.bind(this);
         this.removeToken = this.removeToken.bind(this);
         this.onTokenValueChange = this.onTokenValueChange.bind(this);
     }
@@ -44,9 +45,7 @@ class App extends Component {
         this.sortable = new Sortable(this.elUl, {
             handle: '.handle-icon',
             sort: true,
-            onSort: (evt) => {
-                console.log('Sortable: onSort', evt);
-            }
+            onSort: this.handleSort
         });
     }
 
@@ -59,6 +58,17 @@ class App extends Component {
 
         this.setState({
             tokenControls: this.state.tokenControls.concat(this.setTokenId(new Token(), this.state.tokenControls.length))
+        });
+    }
+
+    handleSort(evt) {
+        console.log('Sortable: onSort', evt);
+        var firstTokenId = this.elUl.childNodes[0].id;
+        this.setState({
+            tokenControls: this.state.tokenControls.map(tkn => {
+                tkn.canJoin = tkn.id !== firstTokenId;
+                return tkn;
+            }, this)
         });
     }
 
