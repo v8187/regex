@@ -1,19 +1,30 @@
 import React from 'react';
 import { Popover } from 'react-bootstrap/lib';
 
-export const helpAlpha = (
-    <Popover id="poHelpAlpha">
-        Select it to include all alphabets. Use text field for seleted alphabets
+export const helpUAlpha = (
+    <Popover id="poHelpUAlpha">
+        {'Set Uppercase letter range in <Start> - <End> format.'}
+            <br />
+            A-Z means all letters from A to Z and custom value will be ignored if full range is set.
+ </Popover>
+);
+export const helpLAlpha = (
+    <Popover id="poHelpLAlpha">
+         {'Set Lowercase letter range in <Start> - <End> format.'}
+            <br />
+            a-z means all letters from a to z and custom value will be ignored if full range is set.
  </Popover>
 );
 export const helpNumber = (
     <Popover id="poHelpNumber">
-        Select it to include all numbers. Use text field for seleted numbers
+         {'Set Number range in <Start> - <End> format.'}
+            <br />
+            0-9 means all letters from 0 to 9 and custom value will be ignored if full range is set.
  </Popover>
 );
 export const helpSpecialChar = (
     <Popover id="poHelpSpecialChar">
-        Select it to include all special characters. Use text field for seleted special characters.
+        Can be any special character. Selected one will be ignored on selecting this.
  </Popover>
 );
 export const helpSpaceBefore = (
