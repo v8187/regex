@@ -1,27 +1,13 @@
 import React, { Component } from 'react';
-import Sortable from 'sortablejs';
+// import Sortable from 'sortablejs';
 
-import { TokenControl } from './TokenControl';
-import { Token } from './models';
+// import { Token } from './models';
+import { InputTab } from './InputTab';
+import { ConfirmInputTab } from './ConfirmInputTab';
 
-const _renderTokenControls = (ctx) => {
-    return ctx.state.tokenControls.map((token, i) => {
-        let _obj = {
-            key: i,
-            onRemove: () => {
-                ctx.removeToken(token.id);
-            },
-            onChange: ctx.onTokenValueChange,
-            id: token.id,
-            index: token.index,
-            className: token.className,
-            value: token.value,
-            canJoin: token.canJoin
-        };
+import styles from './scss/App.scss';
 
-        return <TokenControl {..._obj} />;
-    });
-};
+console.log(styles);
 
 class App extends Component {
 
@@ -30,88 +16,87 @@ class App extends Component {
         super(props);
 
         this.state = {
-            tokenControls: []
+            categorizedValues: [],
+            inputValue: 'asdfe23fdADf',
+            currentTab: 'input'
         };
 
-        this.addToken = this.addToken.bind(this);
-        this.handleSort = this.handleSort.bind(this);
-        this.removeToken = this.removeToken.bind(this);
-        this.onTokenValueChange = this.onTokenValueChange.bind(this);
+        // this.handleSort = this.handleSort.bind(this);
+        this.handleInputNext = this.handleInputNext.bind(this);
+        this.handleConfirmInputNext = this.handleConfirmInputNext.bind(this);
+        this.handleConfirmInputBack = this.handleConfirmInputBack.bind(this);
     }
 
     componentDidMount() {
-        this.addToken();
-
-        this.sortable = new Sortable(this.elUl, {
+        /* this.sortable = new Sortable(this.elUl, {
             handle: '.handle-icon',
             sort: true,
             onSort: this.handleSort
-        });
+        }); */
     }
 
     componeneWillUnMount() {
         this.sortable = null;
     }
 
-    addToken(evt) {
-        evt && evt.preventDefault();
-
-        this.setState({
-            tokenControls: this.state.tokenControls.concat(this.setTokenId(new Token(), this.state.tokenControls.length))
-        });
-    }
-
     handleSort(evt) {
-        console.log('Sortable: onSort', evt);
+        /* console.log('Sortable: onSort', evt);
         var firstTokenId = this.elUl.childNodes[0].id;
         this.setState({
             tokenControls: this.state.tokenControls.map(tkn => {
                 tkn.canJoin = tkn.id !== firstTokenId;
                 return tkn;
             }, this)
-        });
+        }); */
     }
 
-    setTokenId(token, index) {
-        token.index = index;
-        token.id = `ctrlToken${index}`;
-        token.canJoin = !!index;
-
-        return token;
-    }
-
-    removeToken(id) {
-        var _filteredControls = this.state.tokenControls.filter(token => {
-            return token.id !== id;
-        });
-
-        console.log(_filteredControls.map((token, i) => {
-            this.setTokenId(token, i);
-            return token;
-        }));
-
+    handleInputNext(categorizedValues, inputValue) {
         this.setState({
-            tokenControls: _filteredControls
+            categorizedValues: categorizedValues,
+            inputValue: inputValue,
+            currentTab: 'confirmInput'
+        }, () => {
+            console.log('handleInputNext', this.state.categorizedValues, this.state.inputValue);
         });
     }
 
-    onTokenValueChange(val) {
-        console.log('onTokenValueChange', val);
+    handleConfirmInputNext() {
+        var strRegEx = '';
+
+        this.state.categorizedValues.forEach(cVal => {
+            if (cVal.canSplit && cVal.splitted && cVal.splitted.length) {
+                cVal.splitted.forEach((splt) => {
+                    strRegEx += splt.regEx;
+                }, this);
+            } else {
+                strRegEx += cVal.regEx;
+            }
+        });
+        console.log(strRegEx);
+    }
+
+    handleConfirmInputBack() {
+        this.setState({
+            currentTab: 'input'
+        }, () => {
+            console.log('handleConfirmInputBack');
+        });
     }
 
     render() {
         return (
-            <form id="generator">
-                <fieldset id="characterTypes">
-                    <legend>Drag and Drop to re-arrange the following items:
-                        <button onClick={this.addToken}>Add Token Control</button>
-                    </legend>
-                    <ul ref={ul => { this.elUl = ul; }}>
-                        {_renderTokenControls(this)}
-                    </ul>
-                </fieldset>
-                <output></output>
-            </form>
+            <div className={styles.root}>
+                {this.state.currentTab === 'input' &&
+                    <InputTab
+                        categorizedValues={this.state.categorizedValues}
+                        inputValue={this.state.inputValue}
+                        onNext={this.handleInputNext} />}
+                {this.state.currentTab === 'confirmInput' &&
+                    <ConfirmInputTab
+                        categorizedValues={this.state.categorizedValues}
+                        onNext={this.handleConfirmInputNext}
+                        onBack={this.handleConfirmInputBack} />}
+            </div>
         );
     }
 }

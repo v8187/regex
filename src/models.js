@@ -36,3 +36,5 @@ export class EGroup extends BaseModel {
     value = '';
     get label() { return 'End Group'; }
 };
+
+export const specialCharacters = '~!@#$%^&*()_+{}|:"<>?`-=[]\\;\',./';
