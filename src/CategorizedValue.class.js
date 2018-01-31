@@ -1,5 +1,5 @@
 export class CategorizedValueClass {
-    
+
     constructor(type, chars) {
         this.isConstant = false;
         this.canSplit = false;
@@ -14,5 +14,6 @@ export class CategorizedValueClass {
         this.type = type;
         this.chars = chars;
         this.maxLength = this.chars.length;
+        this.regEx = '';
     }
 };

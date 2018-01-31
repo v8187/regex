@@ -8,9 +8,7 @@ export class CategorizedValue extends Component {
 
         super(props);
 
-        this.state = {
-            data: this.props.data
-        };
+
 
         this.updateCateValsState = this.updateState.bind(this);
         this.handleConstant = this.handleConstant.bind(this);
@@ -20,11 +18,34 @@ export class CategorizedValue extends Component {
         this.handleMinValue = this.handleMinValue.bind(this);
         this.handleMaxValue = this.handleMaxValue.bind(this);
         this.handleCustomList = this.handleCustomList.bind(this);
+        this.updateRegEx = this.updateRegEx.bind(this);
+
+        this.state = {
+            data: this.updateRegEx(this.props.data)
+        };
     }
 
     componentDidMount() { }
 
     componeneWillUnMount() { }
+
+    updateRegEx(data) {
+        var strRegEx = '';
+        if (data.isConstant) {
+            // let setRange = data.minLength == data.maxLength && ();
+            strRegEx += data.minLength == 1 && data.maxLength == 1 ? '' : '('
+            strRegEx += data.chars;
+            strRegEx += data.minLength == 1 && data.maxLength == 1 ? '' : `){${data.minLength == data.maxLength ? data.minLength : (`${data.isOptional ? 0 : data.minLength},${data.maxLength}`)}}`;
+        } else if(!data.canSplit) {
+            strRegEx += `[${data.alternateValues ? data.chars + data.alternateValues :
+                (data.type === 'lowerAlpha' ? 'a-z' :
+                    (data.type === 'upperAlpha' ? 'A-Z' :
+                        (data.type === 'digit' ? '\\d' : '')))}]`;
+            strRegEx += data.minLength == 1 && data.maxLength == 1 ? '' : `{${data.minLength == data.maxLength ? data.minLength : (`${data.isOptional ? 0 : data.minLength},${data.maxLength}`)}}`;
+        }
+        data.regEx = strRegEx;
+        return data;
+    }
 
     updateState(prop, val) {
         var { data } = this.state;
@@ -56,6 +77,9 @@ export class CategorizedValue extends Component {
                 data[prop] = val;
                 break;
         }
+
+
+        data = this.updateRegEx(data);
         this.setState({ data: data }, () => {
             this.props.onChange(this.state.data);
         });
@@ -114,17 +138,17 @@ export class CategorizedValue extends Component {
                         placeholder="Alternate Values"
                         onChange={(event) => this.handleCustomList(event)} />
                 </label>}
-            {data.type !== 'space' &&
+            {data.type !== 'space' && !data.canSplit &&
                 <label>
                     <input type="text" data-ctrl="minLength"
                         value={data.minLength}
                         placeholder="Min."
-                        disabled={data.isOptional || data.canSplit}
+                        disabled={data.isOptional}
                         onChange={(event) => this.handleMinValue(event)} />
                     <input type="text" data-ctrl="maxLength"
                         value={data.maxLength}
                         placeholder="Max."
-                        disabled={data.isConstant || data.canSplit}
+                        disabled={data.isConstant}
                         onChange={(event) => this.handleMaxValue(event)} />
                 </label>}
         </div>);

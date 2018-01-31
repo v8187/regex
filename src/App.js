@@ -13,7 +13,7 @@ class App extends Component {
 
         this.state = {
             categorizedValues: [],
-            inputValue: '',
+            inputValue: 'asa23fdADf',
             currentTab: 'input'
         };
 
@@ -63,36 +63,39 @@ class App extends Component {
         // console.log('handleConfirmInputNext', this.state.categorizedValues, this.state.inputValue);
         var strRegEx = '';
         this.state.categorizedValues.forEach(cVal => {
-            let sameMinMax = cVal.minLength == cVal.maxLength;
-
-            if (cVal.isConstant) {
-                strRegEx += sameMinMax ? '' : '('
-                strRegEx += cVal.chars;
-                strRegEx += sameMinMax ? '' : `){${cVal.minLength},${cVal.maxLength}}`;
-            } else {
+            strRegEx += cVal.regEx;
+            // if (cVal.isConstant) {
+            //     // let setRange = cVal.minLength == cVal.maxLength && ();
+            //     strRegEx += cVal.minLength == 1 && cVal.maxLength == 1 ? '' : '('
+            //     strRegEx += cVal.chars;
+            //     strRegEx += cVal.minLength == 1 && cVal.maxLength == 1 ? '' : `){${cVal.minLength == cVal.maxLength ? cVal.minLength : (`${cVal.isOptional ? 0 : cVal.minLength},${cVal.maxLength}`)}}`;
+            // } else {
                 if (cVal.canSplit && cVal.splitted && cVal.splitted.length) {
-
                     cVal.splitted.forEach((splt) => {
-                        if (splt.isConstant) {
-                            strRegEx += sameMinMax ? '' : '('
-                            strRegEx += splt.chars;
-                            strRegEx += sameMinMax ? '' : `){${splt.minLength},${splt.maxLength}}`;
-                        } else {
-                            strRegEx += `[${splt.alternateValues ? splt.alternateValues :
-                                (splt.type === 'lowerAlpha' ? 'a-z' :
-                                    (splt.type === 'upperAlpha' ? 'A-Z' :
-                                        (splt.type === 'digit' ? '\\d' : '')))}]`;
-                        }
-                        // strRegEx += '';
+                        strRegEx += cVal.regEx;
+                        // let setRange = splt.minLength == splt.maxLength || (splt.minLength == 1 && splt.maxLength == 1);
+                        // if (splt.isConstant) {
+                        //     // let setRange = splt.minLength == splt.maxLength && (splt.minLength != 1 && splt.maxLength != 1);
+                        //     strRegEx += splt.minLength == 1 && splt.maxLength == 1 ? '' : '('
+                        //     strRegEx += splt.chars;
+                        //     strRegEx += splt.minLength == 1 && splt.maxLength == 1 ? '' : `){${splt.minLength == splt.maxLength ? splt.minLength : (`${splt.isOptional ? 0 : splt.minLength},${splt.maxLength}`)}}`;
+                        // } else {
+                        //     strRegEx += `[${splt.alternateValues ? splt.chars + splt.alternateValues :
+                        //         (splt.type === 'lowerAlpha' ? 'a-z' :
+                        //             (splt.type === 'upperAlpha' ? 'A-Z' :
+                        //                 (splt.type === 'digit' ? '\\d' : '')))}]`;
+                        //     strRegEx += splt.minLength == 1 && splt.maxLength == 1 ? '' : `{${splt.minLength == splt.maxLength ? splt.minLength : (`${splt.isOptional ? 0 : splt.minLength},${splt.maxLength}`)}}`;
+                        // }
                     }, this);
                 } else {
-                    strRegEx += `[${cVal.alternateValues ? cVal.alternateValues :
-                        (cVal.type === 'lowerAlpha' ? 'a-z' :
-                            (cVal.type === 'upperAlpha' ? 'A-Z' :
-                                (cVal.type === 'digit' ? '\\d' : '')))}]`;
+                    strRegEx += cVal.regEx;
+                    // strRegEx += `[${cVal.alternateValues ? cVal.chars + cVal.alternateValues :
+                    //     (cVal.type === 'lowerAlpha' ? 'a-z' :
+                    //         (cVal.type === 'upperAlpha' ? 'A-Z' :
+                    //             (cVal.type === 'digit' ? '\\d' : '')))}]`;
+                    // strRegEx += cVal.minLength == 1 && cVal.maxLength == 1 ? '' : `{${cVal.minLength == cVal.maxLength ? cVal.minLength : (`${cVal.isOptional ? 0 : cVal.minLength},${cVal.maxLength}`)}}`;
                 }
-                strRegEx += `{${sameMinMax ? cVal.minLength : (`${cVal.isOptional ? 0 : cVal.minLength},${cVal.maxLength}`)}}`;
-            }
+            // }
         });
         console.log(strRegEx);
         // });

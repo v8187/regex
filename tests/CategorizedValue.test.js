@@ -66,14 +66,22 @@ describe('CategorizedValue: If "Is Constant" is checked', () => {
         expect(_find(wpr, 'alternateValues').length).toBe(0);
     });
 
-    test('enables the "Min" length controls', () => {
+    test('shows the "Min length" controls', () => {
         _find(wpr, 'canSplit').simulate('change', { target: { checked: true } });
-        expect(_props(wpr, 'minLength').disabled).toBeTruthy();
+        expect(_find(wpr, 'minLength').length).toBe(0);
         _find(wpr, 'isConstant').simulate('change', { target: { checked: true } });
-        expect(_props(wpr, 'minLength').disabled).toBeFalsy();
+        expect(_find(wpr, 'minLength').length).toBe(1);
     });
 
-    test('"Max length"  should be equal "Chars" length', () => {
+    test('shows and disables the "Max length" controls', () => {
+        _find(wpr, 'canSplit').simulate('change', { target: { checked: true } });
+        expect(_find(wpr, 'maxLength').length).toBe(0);
+        _find(wpr, 'isConstant').simulate('change', { target: { checked: true } });
+        expect(_find(wpr, 'maxLength').length).toBe(1);
+        expect(_props(wpr, 'maxLength').disabled).toBeTruthy();
+    });
+
+    test('"Max length" should be equal "Chars" length', () => {
 
         _find(wpr, 'maxLength').simulate('change', { target: { value: CHARS.length + 10 } });
         expect(wpr.state().data.maxLength).toBe(CHARS.length + 10);
@@ -135,11 +143,11 @@ describe('CategorizedValue: If "Can Split" is checked', () => {
 
     test('disables the "Min" and "Max" length controls', () => {
 
-        expect(_props(wpr, 'minLength').disabled).toBeFalsy();
-        expect(_props(wpr, 'maxLength').disabled).toBeFalsy();
+        expect(_find(wpr, 'minLength').length).toBe(1);
+        expect(_find(wpr, 'maxLength').length).toBe(1);
         _find(wpr, 'canSplit').simulate('change', { target: { checked: true } });
-        expect(_props(wpr, 'minLength').disabled).toBeTruthy();
-        expect(_props(wpr, 'maxLength').disabled).toBeTruthy();
+        expect(_find(wpr, 'minLength').length).toBe(0);
+        expect(_find(wpr, 'maxLength').length).toBe(0);
     });
 
     test('shows the "Splitted" controls', () => {
@@ -173,13 +181,13 @@ describe('CategorizedValue: If "Can Split" is unchecked', () => {
         expect(_find(wpr, 'alternateValues').length).toBe(1);
     });
 
-    test('enables the "Min" and "Max" length controls', () => {
+    test('shows the "Min" and "Max" length controls', () => {
 
-        expect(_props(wpr, 'minLength').disabled).toBeTruthy();
-        expect(_props(wpr, 'maxLength').disabled).toBeTruthy();
+        expect(_find(wpr, 'minLength').length).toBe(0);
+        expect(_find(wpr, 'maxLength').length).toBe(0);
         _find(wpr, 'canSplit').simulate('change', { target: { checked: false } });
-        expect(_props(wpr, 'minLength').disabled).toBeFalsy();
-        expect(_props(wpr, 'maxLength').disabled).toBeFalsy();
+        expect(_find(wpr, 'minLength').length).toBe(1);
+        expect(_find(wpr, 'maxLength').length).toBe(1);
     });
 
     test('hides the "Splitted" controls', () => {

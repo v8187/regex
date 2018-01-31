@@ -19,6 +19,8 @@ export class InputTab extends Component {
     }
 
     componentDidMount() {
+
+        this.handleTextAreaChange();
         /* this.sortable = new Sortable(this.elUl, {
             handle: '.handle-icon',
             sort: true,
@@ -42,7 +44,7 @@ export class InputTab extends Component {
     }
 
     handleTextAreaChange(evt) {
-        evt.preventDefault();
+        evt && evt.preventDefault();
 
         var val = this.elTA.value,
             lastItem, catVals = [],
