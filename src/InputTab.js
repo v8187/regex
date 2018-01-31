@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
 
+class CategorizedValue {
+    isStatic = false;
+    canSplit = false;
+    isSensitive = false;
+    isOptional = false;
+
+    constructor(type, char) {
+        this.type = type;
+        this.chars = char;
+    }
+};
+
 export class InputTab extends Component {
 
     constructor(props) {
@@ -48,7 +60,7 @@ export class InputTab extends Component {
                 if (lastItem && lastItem.type === type) {
                     lastItem.chars += char;
                 } else {
-                    catVals.push(lastItem = { type: type, chars: char });
+                    catVals.push(lastItem = new CategorizedValue(type, char));
                 }
             };
 

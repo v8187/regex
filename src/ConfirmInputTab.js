@@ -9,14 +9,18 @@ const _renderValues = (ctx) => {
             {`${item.chars} (${type})`}
             {type !== 'space' &&
                 <label><input type="checkbox"
+                    checked={item.isStatic}
                     onChange={(event) => ctx.handleStatic(event, i)} /> Is a static value?</label>}
-            {type !== 'space' && item.chars.length > 1 &&
+            {type !== 'space' && item.chars.length > 1 && !item.isStatic &&
                 <label><input type="checkbox"
+                    checked={item.canSplit}
                     onChange={(event) => ctx.handleSplit(event, i)} /> Further split this value?</label>}
             {(type === 'lowerAlpha' || type === 'upperAlpha') &&
                 <label><input type="checkbox"
+                    checked={item.isSensitive}
                     onChange={(event) => ctx.handleSensitive(event, i)} /> Case-sensitive</label>}
             <label><input type="checkbox"
+                checked={item.isOptional}
                 onChange={(event) => ctx.handleOptional(event, i)} />Optional</label>
         </li>);
     }, ctx);
@@ -32,6 +36,7 @@ export class ConfirmInputTab extends Component {
             categorizedValues: this.props.categorizedValues || []
         };
 
+        this.updateCateValsState = this.updateCateValsState.bind(this);
         this.handleStatic = this.handleStatic.bind(this);
         this.handleSplit = this.handleSplit.bind(this);
         this.handleSensitive = this.handleSensitive.bind(this);
@@ -44,10 +49,15 @@ export class ConfirmInputTab extends Component {
 
     componeneWillUnMount() { }
 
-    handleStatic(evt, i) { 
+    updateCateValsState(i, prop, val) {
+        this.state.categorizedValues[i][prop] = val;
         this.setState({
-            categorizedValues: this.state.categorizedValues[i].
-        })
+            categorizedValues: this.state.categorizedValues
+        });
+    }
+
+    handleStatic(evt, i) {
+        this.updateCateValsState(i, 'isStatic', evt.target.checked);
     }
 
     handleSplit(evt, i) { }
