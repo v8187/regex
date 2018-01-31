@@ -4,87 +4,298 @@ import { shallow } from 'enzyme';
 import { CategorizedValue } from '../src/CategorizedValue';
 import { CategorizedValueClass } from '../src/CategorizedValue.class';
 
-describe('CategorizedValue: If "Is Static" is checked', () => {
-    const dummyData = new CategorizedValueClass('lowerAlpha', 'fsde'),
-        wpr = shallow(<CategorizedValue data={dummyData} onChange={data => { }} />);
+const
+    rndWrapper = (dumData) => {
+        return shallow(<CategorizedValue data={dumData} onChange={data => { }} />);
+    },
+    catVal = (type, chars) => {
+        return new CategorizedValueClass(type, chars);
+    },
+    _find = (wrapper, ref) => {
+        return wrapper.find(`[data-ctrl="${ref}"]`);
+    },
+    _props = (wrapper, ref) => {
+        return _find(wrapper, ref).props();
+    };
 
-    wpr.find('[data-ctrl="canSplit"]').simulate('change', { target: { checked: true } });
-    wpr.find('[data-ctrl="isStatic"]').simulate('change', { target: { checked: true } });
+describe('CategorizedValue: If "Is Constant" is checked', () => {
+    const CHARS = 'fsde',
+        SPLITTED_CHARS = CHARS.split('').map(char => {
+            return catVal('lowerAlpha', char);
+        });
+    let dummyData, wpr;
 
-    it('hides the "Can Split" Control', () => {
-        expect(wpr.find({ "data-ctrl": "canSplit" }).length).toBe(0);
+    beforeAll(() => {
+        dummyData = catVal('lowerAlpha', CHARS);
+        wpr = rndWrapper(dummyData);
     });
 
-    it('hides the "Custom List" Control', () => {
-        expect(wpr.find({ "data-ctrl": "customList" }).length).toBe(0);
+    beforeEach(() => {
+        _find(wpr, 'isConstant').simulate('change', { target: { checked: false } });
     });
 
-    it('hides the "Splitted" Controls', () => {
-        expect(wpr.state().data.splitted).toBe(null);
+    test('uncheck the "Can Split" control', () => {
+
+        expect(wpr.state().data.canSplit).toBeFalsy();
+        _find(wpr, 'canSplit').simulate('change', { target: { checked: true } });
+        expect(wpr.state().data.canSplit).toBeTruthy();
+        _find(wpr, 'isConstant').simulate('change', { target: { checked: true } });
+        expect(wpr.state().data.splitted).toBeFalsy();
+    });
+
+    test('hides the "Can Split" control', () => {
+
+        expect(_find(wpr, 'canSplit').length).toBe(1);
+        _find(wpr, 'isConstant').simulate('change', { target: { checked: true } });
+        expect(_find(wpr, 'canSplit').length).toBe(0);
+    });
+
+    test('hides the "Splitted" controls', () => {
+
+        expect(wpr.state().data.splitted).toBeNull();
+        _find(wpr, 'canSplit').simulate('change', { target: { checked: true } });
+        expect(wpr.state().data.splitted).toEqual(SPLITTED_CHARS);
+        _find(wpr, 'isConstant').simulate('change', { target: { checked: true } });
+        expect(wpr.state().data.splitted).toBeNull();
+    });
+
+    test('hides the "Alternate Values" control', () => {
+
+        expect(_find(wpr, 'alternateValues').length).toBe(1);
+        _find(wpr, 'isConstant').simulate('change', { target: { checked: true } });
+        expect(_find(wpr, 'alternateValues').length).toBe(0);
+    });
+
+    test('enables the "Min" length controls', () => {
+        _find(wpr, 'canSplit').simulate('change', { target: { checked: true } });
+        expect(_props(wpr, 'minLength').disabled).toBeTruthy();
+        _find(wpr, 'isConstant').simulate('change', { target: { checked: true } });
+        expect(_props(wpr, 'minLength').disabled).toBeFalsy();
+    });
+
+    test('"Max length"  should be equal "Chars" length', () => {
+
+        _find(wpr, 'maxLength').simulate('change', { target: { value: CHARS.length + 10 } });
+        expect(wpr.state().data.maxLength).toBe(CHARS.length + 10);
+        _find(wpr, 'isConstant').simulate('change', { target: { checked: true } });
+        expect(wpr.state().data.maxLength).toBe(CHARS.length);
     });
 });
 
-describe('CategorizedValue: If "Is Static" is unchecked', () => {
-    const dummyData = new CategorizedValueClass('lowerAlpha', 'fsde'),
-        wpr = shallow(<CategorizedValue data={dummyData} onChange={data => { }} />);
+describe('CategorizedValue: If "Is Constant" is unchecked', () => {
+    const CHARS = 'fsde';
+    let dummyData, wpr;
 
-    wpr.find('[data-ctrl="isStatic"]').simulate('change', { target: { checked: false } });
-
-    it('shows the "Can Split" Control', () => {
-        expect(wpr.find({ "data-ctrl": "canSplit" }).length).toBe(1);
+    beforeAll(() => {
+        dummyData = catVal('lowerAlpha', CHARS);
+        wpr = rndWrapper(dummyData);
     });
 
-    it('shows the "Custom List" Control', () => {
-        expect(wpr.find({ "data-ctrl": "customList" }).length).toBe(1);
+    beforeEach(() => {
+        _find(wpr, 'isConstant').simulate('change', { target: { checked: true } });
+    });
+
+    test('shows the "Can Split" control', () => {
+
+        expect(_find(wpr, 'canSplit').length).toBe(0);
+        _find(wpr, 'isConstant').simulate('change', { target: { checked: false } });
+        expect(_find(wpr, 'canSplit').length).toBe(1);
+    });
+
+    test('shows the "Alternate Values" control', () => {
+
+        expect(_find(wpr, 'alternateValues').length).toBe(0);
+        _find(wpr, 'isConstant').simulate('change', { target: { checked: false } });
+        expect(_find(wpr, 'alternateValues').length).toBe(1);
     });
 });
 
-/* test('CategorizedValue: Hide the "Can Split" Control on selecting "Is Static"', () => {
-    const dummyData = new CategorizedValueClass('lowerAlpha', 'fsde'),
-        wpr = shallow(<CategorizedValue data={dummyData} onChange={data => { }} />);
+describe('CategorizedValue: If "Can Split" is checked', () => {
+    const CHARS = 'fsde',
+        SPLITTED_CHARS = CHARS.split('').map(char => {
+            return catVal('lowerAlpha', char);
+        });
+    let dummyData, wpr;
 
-    expect(wpr.find({ "data-ctrl": "canSplit" }).length).toBe(1);
-    wpr.find('[data-ctrl="isStatic"]').simulate('change', { target: { checked: true } });
-    expect(wpr.find({ "data-ctrl": "canSplit" }).length).toBe(0);
+    beforeAll(() => {
+        dummyData = catVal('lowerAlpha', CHARS);
+        wpr = rndWrapper(dummyData);
+    });
+
+    beforeEach(() => {
+        _find(wpr, 'canSplit').simulate('change', { target: { checked: false } });
+    });
+
+    test('hides the "Alternate Values" control', () => {
+
+        expect(_find(wpr, 'alternateValues').length).toBe(1);
+        _find(wpr, 'canSplit').simulate('change', { target: { checked: true } });
+        expect(_find(wpr, 'alternateValues').length).toBe(0);
+    });
+
+    test('disables the "Min" and "Max" length controls', () => {
+
+        expect(_props(wpr, 'minLength').disabled).toBeFalsy();
+        expect(_props(wpr, 'maxLength').disabled).toBeFalsy();
+        _find(wpr, 'canSplit').simulate('change', { target: { checked: true } });
+        expect(_props(wpr, 'minLength').disabled).toBeTruthy();
+        expect(_props(wpr, 'maxLength').disabled).toBeTruthy();
+    });
+
+    test('shows the "Splitted" controls', () => {
+
+        expect(wpr.state().data.splitted).toBeNull();
+        _find(wpr, 'canSplit').simulate('change', { target: { checked: true } });
+        expect(wpr.state().data.splitted).toEqual(SPLITTED_CHARS);
+    });
 });
 
-test('CategorizedValue: Hide the "Custom List" Control on selecting "Is Static"', () => {
-    const dummyData = new CategorizedValueClass('lowerAlpha', 'fsde'),
-        wpr = shallow(<CategorizedValue data={dummyData} onChange={data => { }} />);
+describe('CategorizedValue: If "Can Split" is unchecked', () => {
+    const CHARS = 'fsde',
+        SPLITTED_CHARS = CHARS.split('').map(char => {
+            return catVal('lowerAlpha', char);
+        });
+    let dummyData, wpr;
 
-    expect(wpr.find({ "data-ctrl": "customList" }).length).toBe(1);
-    wpr.find('[data-ctrl="isStatic"]').simulate('change', { target: { checked: true } });
-    expect(wpr.find({ "data-ctrl": "customList" }).length).toBe(0);
-}); */
+    beforeAll(() => {
+        dummyData = catVal('lowerAlpha', CHARS);
+        wpr = rndWrapper(dummyData);
+    });
 
-test('CategorizedValue: Hide the "Min legth" Control on selecting "Optional"', () => {
-    const dummyData = new CategorizedValueClass('lowerAlpha', 'fsde'),
-        wpr = shallow(<CategorizedValue data={dummyData} onChange={data => { }} />);
+    beforeEach(() => {
+        _find(wpr, 'canSplit').simulate('change', { target: { checked: true } });
+    });
 
-    expect(wpr.find({ "data-ctrl": "minLength" }).length).toBe(1);
-    wpr.find('[data-ctrl="isOptional"]').simulate('change', { target: { checked: true } });
-    expect(wpr.find({ "data-ctrl": "minLength" }).length).toBe(0);
+    test('shows the "Alternate Values" control', () => {
+
+        expect(_find(wpr, 'alternateValues').length).toBe(0);
+        _find(wpr, 'canSplit').simulate('change', { target: { checked: false } });
+        expect(_find(wpr, 'alternateValues').length).toBe(1);
+    });
+
+    test('enables the "Min" and "Max" length controls', () => {
+
+        expect(_props(wpr, 'minLength').disabled).toBeTruthy();
+        expect(_props(wpr, 'maxLength').disabled).toBeTruthy();
+        _find(wpr, 'canSplit').simulate('change', { target: { checked: false } });
+        expect(_props(wpr, 'minLength').disabled).toBeFalsy();
+        expect(_props(wpr, 'maxLength').disabled).toBeFalsy();
+    });
+
+    test('hides the "Splitted" controls', () => {
+
+        expect(wpr.state().data.splitted).toEqual(SPLITTED_CHARS);
+        _find(wpr, 'canSplit').simulate('change', { target: { checked: false } });
+        expect(wpr.state().data.splitted).toBeNull();
+    });
 });
 
-test('CategorizedValue: By default "Max Length" must be equal to the length of "Chars"', () => {
-    const chars = 'fsde',
-        dummyData = new CategorizedValueClass('lowerAlpha', chars),
-        wpr = shallow(<CategorizedValue data={dummyData} onChange={data => { }} />);
+describe('CategorizedValue: If "Optional" is checked', () => {
+    const CHARS = 'fsde';
+    let dummyData, wpr;
 
-    expect(wpr.state().data.maxLength).toBe(chars.length);
+    beforeAll(() => {
+        dummyData = catVal('lowerAlpha', CHARS);
+        wpr = rndWrapper(dummyData);
+    });
+
+    beforeEach(() => {
+        _find(wpr, 'isOptional').simulate('change', { target: { checked: false } });
+    });
+
+    test('"Min Length" value should be 0', () => {
+
+        expect(wpr.state().data.minLength).toEqual(1);
+        _find(wpr, 'isOptional').simulate('change', { target: { checked: true } });
+        expect(wpr.state().data.minLength).toEqual(0);
+    });
+
+    test('disables the "Min" length controls', () => {
+
+        expect(_props(wpr, 'minLength').disabled).toBeFalsy();
+        _find(wpr, 'isOptional').simulate('change', { target: { checked: true } });
+        expect(_props(wpr, 'minLength').disabled).toBeTruthy();
+    });
 });
 
-test('CategorizedValue: Split the Chars on selecting "Can Split"', () => {
-    const chars = 'fsde',
-        dummyData = new CategorizedValueClass('lowerAlpha', chars),
-        wpr = shallow(<CategorizedValue data={dummyData} onChange={data => { }} />);
+describe('CategorizedValue: If "Optional" is unchecked', () => {
+    const CHARS = 'fsde';
+    let dummyData, wpr;
 
-    expect(wpr.state().data.splitted).toBe(null);
-    wpr.find('[data-ctrl="canSplit"]').simulate('change', { target: { checked: true } });
-    expect(wpr.state().data.splitted).toEqual([
-        new CategorizedValueClass('lowerAlpha', 'f'),
-        new CategorizedValueClass('lowerAlpha', 's'),
-        new CategorizedValueClass('lowerAlpha', 'd'),
-        new CategorizedValueClass('lowerAlpha', 'e')
-    ]);
+    beforeAll(() => {
+        dummyData = catVal('lowerAlpha', CHARS);
+        wpr = rndWrapper(dummyData);
+    });
+
+    beforeEach(() => {
+        _find(wpr, 'isOptional').simulate('change', { target: { checked: true } });
+    });
+
+    test('"Min Length" value should be 1', () => {
+
+        expect(wpr.state().data.minLength).toEqual(0);
+        _find(wpr, 'isOptional').simulate('change', { target: { checked: false } });
+        expect(wpr.state().data.minLength).toEqual(1);
+    });
+
+    test('disables the "Min" length controls', () => {
+
+        expect(_props(wpr, 'minLength').disabled).toBeTruthy();
+        _find(wpr, 'isOptional').simulate('change', { target: { checked: false } });
+        expect(_props(wpr, 'minLength').disabled).toBeFalsy();
+    });
+});
+
+describe('CategorizedValue: On "Min Length" change', () => {
+    const CHARS = 'fsde';
+    let dummyData, wpr;
+
+    beforeAll(() => {
+        dummyData = catVal('lowerAlpha', CHARS);
+        wpr = rndWrapper(dummyData);
+        _find(wpr, 'maxLength').simulate('change', { target: { value: CHARS.length } });
+    });
+
+    beforeEach(() => {
+        _find(wpr, 'minLength').simulate('change', { target: { value: 0 } });
+    });
+
+    test('Ignore the change if "Min Length" value is greater than "Max length"', () => {
+
+        _find(wpr, 'minLength').simulate('change', { target: { value: 10 } });
+        expect(wpr.state().data.minLength).toEqual(0);
+    });
+
+    test('Accept the change if "Min Length" value is less than or equal to "Max length"', () => {
+
+        _find(wpr, 'minLength').simulate('change', { target: { value: 2 } });
+        expect(wpr.state().data.minLength).toEqual(2);
+    });
+});
+
+describe('CategorizedValue: On "Max Length" change', () => {
+    const CHARS = 'fsde';
+    let dummyData, wpr;
+
+    beforeAll(() => {
+        dummyData = catVal('lowerAlpha', CHARS);
+        wpr = rndWrapper(dummyData);
+        _find(wpr, 'minLength').simulate('change', { target: { value: 2 } });
+    });
+
+    beforeEach(() => {
+        _find(wpr, 'maxLength').simulate('change', { target: { value: CHARS.length } });
+    });
+
+    test('Ignore the change if "Max Length" value is lesser than "Min length"', () => {
+
+        _find(wpr, 'maxLength').simulate('change', { target: { value: 1 } });
+        expect(wpr.state().data.maxLength).toEqual(CHARS.length);
+    });
+
+    test('Accept the change if "Max Length" value is greater than or equal to "Min length"', () => {
+
+        _find(wpr, 'maxLength').simulate('change', { target: { value: 3 } });
+        expect(wpr.state().data.maxLength).toEqual(3);
+    });
 });

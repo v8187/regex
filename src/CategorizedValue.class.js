@@ -1,7 +1,7 @@
 export class CategorizedValueClass {
     
     constructor(type, chars) {
-        this.isStatic = false;
+        this.isConstant = false;
         this.canSplit = false;
         this.isSensitive = false;
         this.isOptional = false;
@@ -10,7 +10,7 @@ export class CategorizedValueClass {
         this.type = null;
         this.chars = '';
         this.splitted = null;
-        this.customList = '';
+        this.alternateValues = '';
         this.type = type;
         this.chars = chars;
         this.maxLength = this.chars.length;

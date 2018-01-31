@@ -13,7 +13,7 @@ export class CategorizedValue extends Component {
         };
 
         this.updateCateValsState = this.updateState.bind(this);
-        this.handleStatic = this.handleStatic.bind(this);
+        this.handleConstant = this.handleConstant.bind(this);
         this.handleSplit = this.handleSplit.bind(this);
         this.handleSensitive = this.handleSensitive.bind(this);
         this.handleOptional = this.handleOptional.bind(this);
@@ -35,16 +35,20 @@ export class CategorizedValue extends Component {
                 data.isOptional = val;
                 break;
             case 'minLength':
-                data.minLength = val > data.maxLength ? data.minLength : val;
+                data.minLength = val > data.maxLength && val !== '' ? data.minLength : val;
                 break;
             case 'maxLength':
-                data.maxLength = val < data.minLength ? data.maxLength : val;
+                data.maxLength = val < data.minLength && val !== '' ? data.maxLength : val;
                 break;
             case 'canSplit':
-            case 'isStatic':
+            case 'isConstant':
                 data[prop] = val;
-                (data.canSplit || data.isStatic) && (data.customList = '');
-                data.splitted = data.canSplit && !data.isStatic ? data.chars.split('').map((val, valI) => {
+                if (data.isConstant) {
+                    data.canSplit = false;
+                    data.maxLength = data.chars.length;
+                }
+                (data.canSplit || data.isConstant) && (data.alternateValues = '');
+                data.splitted = data.canSplit && !data.isConstant ? data.chars.split('').map((val, valI) => {
                     return new CategorizedValueClass(data.type, val);
                 }) : null;
                 break;
@@ -57,8 +61,8 @@ export class CategorizedValue extends Component {
         });
     }
 
-    handleStatic(evt) {
-        this.updateState('isStatic', evt.target.checked);
+    handleConstant(evt) {
+        this.updateState('isConstant', evt.target.checked);
     }
 
     handleSplit(evt) {
@@ -82,17 +86,17 @@ export class CategorizedValue extends Component {
     }
 
     handleCustomList(evt) {
-        this.updateState('customList', evt.target.value);
+        this.updateState('alternateValues', evt.target.value);
     }
 
     render() {
         let { data } = this.state;
-        return (<div>{`${data.chars} (${data.type})`}
+        return (<div>{`${data.chars} (${data.type}) is `}
             {data.type !== 'space' &&
-                <label><input type="checkbox" data-ctrl="isStatic"
-                    checked={data.isStatic}
-                    onChange={(event) => this.handleStatic(event)} /> Is a static value?</label>}
-            {data.type !== 'space' && data.chars.length > 1 && !data.isStatic &&
+                <label><input type="checkbox" data-ctrl="isConstant"
+                    checked={data.isConstant}
+                    onChange={(event) => this.handleConstant(event)} /> constant value?</label>}
+            {data.type !== 'space' && data.chars.length > 1 && !data.isConstant &&
                 <label><input type="checkbox" data-ctrl="canSplit"
                     checked={data.canSplit}
                     onChange={(event) => this.handleSplit(event)} /> Further split this value?</label>}
@@ -103,22 +107,24 @@ export class CategorizedValue extends Component {
             <label><input type="checkbox" data-ctrl="isOptional"
                 checked={data.isOptional}
                 onChange={(event) => this.handleOptional(event)} />Optional</label>
-            {data.type !== 'space' && !data.isStatic && !data.canSplit &&
+            {data.type !== 'space' && !data.isConstant && !data.canSplit &&
                 <label>
-                    <input type="text" data-ctrl="customList"
-                        value={data.customList}
-                        placeholder="Custom List"
+                    <input type="text" data-ctrl="alternateValues"
+                        value={data.alternateValues}
+                        placeholder="Alternate Values"
                         onChange={(event) => this.handleCustomList(event)} />
                 </label>}
-            {data.type !== 'space' && data.chars.length > 1 && !data.canSplit &&
+            {data.type !== 'space' &&
                 <label>
-                    {!data.isOptional && <input type="text" data-ctrl="minLength"
+                    <input type="text" data-ctrl="minLength"
                         value={data.minLength}
                         placeholder="Min."
-                        onChange={(event) => this.handleMinValue(event)} />}
+                        disabled={data.isOptional || data.canSplit}
+                        onChange={(event) => this.handleMinValue(event)} />
                     <input type="text" data-ctrl="maxLength"
                         value={data.maxLength}
                         placeholder="Max."
+                        disabled={data.isConstant || data.canSplit}
                         onChange={(event) => this.handleMaxValue(event)} />
                 </label>}
         </div>);
