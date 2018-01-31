@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
 
-class CategorizedValue {
-    isStatic = false;
-    canSplit = false;
-    isSensitive = false;
-    isOptional = false;
-
-    constructor(type, char) {
-        this.type = type;
-        this.chars = char;
-    }
-};
+import { CategorizedValue } from './CategorizedValue.class';
 
 export class InputTab extends Component {
 
@@ -59,6 +49,7 @@ export class InputTab extends Component {
             _fn = (char, type) => {
                 if (lastItem && lastItem.type === type) {
                     lastItem.chars += char;
+                    lastItem.maxLength = lastItem.chars.length;
                 } else {
                     catVals.push(lastItem = new CategorizedValue(type, char));
                 }
@@ -83,7 +74,7 @@ export class InputTab extends Component {
         this.setState({
             categorizedValues: catVals,
             value: val
-        }, () => { console.log(this.state.categorizedValues); });
+        }, () => { /* console.log(this.state.categorizedValues); */ });
     }
 
     handleSubmit(evt) {

@@ -60,7 +60,25 @@ class App extends Component {
         /*  this.setState({
              currentTab: 'confirmInput'
          }, () => { */
-        console.log('handleConfirmInputNext', this.state.categorizedValues, this.state.inputValue);
+        // console.log('handleConfirmInputNext', this.state.categorizedValues, this.state.inputValue);
+        var strRegEx = '';
+        this.state.categorizedValues.forEach(cVal => {
+            if (cVal.isStatic) {
+                strRegEx += cVal.chars;
+            } else {
+                if (cVal.canSplit && cVal.splitted && cVal.splitted.length) {
+                    // strRegEx += '';
+                } else {
+                    strRegEx += `[${cVal.customList ? cVal.customList :
+                        (cVal.type === 'lowerAlpha' ? 'a-z' :
+                            (cVal.type === 'upperAlpha' ? 'A-Z' :
+                                (cVal.type === 'digit' ? '\\d' : '')))}]`;
+                }
+            }
+            strRegEx += `{${cVal.minLength == cVal.maxLength ? cVal.minLength :
+                (`${cVal.isOptional ? 0 : cVal.minLength},${cVal.maxLength}`)}}`;
+        });
+        console.log(strRegEx);
         // });
     }
 
