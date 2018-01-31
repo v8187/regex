@@ -1,16 +1,16 @@
-export class CategorizedValue {
-    isStatic = false;
-    canSplit = false;
-    isSensitive = false;
-    isOptional = false;
-    minLength = 1;
-    maxLength = 1;
-    type = null;
-    chars = '';
-    splitted = null;
-    customList = '';
-
+export class CategorizedValueClass {
+    
     constructor(type, chars) {
+        this.isStatic = false;
+        this.canSplit = false;
+        this.isSensitive = false;
+        this.isOptional = false;
+        this.minLength = 1;
+        this.maxLength = 1;
+        this.type = null;
+        this.chars = '';
+        this.splitted = null;
+        this.customList = '';
         this.type = type;
         this.chars = chars;
         this.maxLength = this.chars.length;

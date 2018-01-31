@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { CategorizedValue } from './CategorizedValue.class';
+import { CategorizedValueClass } from './CategorizedValue.class';
 
 export class InputTab extends Component {
 
@@ -51,7 +51,7 @@ export class InputTab extends Component {
                     lastItem.chars += char;
                     lastItem.maxLength = lastItem.chars.length;
                 } else {
-                    catVals.push(lastItem = new CategorizedValue(type, char));
+                    catVals.push(lastItem = new CategorizedValueClass(type, char));
                 }
             };
 
