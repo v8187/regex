@@ -87,13 +87,14 @@ export class InputTab extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <textarea cols="50" rows="10"
+            <form onSubmit={this.handleSubmit} className={this.props.styles.input_tab}>
+                <input type="text"
                     ref={textarea => this.elTA = textarea}
                     onChange={this.handleTextAreaChange}
-                    value={this.state.value}></textarea>
+                    value={this.state.value} />
                 <div>
-                    <input type="submit" value="Next" />
+                    <input type="submit" value="&#8680;"
+                        className={this.props.styles.rx_btn_icon} />
                 </div>
             </form>
         );

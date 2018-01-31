@@ -1,0 +1,106 @@
+$COLOR_PRIMARY: #423c51;
+$TEXT_COLOR: white;
+$INPUT_COLOR: #423c51;
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background: $COLOR_PRIMARY;
+    font-family: arial, sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+    color: $TEXT_COLOR;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+.root {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.rx_btn_icon,
+.rx_btn_text,
+.input_text,
+.input_num {
+    display: inline-block;
+    line-height: 25px;
+    vertical-align: middle;
+    color: $COLOR_PRIMARY;
+    background: white;
+    border: 1px solid #555;
+    outline: 0 none;
+    margin-right: 5px;
+}
+
+.rx_btn_icon,
+.rx_btn_text {
+    cursor: pointer;
+    &:checked {
+        background: lighten($COLOR_PRIMARY, 10%);
+        color: white;
+    }
+}
+
+.rx_btn_icon,
+.rx_btn_text,
+.input_num {
+    text-align: center;
+}
+
+.rx_btn_text {
+    background: red;
+}
+
+.rx_btn_icon {
+    width: 35px;
+    font-weight: bold;
+    &.rx_icon_constant {
+        font-size: 14px;
+    }
+    &.rx_icon_split {
+        font-size: 17px;
+    }
+    &.rx_icon_sensitive {
+        font-size: 13px;
+    }
+    &.rx_icon_optional {
+        font-size: 16px;
+    }
+    >input[type=radio],
+    >input[type=checkbox] {
+        display: none;
+    }
+}
+
+.input_text {
+    width: 150px;
+    padding: 0 5px;
+}
+
+.input_num {
+    width: 30px;
+}
+
+.cate_val_wrapper {
+    padding: 7px;
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.input_tab {
+    >input {
+        width: 100%;
+        padding: 100px 10px;
+    }
+}

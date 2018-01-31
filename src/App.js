@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { InputTab } from './InputTab';
 import { ConfirmInputTab } from './ConfirmInputTab';
 
-import styles from './scss/App.scss';
+import styles from './scss/main.scss';
 
 console.log(styles);
 
@@ -88,11 +88,13 @@ class App extends Component {
             <div className={styles.root}>
                 {this.state.currentTab === 'input' &&
                     <InputTab
+                        styles={styles}
                         categorizedValues={this.state.categorizedValues}
                         inputValue={this.state.inputValue}
                         onNext={this.handleInputNext} />}
                 {this.state.currentTab === 'confirmInput' &&
                     <ConfirmInputTab
+                        styles={styles}
                         categorizedValues={this.state.categorizedValues}
                         onNext={this.handleConfirmInputNext}
                         onBack={this.handleConfirmInputBack} />}

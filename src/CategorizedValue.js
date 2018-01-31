@@ -173,42 +173,59 @@ export class CategorizedValue extends Component {
     }
 
     render() {
-        let { data } = this.state;
-        return (<div>{`${data.chars} (${data.type}) is `}
+        let { data } = this.state,
+            { rx_btn_icon, input_num, input_text, rx_icon_split, cate_val_wrapper
+                , rx_icon_sensitive, rx_icon_optional, rx_icon_constant } = this.props.styles;
+
+        return (<div className={cate_val_wrapper}>
+            <p>{`${data.chars}`}</p>
             {data.type !== 'space' &&
-                <label><input type="checkbox" data-ctrl="isConstant"
-                    checked={data.isConstant}
-                    onChange={(event) => this.handleConstant(event)} /> constant value?</label>}
+                <label className={`${rx_btn_icon} ${rx_icon_constant}`}>
+                    <input type="checkbox" data-ctrl="isConstant"
+                        checked={data.isConstant}
+                        onChange={(event) => this.handleConstant(event)} />
+                    C
+                    </label>}
             {data.type !== 'space' && data.chars.length > 1 && !data.isConstant &&
-                <label><input type="checkbox" data-ctrl="canSplit"
-                    checked={data.canSplit}
-                    onChange={(event) => this.handleSplit(event)} /> Further split this value?</label>}
+                <label className={`${rx_btn_icon} ${rx_icon_split}`}>
+                    <input type="checkbox" data-ctrl="canSplit"
+                        checked={data.canSplit}
+                        onChange={(event) => this.handleSplit(event)} />
+                    &#9986;
+                        </label>}
             {(data.type === 'lowerAlpha' || data.type === 'upperAlpha') &&
-                <label><input type="checkbox" data-ctrl="isSensitive"
-                    checked={data.isSensitive}
-                    onChange={(event) => this.handleSensitive(event)} /> Case-sensitive</label>}
-            <label><input type="checkbox" data-ctrl="isOptional"
-                checked={data.isOptional}
-                onChange={(event) => this.handleOptional(event)} />Optional</label>
-            {data.type !== 'space' && !data.isConstant && !data.canSplit &&
-                <label>
-                    <input type="text" data-ctrl="alternateValues"
-                        value={data.alternateValues}
-                        placeholder="Alternate Values"
-                        onChange={(event) => this.handleAlternateValues(event)} />
-                </label>}
+                <label className={`${rx_btn_icon} ${rx_icon_sensitive}`}>
+                    <input type="checkbox" data-ctrl="isSensitive"
+                        checked={data.isSensitive}
+                        onChange={(event) => this.handleSensitive(event)} />
+                    Aa
+                    </label>}
+            <label className={`${rx_btn_icon} ${rx_icon_optional}`}>
+                <input type="checkbox" data-ctrl="isOptional"
+                    checked={data.isOptional}
+                    onChange={(event) => this.handleOptional(event)} />?</label>
             {data.type !== 'space' && !data.canSplit &&
                 <label>
                     <input type="text" data-ctrl="minLength"
                         value={data.minLength}
+                        className={input_num}
                         placeholder="Min."
                         disabled={data.isOptional}
                         onChange={(event) => this.handleMinValue(event)} />
                     <input type="text" data-ctrl="maxLength"
                         value={data.maxLength}
+                        className={input_num}
                         placeholder="Max."
                         disabled={data.isConstant}
                         onChange={(event) => this.handleMaxValue(event)} />
+                </label>}
+            {data.type !== 'space' && !data.isConstant && !data.canSplit &&
+                <label>
+                    <input type="text" data-ctrl="alternateValues"
+                        value={data.alternateValues}
+                        className={input_text}
+                        placeholder="Alternate Values"
+                        onChange={(event) => this.handleAlternateValues(event)} />
                 </label>}
         </div>);
     }
