@@ -3,28 +3,33 @@ import React, { Component } from 'react';
 import { CategorizedValueClass } from './CategorizedValue.class';
 
 const
-    SPECIAL_CHARS = '~!@#\$%\^&\*\(\)_\+\{\}\|:"<>\?`\-=\[\]\\;\',\.\/',
+    SPECIAL_CHARS = '`~!@#$%^&*()-_=+[{]}\\|;:\'",<.>/?',
     calcLimit = data => {
         return (data.canSplit || (data.minLength == 1 && data.maxLength == 1)) ? '' :
             (data.minLength == 0 && data.maxLength == 1 ? '?' : `{${data.minLength == data.maxLength ? data.minLength :
                 (`${data.isOptional ? 0 :
                     data.minLength},${data.maxLength}`)}}`);
     },
-    isAlpha = data => {
-        return ['lowerAlpha', 'upperAlpha'].indexOf(data.type) !== -1;
+    isAlpha = type => {
+        return ['lowerAlpha', 'upperAlpha'].indexOf(type) !== -1;
     },
     parseAlternateValues = data => {
-        var uniqueVals = data.chars;
+        var uniqueVals = '';
         if (/^([a-z]-[a-z])|(\d-\d)|([A-Z]-[A-Z])$/.test(data.alternateValues)) {
             uniqueVals = data.alternateValues;
         } else {
-            data.alternateValues.split('').forEach(char => {
+            (data.chars + data.alternateValues || '').split('').forEach(char => {
                 if (uniqueVals.indexOf(char) === -1) {
                     uniqueVals += char;
                 }
             });
         }
         return uniqueVals;
+    },
+    escapeSpecial = chars => {
+        return chars.split('').map(char => {
+            return '\\' + char;
+        }).join('');
     };
 
 export class CategorizedValue extends Component {
@@ -53,8 +58,9 @@ export class CategorizedValue extends Component {
     componeneWillUnMount() { }
 
     updateRegEx(data) {
-        const sensitive = data.isSensitive,
-            _isAlpha = isAlpha(data.type);
+        const _sensitive = data.isSensitive,
+            _isAlpha = isAlpha(data.type),
+            _optional = data.isOptional;
 
         var strRegEx = '';
 
@@ -66,18 +72,21 @@ export class CategorizedValue extends Component {
 
             for (; i >= 0; i--) {
                 let char = splitted[i];
-                _rx = `${range ? '(' : ''}${sensitive || !_isAlpha ? char : `[${char.toLowerCase()}${char.toUpperCase()}]`}${_rx}${range ? ')?' : ''}`;
+                _rx = `${range ? '(' : ''}${_sensitive || !_isAlpha ? (data.type === 'special' ? escapeSpecial(char) : char) : `[${char.toLowerCase()}${char.toUpperCase()}]`}${_rx}${range ? ')?' : ''}`;
             }
-            strRegEx += _rx;
+            strRegEx += _optional ? `(${_rx})?` : _rx;
         } else if (!data.canSplit) {
             if (data.type === 'digit') {
                 strRegEx += data.alternateValues ? `[${parseAlternateValues(data)}]` : '\\d';
+            } else if (data.type === 'special') {
+                strRegEx += data.alternateValues ? `[${escapeSpecial(parseAlternateValues(data))}]` : `[${escapeSpecial(SPECIAL_CHARS)}]`;
             } else {
                 strRegEx += '[';
                 if (data.alternateValues) {
-                    strRegEx += parseAlternateValues(data);
+                    let alterVals = parseAlternateValues(data);
+                    strRegEx += alterVals.toLowerCase() + alterVals.toUpperCase();
                 } else if (_isAlpha) {
-                    if (!sensitive) {
+                    if (!_sensitive) {
                         strRegEx += 'a-zA-Z';
                     } else if (data.type === 'lowerAlpha') {
                         strRegEx += 'a-z';
@@ -85,7 +94,8 @@ export class CategorizedValue extends Component {
                         strRegEx += 'A-Z';
                     }
                 } else {
-                    strRegEx += data.chars;
+                    let alphas = parseAlternateValues(data);
+                    strRegEx += _sensitive ? alphas : alphas.toLowerCase() + alphas.toUpperCase();
                 }
                 strRegEx += ']';
             }
