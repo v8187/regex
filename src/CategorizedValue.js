@@ -2,13 +2,36 @@ import React, { Component } from 'react';
 
 import { CategorizedValueClass } from './CategorizedValue.class';
 
+const
+    SPECIAL_CHARS = '~!@#\$%\^&\*\(\)_\+\{\}\|:"<>\?`\-=\[\]\\;\',\.\/',
+    calcLimit = data => {
+        return (data.canSplit || (data.minLength == 1 && data.maxLength == 1)) ? '' :
+            (data.minLength == 0 && data.maxLength == 1 ? '?' : `{${data.minLength == data.maxLength ? data.minLength :
+                (`${data.isOptional ? 0 :
+                    data.minLength},${data.maxLength}`)}}`);
+    },
+    isAlpha = data => {
+        return ['lowerAlpha', 'upperAlpha'].indexOf(data.type) !== -1;
+    },
+    parseAlternateValues = data => {
+        var uniqueVals = data.chars;
+        if (/^([a-z]-[a-z])|(\d-\d)|([A-Z]-[A-Z])$/.test(data.alternateValues)) {
+            uniqueVals = data.alternateValues;
+        } else {
+            data.alternateValues.split('').forEach(char => {
+                if (uniqueVals.indexOf(char) === -1) {
+                    uniqueVals += char;
+                }
+            });
+        }
+        return uniqueVals;
+    };
+
 export class CategorizedValue extends Component {
 
     constructor(props) {
 
         super(props);
-
-
 
         this.updateCateValsState = this.updateState.bind(this);
         this.handleConstant = this.handleConstant.bind(this);
@@ -17,7 +40,7 @@ export class CategorizedValue extends Component {
         this.handleOptional = this.handleOptional.bind(this);
         this.handleMinValue = this.handleMinValue.bind(this);
         this.handleMaxValue = this.handleMaxValue.bind(this);
-        this.handleCustomList = this.handleCustomList.bind(this);
+        this.handleCustomList = this.handleAlternateValues.bind(this);
         this.updateRegEx = this.updateRegEx.bind(this);
 
         this.state = {
@@ -30,18 +53,43 @@ export class CategorizedValue extends Component {
     componeneWillUnMount() { }
 
     updateRegEx(data) {
+        const sensitive = data.isSensitive,
+            _isAlpha = isAlpha(data.type);
+
         var strRegEx = '';
+
         if (data.isConstant) {
-            // let setRange = data.minLength == data.maxLength && ();
-            strRegEx += data.minLength == 1 && data.maxLength == 1 ? '' : '('
-            strRegEx += data.chars;
-            strRegEx += data.minLength == 1 && data.maxLength == 1 ? '' : `){${data.minLength == data.maxLength ? data.minLength : (`${data.isOptional ? 0 : data.minLength},${data.maxLength}`)}}`;
-        } else if(!data.canSplit) {
-            strRegEx += `[${data.alternateValues ? data.chars + data.alternateValues :
-                (data.type === 'lowerAlpha' ? 'a-z' :
-                    (data.type === 'upperAlpha' ? 'A-Z' :
-                        (data.type === 'digit' ? '\\d' : '')))}]`;
-            strRegEx += data.minLength == 1 && data.maxLength == 1 ? '' : `{${data.minLength == data.maxLength ? data.minLength : (`${data.isOptional ? 0 : data.minLength},${data.maxLength}`)}}`;
+            const range = i >= data.minLength && i < data.maxLength + 1;
+            let _rx = '',
+                splitted = data.chars.split(''),
+                len = splitted.length, i = len - 1;
+
+            for (; i >= 0; i--) {
+                let char = splitted[i];
+                _rx = `${range ? '(' : ''}${sensitive || !_isAlpha ? char : `[${char.toLowerCase()}${char.toUpperCase()}]`}${_rx}${range ? ')?' : ''}`;
+            }
+            strRegEx += _rx;
+        } else if (!data.canSplit) {
+            if (data.type === 'digit') {
+                strRegEx += data.alternateValues ? `[${parseAlternateValues(data)}]` : '\\d';
+            } else {
+                strRegEx += '[';
+                if (data.alternateValues) {
+                    strRegEx += parseAlternateValues(data);
+                } else if (_isAlpha) {
+                    if (!sensitive) {
+                        strRegEx += 'a-zA-Z';
+                    } else if (data.type === 'lowerAlpha') {
+                        strRegEx += 'a-z';
+                    } else {
+                        strRegEx += 'A-Z';
+                    }
+                } else {
+                    strRegEx += data.chars;
+                }
+                strRegEx += ']';
+            }
+            strRegEx += calcLimit(data);
         }
         data.regEx = strRegEx;
         return data;
@@ -78,7 +126,6 @@ export class CategorizedValue extends Component {
                 break;
         }
 
-
         data = this.updateRegEx(data);
         this.setState({ data: data }, () => {
             this.props.onChange(this.state.data);
@@ -109,7 +156,7 @@ export class CategorizedValue extends Component {
         this.updateState('maxLength', evt.target.value);
     }
 
-    handleCustomList(evt) {
+    handleAlternateValues(evt) {
         this.updateState('alternateValues', evt.target.value);
     }
 
@@ -136,7 +183,7 @@ export class CategorizedValue extends Component {
                     <input type="text" data-ctrl="alternateValues"
                         value={data.alternateValues}
                         placeholder="Alternate Values"
-                        onChange={(event) => this.handleCustomList(event)} />
+                        onChange={(event) => this.handleAlternateValues(event)} />
                 </label>}
             {data.type !== 'space' && !data.canSplit &&
                 <label>

@@ -13,7 +13,7 @@ class App extends Component {
 
         this.state = {
             categorizedValues: [],
-            inputValue: 'asa23fdADf',
+            inputValue: 'asdfe23fdADf',
             currentTab: 'input'
         };
 
@@ -57,48 +57,18 @@ class App extends Component {
     }
 
     handleConfirmInputNext() {
-        /*  this.setState({
-             currentTab: 'confirmInput'
-         }, () => { */
-        // console.log('handleConfirmInputNext', this.state.categorizedValues, this.state.inputValue);
         var strRegEx = '';
+
         this.state.categorizedValues.forEach(cVal => {
-            strRegEx += cVal.regEx;
-            // if (cVal.isConstant) {
-            //     // let setRange = cVal.minLength == cVal.maxLength && ();
-            //     strRegEx += cVal.minLength == 1 && cVal.maxLength == 1 ? '' : '('
-            //     strRegEx += cVal.chars;
-            //     strRegEx += cVal.minLength == 1 && cVal.maxLength == 1 ? '' : `){${cVal.minLength == cVal.maxLength ? cVal.minLength : (`${cVal.isOptional ? 0 : cVal.minLength},${cVal.maxLength}`)}}`;
-            // } else {
-                if (cVal.canSplit && cVal.splitted && cVal.splitted.length) {
-                    cVal.splitted.forEach((splt) => {
-                        strRegEx += cVal.regEx;
-                        // let setRange = splt.minLength == splt.maxLength || (splt.minLength == 1 && splt.maxLength == 1);
-                        // if (splt.isConstant) {
-                        //     // let setRange = splt.minLength == splt.maxLength && (splt.minLength != 1 && splt.maxLength != 1);
-                        //     strRegEx += splt.minLength == 1 && splt.maxLength == 1 ? '' : '('
-                        //     strRegEx += splt.chars;
-                        //     strRegEx += splt.minLength == 1 && splt.maxLength == 1 ? '' : `){${splt.minLength == splt.maxLength ? splt.minLength : (`${splt.isOptional ? 0 : splt.minLength},${splt.maxLength}`)}}`;
-                        // } else {
-                        //     strRegEx += `[${splt.alternateValues ? splt.chars + splt.alternateValues :
-                        //         (splt.type === 'lowerAlpha' ? 'a-z' :
-                        //             (splt.type === 'upperAlpha' ? 'A-Z' :
-                        //                 (splt.type === 'digit' ? '\\d' : '')))}]`;
-                        //     strRegEx += splt.minLength == 1 && splt.maxLength == 1 ? '' : `{${splt.minLength == splt.maxLength ? splt.minLength : (`${splt.isOptional ? 0 : splt.minLength},${splt.maxLength}`)}}`;
-                        // }
-                    }, this);
-                } else {
-                    strRegEx += cVal.regEx;
-                    // strRegEx += `[${cVal.alternateValues ? cVal.chars + cVal.alternateValues :
-                    //     (cVal.type === 'lowerAlpha' ? 'a-z' :
-                    //         (cVal.type === 'upperAlpha' ? 'A-Z' :
-                    //             (cVal.type === 'digit' ? '\\d' : '')))}]`;
-                    // strRegEx += cVal.minLength == 1 && cVal.maxLength == 1 ? '' : `{${cVal.minLength == cVal.maxLength ? cVal.minLength : (`${cVal.isOptional ? 0 : cVal.minLength},${cVal.maxLength}`)}}`;
-                }
-            // }
+            if (cVal.canSplit && cVal.splitted && cVal.splitted.length) {
+                cVal.splitted.forEach((splt) => {
+                    strRegEx += splt.regEx;
+                }, this);
+            } else {
+                strRegEx += cVal.regEx;
+            }
         });
         console.log(strRegEx);
-        // });
     }
 
     handleConfirmInputBack() {
