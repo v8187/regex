@@ -9,7 +9,8 @@
     "start-js": "react-scripts start",
     "start": "npm-run-all -p start-js",
     "build": "npm run build-css && react-scripts build",
-    "test": "jest",
+    "test": "jest --verbose tests/CategorizedValue-Logic-Special.test.js",
+    "testCoverage": "jest --coverage",
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build"
   },

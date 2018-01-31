@@ -59,32 +59,34 @@ export class CategorizedValue extends Component {
 
     updateRegEx(data) {
         const _sensitive = data.isSensitive,
-            _isAlpha = isAlpha(data.type),
+            _type = data.type,
+            _isAlpha = isAlpha(_type),
             _optional = data.isOptional;
 
         var strRegEx = '';
 
         if (data.isConstant) {
-            const range = i >= data.minLength && i < data.maxLength + 1;
             let _rx = '',
                 splitted = data.chars.split(''),
                 len = splitted.length, i = len - 1;
 
             for (; i >= 0; i--) {
-                let char = splitted[i];
-                _rx = `${range ? '(' : ''}${_sensitive || !_isAlpha ? (data.type === 'special' ? escapeSpecial(char) : char) : `[${char.toLowerCase()}${char.toUpperCase()}]`}${_rx}${range ? ')?' : ''}`;
+                let range = i >= data.minLength && i < data.maxLength + 1,
+                    char = splitted[i];
+                _rx = `${range ? '(' : ''}${_sensitive || !_isAlpha ? (_type === 'special' ? escapeSpecial(char) : char) : `[${char.toLowerCase()}${char.toUpperCase()}]`}${_rx}${range ? ')?' : ''}`;
             }
-            strRegEx += _optional ? `(${_rx})?` : _rx;
+            strRegEx += /* _optional ? `(${_rx})?` : */ _rx;
         } else if (!data.canSplit) {
-            if (data.type === 'digit') {
+            if (_type === 'digit') {
                 strRegEx += data.alternateValues ? `[${parseAlternateValues(data)}]` : '\\d';
-            } else if (data.type === 'special') {
+            } else if (_type === 'special') {
                 strRegEx += data.alternateValues ? `[${escapeSpecial(parseAlternateValues(data))}]` : `[${escapeSpecial(SPECIAL_CHARS)}]`;
             } else {
                 strRegEx += '[';
                 if (data.alternateValues) {
                     let alterVals = parseAlternateValues(data);
-                    strRegEx += alterVals.toLowerCase() + alterVals.toUpperCase();
+                    // strRegEx += alterVals.toLowerCase() + alterVals.toUpperCase();
+                    strRegEx += _sensitive ? alterVals : alterVals.toLowerCase() + alterVals.toUpperCase();
                 } else if (_isAlpha) {
                     if (!_sensitive) {
                         strRegEx += 'a-zA-Z';
