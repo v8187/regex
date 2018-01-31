@@ -8,6 +8,7 @@ html, body {
 	height : 100%;
 }
 body {
+	background: #175468;
 	font-family : arial, sans-serif;
 	font-size: 16px;
 	line-height: 20px;
@@ -28,6 +29,11 @@ input[type=number] {
 		outline: 0 none;
 		border-color: $COLOR_PRIMARY;
 	}
+}
+
+#root {
+	max-width: 600px;
+	margin: 0 auto;
 }
 
 #generator {
