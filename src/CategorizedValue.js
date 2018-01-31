@@ -86,38 +86,37 @@ export class CategorizedValue extends Component {
     }
 
     render() {
-        console.log(this.props);
-        let { type, data } = this.state;
-        return (<div>{`${data.chars} (${type})`}
-            {type !== 'space' &&
-                <label><input type="checkbox"
+        let { data } = this.state;
+        return (<div>{`${data.chars} (${data.type})`}
+            {data.type !== 'space' &&
+                <label><input type="checkbox" data-ctrl="isStatic"
                     checked={data.isStatic}
                     onChange={(event) => this.handleStatic(event)} /> Is a static value?</label>}
-            {type !== 'space' && data.chars.length > 1 && !data.isStatic &&
-                <label><input type="checkbox"
+            {data.type !== 'space' && data.chars.length > 1 && !data.isStatic &&
+                <label><input type="checkbox" data-ctrl="canSplit"
                     checked={data.canSplit}
                     onChange={(event) => this.handleSplit(event)} /> Further split this value?</label>}
-            {(type === 'lowerAlpha' || type === 'upperAlpha') &&
-                <label><input type="checkbox"
+            {(data.type === 'lowerAlpha' || data.type === 'upperAlpha') &&
+                <label><input type="checkbox" data-ctrl="isSensitive"
                     checked={data.isSensitive}
                     onChange={(event) => this.handleSensitive(event)} /> Case-sensitive</label>}
-            <label><input type="checkbox"
+            <label><input type="checkbox" data-ctrl="isOptional"
                 checked={data.isOptional}
                 onChange={(event) => this.handleOptional(event)} />Optional</label>
-            {type !== 'space' && !data.isStatic && !data.canSplit &&
+            {data.type !== 'space' && !data.isStatic && !data.canSplit &&
                 <label>
-                    <input type="text"
+                    <input type="text" data-ctrl="customList"
                         value={data.customList}
                         placeholder="Custom List"
                         onChange={(event) => this.handleCustomList(event)} />
                 </label>}
-            {type !== 'space' && data.chars.length > 1 && !data.canSplit &&
+            {data.type !== 'space' && data.chars.length > 1 && !data.canSplit &&
                 <label>
-                    {!data.isOptional && <input type="text"
+                    {!data.isOptional && <input type="text" data-ctrl="minLength"
                         value={data.minLength}
                         placeholder="Min."
                         onChange={(event) => this.handleMinValue(event)} />}
-                    <input type="text"
+                    <input type="text" data-ctrl="maxLength"
                         value={data.maxLength}
                         placeholder="Max."
                         onChange={(event) => this.handleMaxValue(event)} />
