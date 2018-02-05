@@ -173,48 +173,53 @@ export class CategorizedValue extends Component {
     }
 
     render() {
-        let { data } = this.state,
-            { rx_btn_icon, input_num, input_text, rx_icon_split, cate_val_wrapper
-                , rx_icon_sensitive, rx_icon_optional, rx_icon_constant } = this.props.styles;
+        let { data } = this.state;
 
-        return (<div className={cate_val_wrapper}>
-            <p>{`${data.chars}`}</p>
-            {data.type !== 'space' &&
-                <label className={`${rx_btn_icon} ${rx_icon_constant}`}>
+        return (<div className="cate_val_wrapper">
+            <p>
+                {`${data.chars}`}
+                <a className="rx-btn-edit">
+                    <i className="fa fa-pencil" />
+                </a>
+            </p>
+            {/* {data.type !== 'space' &&
+                <label className={`rx_btn_icon ${data.isConstant ? 'rx_checked' : ''}`}>
                     <input type="checkbox" data-ctrl="isConstant"
                         checked={data.isConstant}
                         onChange={(event) => this.handleConstant(event)} />
-                    C
-                    </label>}
+                    <i className="fa fa-minus-square" />
+                </label>}
             {data.type !== 'space' && data.chars.length > 1 && !data.isConstant &&
-                <label className={`${rx_btn_icon} ${rx_icon_split}`}>
+                <label className={`rx_btn_icon ${data.canSplit ? 'rx_checked' : ''}`}>
                     <input type="checkbox" data-ctrl="canSplit"
                         checked={data.canSplit}
                         onChange={(event) => this.handleSplit(event)} />
-                    &#9986;
-                        </label>}
+                    <i className="fa fa-level-down" />
+                </label>}
             {(data.type === 'lowerAlpha' || data.type === 'upperAlpha') &&
-                <label className={`${rx_btn_icon} ${rx_icon_sensitive}`}>
+                <label className={`rx_btn_icon ${data.isSensitive ? 'rx_checked' : ''}`}>
                     <input type="checkbox" data-ctrl="isSensitive"
                         checked={data.isSensitive}
                         onChange={(event) => this.handleSensitive(event)} />
-                    Aa
-                    </label>}
-            <label className={`${rx_btn_icon} ${rx_icon_optional}`}>
+                    <i className="fa fa-text-height" />
+                </label>}
+            <label className={`rx_btn_icon ${data.isOptional ? 'rx_checked' : ''}`}>
                 <input type="checkbox" data-ctrl="isOptional"
                     checked={data.isOptional}
-                    onChange={(event) => this.handleOptional(event)} />?</label>
+                    onChange={(event) => this.handleOptional(event)} />
+                <i className="fa fa-exclamation" />
+            </label>
             {data.type !== 'space' && !data.canSplit &&
                 <label>
                     <input type="text" data-ctrl="minLength"
                         value={data.minLength}
-                        className={input_num}
+                        className="input_num"
                         placeholder="Min."
                         disabled={data.isOptional}
                         onChange={(event) => this.handleMinValue(event)} />
                     <input type="text" data-ctrl="maxLength"
                         value={data.maxLength}
-                        className={input_num}
+                        className="input_num"
                         placeholder="Max."
                         disabled={data.isConstant}
                         onChange={(event) => this.handleMaxValue(event)} />
@@ -223,10 +228,10 @@ export class CategorizedValue extends Component {
                 <label>
                     <input type="text" data-ctrl="alternateValues"
                         value={data.alternateValues}
-                        className={input_text}
+                        className="input_text"
                         placeholder="Alternate Values"
                         onChange={(event) => this.handleAlternateValues(event)} />
-                </label>}
+                </label>} */}
         </div>);
     }
 }

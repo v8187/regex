@@ -3,12 +3,18 @@ import React, { Component } from 'react';
 import { CategorizedValue } from './CategorizedValue';
 
 const _renderValues = (ctx, categorizedValues, j) => {
+    let len = categorizedValues.length;
+
     return categorizedValues.map((item, i) => {
+        console.log(len, i);
         return (<li key={`${i}${j !== undefined ? j : ''}`}>
             <CategorizedValue
                 data={item}
                 styles={ctx.props.styles}
                 onChange={data => { ctx.onItemChnage(data, i, j); }} />
+            {i < len - 1 && (<a className="rx-btn-join">
+                <i className="fa fa-chain" />
+            </a>)}
             {item.splitted && item.splitted.length && <ul>
                 {_renderValues(ctx, item.splitted, i)}
             </ul>}
@@ -59,18 +65,18 @@ export class ConfirmInputTab extends Component {
     }
 
     render() {
-        let { rx_btn_icon } = this.props.styles;
         return (
             <form onSubmit={this.handleSubmit}>
                 <ul>
                     {_renderValues(this, this.state.categorizedValues)}
                 </ul>
                 <div>
-                    <input type="button" value="&#8678;"
-                        className={rx_btn_icon}
-                        onClick={this.goBack} />
-                    <input type="submit" value="&#8680;"
-                        className={rx_btn_icon} />
+                    <button type="button" onClick={this.goBack}>
+                        <i className="fa fa-angle-double-left" />
+                    </button>
+                    <button type="button" onClick={this.handleSubmit}>
+                        <i className="fa fa-angle-double-right" />
+                    </button>
                 </div>
             </form>
         );

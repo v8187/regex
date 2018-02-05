@@ -24,6 +24,10 @@ ol {
     list-style: none;
 }
 
+li {
+    display: inline-block;
+}
+
 .root {
     max-width: 600px;
     margin: 0 auto;
@@ -46,10 +50,6 @@ ol {
 .rx_btn_icon,
 .rx_btn_text {
     cursor: pointer;
-    &:checked {
-        background: lighten($COLOR_PRIMARY, 10%);
-        color: white;
-    }
 }
 
 .rx_btn_icon,
@@ -63,23 +63,41 @@ ol {
 }
 
 .rx_btn_icon {
-    width: 35px;
+    width: 32px;
     font-weight: bold;
-    &.rx_icon_constant {
+    &.rx_checked {
+        background: lighten($COLOR_PRIMARY, 40%);
+    }
+    .fa-minus-square {
         font-size: 14px;
     }
-    &.rx_icon_split {
+    .fa-level-down {
+        font-size: 19px;
+    }
+    .fa-level-up {
+        font-size: 19px;
+    }
+    .fa-text-height {
         font-size: 17px;
     }
-    &.rx_icon_sensitive {
-        font-size: 13px;
-    }
-    &.rx_icon_optional {
-        font-size: 16px;
+    .fa-exclamation {
+        font-size: 18px;
     }
     >input[type=radio],
     >input[type=checkbox] {
         display: none;
+    }
+}
+
+.rx-btn-edit {
+    display: inline-block;
+    font-size: 16px;
+    color: lighten($COLOR_PRIMARY, 50%);
+    cursor: pointer;
+    padding: 0 0 0 10px;
+    &:hover,
+    &.active {
+        color: white;
     }
 }
 
@@ -89,13 +107,28 @@ ol {
 }
 
 .input_num {
-    width: 30px;
+    width: 50px;
 }
 
 .cate_val_wrapper {
-    padding: 7px;
+    display: inline-block;
+    padding: 5px 10px;
     margin-top: 10px;
     background: rgba(255, 255, 255, 0.3);
+    +a {
+        display: inline-block;
+        font-size: 21px;
+        width: 32px;
+        text-align: center;
+        padding: 0 5px;
+        vertical-align: middle;
+        cursor: pointer;
+        .fa {
+            -o-transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+    }
 }
 
 .input_tab {

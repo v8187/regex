@@ -208,6 +208,22 @@ module.exports = {
             })
           }, */
           {
+            test: /\.min\.css$/,
+            use: [
+              'style-loader',
+              {
+                loader: 'css-loader',
+                query: {
+                  modules: true,
+                  sourceMap: true,
+                  importLoaders: 2,
+                  localIdentName: '[local]'
+                }
+              },
+              'postcss-loader'
+            ]
+          },
+          {
             test: /\.css$/,
             use: [
               'style-loader',
@@ -215,7 +231,7 @@ module.exports = {
                 loader: 'css-loader',
                 query: {
                   modules: true,
-                  localIdentName: '[name]__[local]___[hash:base64:5]'
+                  localIdentName: '[local]'
                 }
               },
               'postcss-loader'
@@ -251,7 +267,7 @@ module.exports = {
                   modules: true,
                   sourceMap: true,
                   importLoaders: 2,
-                  localIdentName: '[name]__[local]___[hash:base64:5]'
+                  localIdentName: '[local]'
                 }
               },
               'sass-loader'

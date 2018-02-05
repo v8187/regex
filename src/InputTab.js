@@ -93,8 +93,9 @@ export class InputTab extends Component {
                     onChange={this.handleTextAreaChange}
                     value={this.state.value} />
                 <div>
-                    <input type="submit" value="&#8680;"
-                        className={this.props.styles.rx_btn_icon} />
+                    <button type="button" onClick={this.handleSubmit}>
+                        <i className="fa fa-angle-double-right" />
+                    </button>
                 </div>
             </form>
         );
