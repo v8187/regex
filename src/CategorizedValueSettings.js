@@ -32,7 +32,7 @@ const
         }).join('');
     };
 
-export class CategorizedValue extends Component {
+export class CategorizedValueSettings extends Component {
 
     constructor(props) {
 
@@ -180,14 +180,10 @@ export class CategorizedValue extends Component {
 
     render() {
         let { data } = this.state;
+
         return (<div className="cate_val_wrapper">
-            <p>
-                {`${data.chars}`}
-                <a className="rx-btn-edit" onClick={this.props.onEdit}>
-                    <i className="fa fa-pencil" />
-                </a>
-            </p>
-            {/* {data.type !== 'space' &&
+            <p>{`${data.chars}`}</p>
+            {data.type !== 'space' &&
                 <label className={`rx_btn_icon ${data.isConstant ? 'rx_checked' : ''}`}>
                     <input type="checkbox" data-ctrl="isConstant"
                         checked={data.isConstant}
@@ -236,7 +232,7 @@ export class CategorizedValue extends Component {
                         className="input_text"
                         placeholder="Alternate Values"
                         onChange={(event) => this.handleAlternateValues(event)} />
-                </label>} */}
+                </label>}
         </div>);
     }
 }

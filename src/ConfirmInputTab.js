@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 
 import { CategorizedValue } from './CategorizedValue';
+import { CategorizedValueSettings } from './CategorizedValueSettings';
+import { CategorizedValueClass } from './CategorizedValue.class';
 
 const _renderValues = (ctx, categorizedValues, j) => {
     let len = categorizedValues.length;
 
     return categorizedValues.map((item, i) => {
-        console.log(len, i);
         return (<li key={`${i}${j !== undefined ? j : ''}`}>
             <CategorizedValue
                 data={item}
                 styles={ctx.props.styles}
-                onChange={data => { ctx.onItemChnage(data, i, j); }} />
-            {i < len - 1 && (<a className="rx-btn-join">
+                onChange={data => { ctx.onItemChnage(data, i, j); }}
+                onEdit={() => { ctx.handleEditClick(i, j); }} />
+            {i < len - 1 && (<a className="rx-btn-join" onClick={() => { ctx.handleJoinClick(i, j); }}>
                 <i className="fa fa-chain" />
             </a>)}
             {item.splitted && item.splitted.length && <ul>
@@ -29,11 +31,16 @@ export class ConfirmInputTab extends Component {
         super(props);
 
         this.state = {
+            selectedI: undefined,
+            selectedJ: undefined,
+            selectedCatVal: undefined,
             categorizedValues: this.props.categorizedValues || []
         };
 
 
         this.onItemChnage = this.onItemChnage.bind(this);
+        this.handleEditClick = this.handleEditClick.bind(this);
+        this.handleJoinClick = this.handleJoinClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.goBack = this.goBack.bind(this);
     }
@@ -49,6 +56,36 @@ export class ConfirmInputTab extends Component {
 
         this.setState({
             categorizedValues: this.state.categorizedValues
+        });
+    }
+
+    handleEditClick(i, j) {
+        this.setState({
+            selectedCatVal: j === undefined ?
+                this.state.categorizedValues[i] :
+                this.state.categorizedValues[j].splitted[i],
+            selectedI: i,
+            selectedJ: j
+        });
+    }
+
+    handleJoinClick(i, j) {
+        let _categorizedValues = this.state.categorizedValues,
+            dest = j === undefined ? _categorizedValues[i] : _categorizedValues[j].splitted[i],
+            src = j === undefined ? _categorizedValues[i + 1] : _categorizedValues[j].splitted[i + 1];
+
+        dest = new CategorizedValueClass('mixed', dest.chars + src.chars);
+
+        if (j === undefined) {
+            _categorizedValues.splice(i, 1, dest);
+            _categorizedValues.splice(i + 1, 1);
+        } else {
+            _categorizedValues[j].splitted.splice(i, 1, dest);
+            _categorizedValues[j].splitted.splice(i + 1, 1);
+        }
+
+        this.setState({
+            categorizedValues: _categorizedValues
         });
     }
 
@@ -70,6 +107,12 @@ export class ConfirmInputTab extends Component {
                 <ul>
                     {_renderValues(this, this.state.categorizedValues)}
                 </ul>
+                {!!this.state.selectedCatVal && <div>
+                    <CategorizedValueSettings
+                        data={this.state.selectedCatVal}
+                        styles={this.props.styles}
+                        onChange={data => { this.onItemChnage(data, this.state.selectedI, this.state.selectedJ); }} />
+                </div>}
                 <div>
                     <button type="button" onClick={this.goBack}>
                         <i className="fa fa-angle-double-left" />

@@ -7,8 +7,6 @@ import { ConfirmInputTab } from './ConfirmInputTab';
 
 import styles from './scss/main.scss';
 
-console.log(styles);
-
 class App extends Component {
 
     constructor(props) {
