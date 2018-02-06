@@ -17,6 +17,9 @@ ul,
 ol {
   list-style: none; }
 
+li {
+  display: inline-block; }
+
 .main_root__3rPfT {
   max-width: 600px;
   margin: 0 auto; }
@@ -37,10 +40,6 @@ ol {
 .main_rx_btn_icon__j2OJY,
 .main_rx_btn_text__2Q7SO {
   cursor: pointer; }
-  .main_rx_btn_icon__j2OJY:checked,
-  .main_rx_btn_text__2Q7SO:checked {
-    background: #5a526e;
-    color: white; }
 
 .main_rx_btn_icon__j2OJY,
 .main_rx_btn_text__2Q7SO,
@@ -51,34 +50,60 @@ ol {
   background: red; }
 
 .main_rx_btn_icon__j2OJY {
-  width: 35px;
+  width: 32px;
   font-weight: bold; }
-  .main_rx_btn_icon__j2OJY.main_rx_icon_constant__2Ilwv {
+  .main_rx_btn_icon__j2OJY.main_rx_checked__1VcCH {
+    background: #a7a0b9; }
+  .main_rx_btn_icon__j2OJY .main_fa-minus-square__ZuRVa {
     font-size: 14px; }
-  .main_rx_btn_icon__j2OJY.main_rx_icon_split__3Vko6 {
+  .main_rx_btn_icon__j2OJY .main_fa-level-down__1w6Jn {
+    font-size: 19px; }
+  .main_rx_btn_icon__j2OJY .main_fa-level-up__28Dnp {
+    font-size: 19px; }
+  .main_rx_btn_icon__j2OJY .main_fa-text-height__13RQ8 {
     font-size: 17px; }
-  .main_rx_btn_icon__j2OJY.main_rx_icon_sensitive__2XTzb {
-    font-size: 13px; }
-  .main_rx_btn_icon__j2OJY.main_rx_icon_optional__11X8M {
-    font-size: 16px; }
+  .main_rx_btn_icon__j2OJY .main_fa-exclamation__36feE {
+    font-size: 18px; }
   .main_rx_btn_icon__j2OJY > input[type=radio],
   .main_rx_btn_icon__j2OJY > input[type=checkbox] {
     display: none; }
+
+.main_rx-btn-edit__3j8Ho {
+  display: inline-block;
+  font-size: 16px;
+  color: #c2bece;
+  cursor: pointer;
+  padding: 0 0 0 10px; }
+  .main_rx-btn-edit__3j8Ho:hover, .main_rx-btn-edit__3j8Ho.main_active__zHpow {
+    color: white; }
 
 .main_input_text__3VIBL {
   width: 150px;
   padding: 0 5px; }
 
 .main_input_num__29jZv {
-  width: 30px; }
+  width: 50px; }
 
 .main_cate_val_wrapper__tXKPn {
-  padding: 7px;
+  display: inline-block;
+  padding: 5px 10px;
   margin-top: 10px;
   background: rgba(255, 255, 255, 0.3); }
+  .main_cate_val_wrapper__tXKPn + a {
+    display: inline-block;
+    font-size: 21px;
+    width: 32px;
+    text-align: center;
+    padding: 0 5px;
+    vertical-align: middle;
+    cursor: pointer; }
+    .main_cate_val_wrapper__tXKPn + a .main_fa__37FkT {
+      -o-transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+      transform: rotate(-45deg); }
 
 .main_input_tab__2_UWF > input {
   width: 100%;
   padding: 100px 10px; }
 
-/*# sourceMappingURL=main.140466b2.css.map*/
+/*# sourceMappingURL=main.7740657d.css.map*/
