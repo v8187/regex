@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 // import Sortable from 'sortablejs';
 
+
+import srvcData from './data.service';
 // import { Token } from './models';
+import { ToolBar } from './ToolBar';
 import { InputTab } from './InputTab';
 import { ConfirmInputTab } from './ConfirmInputTab';
 
 import styles from './scss/main.scss';
+
+var _subscriptions = [];
 
 class App extends Component {
 
@@ -15,8 +20,8 @@ class App extends Component {
 
         this.state = {
             categorizedValues: [],
-            inputValue: 'asdfe23fdADf',
-            currentTab: 'input'
+            inputValue: '',
+            currentTab: ''
         };
 
         // this.handleSort = this.handleSort.bind(this);
@@ -31,10 +36,24 @@ class App extends Component {
             sort: true,
             onSort: this.handleSort
         }); */
+        _subscriptions.push(
+            srvcData.categorizedValues$.subscribe(categorizedValues => {
+                this.setState({ categorizedValues: categorizedValues });
+            }),
+            srvcData.inputValue$.subscribe(inputValue => {
+                this.setState({ inputValue: inputValue });
+            }),
+            srvcData.currentTab$.subscribe(currentTab => {
+                this.setState({ currentTab: currentTab });
+            })
+        );
     }
 
     componeneWillUnMount() {
         this.sortable = null;
+        _subscriptions.map(subcr => {
+            subcr.unsubscribe();
+        });
     }
 
     handleSort(evt) {
@@ -84,6 +103,7 @@ class App extends Component {
     render() {
         return (
             <div className={styles.root}>
+                <ToolBar />
                 {this.state.currentTab === 'input' &&
                     <InputTab
                         styles={styles}

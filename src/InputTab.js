@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 
+import srvcData from './data.service';
+
 import { CategorizedValueClass } from './CategorizedValue.class';
+
+var _subscriptions = [];
 
 export class InputTab extends Component {
 
@@ -9,27 +13,41 @@ export class InputTab extends Component {
         super(props);
 
         this.state = {
-            categorizedValues: this.props.categorizedValues || [],
-            value: this.props.inputValue || ''
+            categorizedValues: [],
+            inputValue: ''
         };
 
         this.handleSort = this.handleSort.bind(this);
-        this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
 
-        this.handleTextAreaChange();
+        this.handleInputChange();
         /* this.sortable = new Sortable(this.elUl, {
             handle: '.handle-icon',
             sort: true,
             onSort: this.handleSort
         }); */
+        _subscriptions.push(
+            srvcData.categorizedValues$.subscribe(categorizedValues => {
+                this.setState({ categorizedValues: categorizedValues });
+            }),
+            srvcData.inputValue$.subscribe(inputValue => {
+                this.setState({ inputValue: inputValue });
+            }),
+            srvcData.currentTab$.subscribe(currentTab => {
+                this.setState({ currentTab: currentTab });
+            })
+        );
     }
 
     componeneWillUnMount() {
         this.sortable = null;
+        _subscriptions.map(subcr => {
+            subcr.unsubscribe();
+        });
     }
 
     handleSort(evt) {
@@ -43,7 +61,7 @@ export class InputTab extends Component {
         }); */
     }
 
-    handleTextAreaChange(evt) {
+    handleInputChange(evt) {
         evt && evt.preventDefault();
 
         var val = this.elTA.value,
@@ -75,14 +93,14 @@ export class InputTab extends Component {
 
         this.setState({
             categorizedValues: catVals,
-            value: val
+            inputValue: val
         }, () => { /* console.log(this.state.categorizedValues); */ });
     }
 
     handleSubmit(evt) {
         evt.preventDefault();
 
-        this.props.onNext(this.state.categorizedValues, this.state.value);
+        this.props.onNext(this.state.categorizedValues, this.state.inputValue);
     }
 
     render() {
@@ -90,8 +108,8 @@ export class InputTab extends Component {
             <form onSubmit={this.handleSubmit} className={this.props.styles.input_tab}>
                 <input type="text"
                     ref={textarea => this.elTA = textarea}
-                    onChange={this.handleTextAreaChange}
-                    value={this.state.value} />
+                    onChange={this.handleInputChange}
+                    value={this.state.inputValue} />
                 <div>
                     <button type="button" onClick={this.handleSubmit}>
                         <i className="fa fa-angle-double-right" />

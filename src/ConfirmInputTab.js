@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 
+import srvcData from './data.service';
+
 import { CategorizedValue } from './CategorizedValue';
 import { CategorizedValueSettings } from './CategorizedValueSettings';
 import { CategorizedValueClass } from './CategorizedValue.class';
+
+var _subscriptions = [];
 
 const _renderValues = (ctx, categorizedValues, j) => {
     let len = categorizedValues.length;
@@ -45,9 +49,25 @@ export class ConfirmInputTab extends Component {
         this.goBack = this.goBack.bind(this);
     }
 
-    componentDidMount() { }
+    componentDidMount() {
+        _subscriptions.push(
+            srvcData.categorizedValues$.subscribe(categorizedValues => {
+                this.setState({ categorizedValues: categorizedValues });
+            }),
+            srvcData.inputValue$.subscribe(inputValue => {
+                this.setState({ inputValue: inputValue });
+            }),
+            srvcData.currentTab$.subscribe(currentTab => {
+                this.setState({ currentTab: currentTab });
+            })
+        );
+    }
 
-    componeneWillUnMount() { }
+    componeneWillUnMount() {
+        _subscriptions.map(subcr => {
+            subcr.unsubscribe();
+        });
+    }
 
     onItemChnage(data, i, j) {
         Object.assign(j === undefined ?
