@@ -146,7 +146,6 @@ export class CategorizedValueSettings extends Component {
 
         data = this.updateRegEx(data);
         this.setState({ data: data }, () => {
-            data.splitted && this.props.on
             this.props.onChange(this.state.data);
         });
     }
