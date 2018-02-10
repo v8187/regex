@@ -5,7 +5,10 @@ import 'rxjs/add/operator/map';
 const __ = {
     inputValueSource: new BehaviorSubject('asdfe23fdADf5656'),
     currentTabSource: new BehaviorSubject('input'),
-    categorizedValuesSource: new BehaviorSubject([])
+    categorizedValuesSource: new BehaviorSubject([]),
+    selectedISource: new BehaviorSubject(),
+    selectedJSource: new BehaviorSubject(),
+    selectedCatValSource: new BehaviorSubject()
 };
 
 class DataService {
@@ -15,6 +18,9 @@ class DataService {
         this.inputValue$ = __.inputValueSource.asObservable();
         this.currentTab$ = __.currentTabSource.asObservable();
         this.categorizedValues$ = __.categorizedValuesSource.asObservable();
+        this.selectedI$ = __.selectedISource.asObservable();
+        this.selectedJ$ = __.selectedJSource.asObservable();
+        this.selectedCatVal$ = __.selectedCatValSource.asObservable();
     }
 
     data(sourceName, value) {

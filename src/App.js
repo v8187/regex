@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import Sortable from 'sortablejs';
 
 
-import srvcData from './data.service';
+// import srvcData from './data.service';
 // import { Token } from './models';
 import { ToolBar } from './ToolBar';
 import { InputTab } from './InputTab';
@@ -10,7 +10,7 @@ import { ConfirmInputTab } from './ConfirmInputTab';
 
 import styles from './scss/main.scss';
 
-var _subscriptions = [];
+// var _subscriptions = [];
 
 class App extends Component {
 
@@ -20,14 +20,17 @@ class App extends Component {
 
         this.state = {
             categorizedValues: [],
-            inputValue: '',
-            currentTab: ''
+            inputValue: 'asdas3123@asdad.sdfs',
+            currentTab: 'input'
         };
 
         // this.handleSort = this.handleSort.bind(this);
-        this.handleInputNext = this.handleInputNext.bind(this);
-        this.handleConfirmInputNext = this.handleConfirmInputNext.bind(this);
+        this.onChangeFromInputTab = this.onChangeFromInputTab.bind(this);
+        this.onChangeFromConfirmInputTab = this.onChangeFromConfirmInputTab.bind(this);
         this.handleConfirmInputBack = this.handleConfirmInputBack.bind(this);
+        this.doNext = this.doNext.bind(this);
+        this.doBack = this.doBack.bind(this);
+        this.doHelp = this.doHelp.bind(this);
     }
 
     componentDidMount() {
@@ -36,24 +39,24 @@ class App extends Component {
             sort: true,
             onSort: this.handleSort
         }); */
-        _subscriptions.push(
-            srvcData.categorizedValues$.subscribe(categorizedValues => {
-                this.setState({ categorizedValues: categorizedValues });
-            }),
-            srvcData.inputValue$.subscribe(inputValue => {
-                this.setState({ inputValue: inputValue });
-            }),
-            srvcData.currentTab$.subscribe(currentTab => {
-                this.setState({ currentTab: currentTab });
-            })
-        );
+        // _subscriptions.push(
+        //     srvcData.categorizedValues$.subscribe(categorizedValues => {
+        //         this.setState({ categorizedValues: categorizedValues });
+        //     }),
+        //     srvcData.inputValue$.subscribe(inputValue => {
+        //         this.setState({ inputValue: inputValue });
+        //     }),
+        //     srvcData.currentTab$.subscribe(currentTab => {
+        //         this.setState({ currentTab: currentTab });
+        //     })
+        // );
     }
 
     componeneWillUnMount() {
         this.sortable = null;
-        _subscriptions.map(subcr => {
-            subcr.unsubscribe();
-        });
+        // _subscriptions.map(subcr => {
+        //     subcr.unsubscribe();
+        // });
     }
 
     handleSort(evt) {
@@ -67,17 +70,20 @@ class App extends Component {
         }); */
     }
 
-    handleInputNext(categorizedValues, inputValue) {
+    onChangeFromInputTab(categorizedValues, inputValue) {
+        // srvcData.data('categorizedValues', categorizedValues);
+        // srvcData.data('inputValue', inputValue);
+        // srvcData.data('currentTab', 'confirmInput');
         this.setState({
             categorizedValues: categorizedValues,
             inputValue: inputValue,
             currentTab: 'confirmInput'
         }, () => {
-            console.log('handleInputNext', this.state.categorizedValues, this.state.inputValue);
+            console.log('onChangeFromInputTab', this.state.categorizedValues, this.state.inputValue);
         });
     }
 
-    handleConfirmInputNext() {
+    onChangeFromConfirmInputTab() {
         var strRegEx = '';
 
         this.state.categorizedValues.forEach(cVal => {
@@ -93,6 +99,7 @@ class App extends Component {
     }
 
     handleConfirmInputBack() {
+        // srvcData.data('currentTab', 'input');
         this.setState({
             currentTab: 'input'
         }, () => {
@@ -100,21 +107,61 @@ class App extends Component {
         });
     }
 
+    doNext() {
+
+        switch (this.state.currentTab) {
+            case 'input':
+            default:
+                // srvcData.data('currentTab', 'confirmInput');
+                this.setState({ currentTab: 'confirmInput' });
+                break;
+            case 'confirmInput':
+                // srvcData.data('currentTab', 'confirmInput');
+                // this.setState({currentTab:'confirmInput'});
+                break;
+        }
+    }
+
+    doBack() {
+        switch (this.state.currentTab) {
+            case 'input':
+            default:
+                // srvcData.data('currentTab', 'input');
+                // this.setState({currentTab:'confirmInput'});
+                break;
+            case 'confirmInput':
+                // srvcData.data('currentTab', 'input');
+                this.setState({ currentTab: 'input' });
+                break;
+        }
+    }
+
+    doHelp() {
+
+    }
+
     render() {
+        console.log('App', this.state);
         return (
             <div className={styles.root}>
-                <ToolBar />
+                <ToolBar
+                    currentTab={this.state.currentTab}
+                    doNext={this.doNext}
+                    doBack={this.doBack}
+                    doHelp={this.doHelp} />
                 {this.state.currentTab === 'input' &&
                     <InputTab
                         styles={styles}
                         categorizedValues={this.state.categorizedValues}
                         inputValue={this.state.inputValue}
-                        onNext={this.handleInputNext} />}
+                        onChange={this.onChangeFromInputTab}
+                        onSubmit={this.doNext} />}
                 {this.state.currentTab === 'confirmInput' &&
                     <ConfirmInputTab
                         styles={styles}
                         categorizedValues={this.state.categorizedValues}
-                        onNext={this.handleConfirmInputNext}
+                        onChange={this.onChangeFromConfirmInputTab}
+                        onSubmit={this.doNext}
                         onBack={this.handleConfirmInputBack} />}
             </div>
         );

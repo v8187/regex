@@ -131,9 +131,47 @@ li {
     }
 }
 
+.rx_toolbar_wrapper {
+    button {
+        display: inline-block;
+        padding: 0 20px;
+        font-size: 25px;
+        line-height: 25px;
+        background: transparent;
+        border: 1px solid lighten($COLOR_PRIMARY, 50%);
+        color: lighten($COLOR_PRIMARY, 50%);
+        outline: 0 none;
+        cursor: pointer;
+        &:hover {
+            color: lighten($COLOR_PRIMARY, 10%);
+            background: lighten($COLOR_PRIMARY, 70%);
+        }
+        &:not(:first-child) {
+            margin-left: 15px;
+        }
+    }
+    &:after,
+    &:before {
+        content: " ";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+    .rx_help_btns {
+        float: right;
+        padding: 5px 10px;
+    }
+    .rx_nav_btns {
+        float: left;
+        padding: 5px 10px;
+    }
+}
+
 .input_tab {
     >input {
         width: 100%;
         padding: 100px 10px;
+        box-sizing: border-box;
     }
 }

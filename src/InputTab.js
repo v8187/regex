@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import srvcData from './data.service';
+// import srvcData from './data.service';
 
 import { CategorizedValueClass } from './CategorizedValue.class';
 
-var _subscriptions = [];
+// var _subscriptions = [];
 
 export class InputTab extends Component {
 
@@ -13,8 +13,8 @@ export class InputTab extends Component {
         super(props);
 
         this.state = {
-            categorizedValues: [],
-            inputValue: ''
+            categorizedValues: this.props.categorizedValues || [],
+            inputValue: this.props.inputValue || ''
         };
 
         this.handleSort = this.handleSort.bind(this);
@@ -30,24 +30,22 @@ export class InputTab extends Component {
             sort: true,
             onSort: this.handleSort
         }); */
-        _subscriptions.push(
-            srvcData.categorizedValues$.subscribe(categorizedValues => {
-                this.setState({ categorizedValues: categorizedValues });
-            }),
-            srvcData.inputValue$.subscribe(inputValue => {
-                this.setState({ inputValue: inputValue });
-            }),
-            srvcData.currentTab$.subscribe(currentTab => {
-                this.setState({ currentTab: currentTab });
-            })
-        );
+        // _subscriptions.push(
+        //     srvcData.categorizedValues$.subscribe(categorizedValues => {
+        //         this.setState({ categorizedValues: categorizedValues });
+        //     }),
+        //     srvcData.inputValue$.subscribe(inputValue => {
+        //         this.setState({ inputValue: inputValue });
+        //         this.handleInputChange();
+        //     })
+        // );
     }
 
     componeneWillUnMount() {
         this.sortable = null;
-        _subscriptions.map(subcr => {
-            subcr.unsubscribe();
-        });
+        // _subscriptions.map(subcr => {
+        //     subcr.unsubscribe();
+        // });
     }
 
     handleSort(evt) {
@@ -90,31 +88,37 @@ export class InputTab extends Component {
                 _fn(char, 'special');
             }
         }, this);
-
+        // srvcData.data('categorizedValues', catVals);
+        // evt && srvcData.data('inputValue', val);
+        console.log(catVals);
         this.setState({
             categorizedValues: catVals,
             inputValue: val
-        }, () => { /* console.log(this.state.categorizedValues); */ });
+        }, () => {
+            this.props.onChange(this.state.categorizedValues, this.state.inputValue);
+            /* console.log(this.state.categorizedValues); */
+        });
     }
 
     handleSubmit(evt) {
         evt.preventDefault();
-
-        this.props.onNext(this.state.categorizedValues, this.state.inputValue);
+        this.props.onSubmit();
+        // srvcData.data('currentTab', 'confirmInput');
     }
 
     render() {
+        console.log('InputTab', this.state);
         return (
             <form onSubmit={this.handleSubmit} className={this.props.styles.input_tab}>
                 <input type="text"
                     ref={textarea => this.elTA = textarea}
                     onChange={this.handleInputChange}
                     value={this.state.inputValue} />
-                <div>
+                {/* <div>
                     <button type="button" onClick={this.handleSubmit}>
                         <i className="fa fa-angle-double-right" />
                     </button>
-                </div>
+                </div> */}
             </form>
         );
     }

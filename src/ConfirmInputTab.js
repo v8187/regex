@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-import srvcData from './data.service';
+// import srvcData from './data.service';
 
 import { CategorizedValue } from './CategorizedValue';
 import { CategorizedValueSettings } from './CategorizedValueSettings';
 import { CategorizedValueClass } from './CategorizedValue.class';
 
-var _subscriptions = [];
+// var _subscriptions = [];
 
 const _renderValues = (ctx, categorizedValues, j) => {
     let len = categorizedValues.length;
@@ -50,23 +50,32 @@ export class ConfirmInputTab extends Component {
     }
 
     componentDidMount() {
-        _subscriptions.push(
-            srvcData.categorizedValues$.subscribe(categorizedValues => {
-                this.setState({ categorizedValues: categorizedValues });
-            }),
-            srvcData.inputValue$.subscribe(inputValue => {
-                this.setState({ inputValue: inputValue });
-            }),
-            srvcData.currentTab$.subscribe(currentTab => {
-                this.setState({ currentTab: currentTab });
-            })
-        );
+        // _subscriptions.push(
+        //     srvcData.categorizedValues$.subscribe(categorizedValues => {
+        //         this.setState({ categorizedValues: categorizedValues });
+        //     }),
+        //     srvcData.inputValue$.subscribe(inputValue => {
+        //         this.setState({ inputValue: inputValue });
+        //     }),
+        //     srvcData.currentTab$.subscribe(currentTab => {
+        //         this.setState({ currentTab: currentTab });
+        //     }),
+        //     srvcData.selectedCatVal$.subscribe(selectedCatVal => {
+        //         this.setState({ selectedCatVal: selectedCatVal });
+        //     }),
+        //     srvcData.selectedI$.subscribe(selectedI => {
+        //         this.setState({ selectedI: selectedI });
+        //     }),
+        //     srvcData.selectedJ$.subscribe(selectedJ => {
+        //         this.setState({ selectedJ: selectedJ });
+        //     })
+        // );
     }
 
     componeneWillUnMount() {
-        _subscriptions.map(subcr => {
-            subcr.unsubscribe();
-        });
+        // _subscriptions.map(subcr => {
+        //     subcr.unsubscribe();
+        // });
     }
 
     onItemChnage(data, i, j) {
@@ -74,12 +83,18 @@ export class ConfirmInputTab extends Component {
             this.state.categorizedValues[i] :
             this.state.categorizedValues[j].splitted[i], data);
 
+        // srvcData.data('categorizedValues', this.state.categorizedValues);
         this.setState({
             categorizedValues: this.state.categorizedValues
         });
     }
 
     handleEditClick(i, j) {
+        // srvcData.data('selectedCatVal', j === undefined ?
+        //     this.state.categorizedValues[i] :
+        //     this.state.categorizedValues[j].splitted[i]);
+        // srvcData.data('selectedI', i);
+        // srvcData.data('selectedJ', j);
         this.setState({
             selectedCatVal: j === undefined ?
                 this.state.categorizedValues[i] :
@@ -103,16 +118,18 @@ export class ConfirmInputTab extends Component {
             _categorizedValues[j].splitted.splice(i, 1, dest);
             _categorizedValues[j].splitted.splice(i + 1, 1);
         }
-
+        // srvcData.data('categorizedValues', _categorizedValues);
         this.setState({
             categorizedValues: _categorizedValues
+        }, () => {
+            this.props.onChange(this.state.categorizedValues);
         });
     }
 
     handleSubmit(evt) {
         evt.preventDefault();
 
-        this.props.onNext();
+        this.props.onSubmit();
     }
 
     goBack(evt) {
@@ -133,14 +150,14 @@ export class ConfirmInputTab extends Component {
                         styles={this.props.styles}
                         onChange={data => { this.onItemChnage(data, this.state.selectedI, this.state.selectedJ); }} />
                 </div>}
-                <div>
+                {/* <div>
                     <button type="button" onClick={this.goBack}>
                         <i className="fa fa-angle-double-left" />
                     </button>
                     <button type="button" onClick={this.handleSubmit}>
                         <i className="fa fa-angle-double-right" />
                     </button>
-                </div>
+                </div> */}
             </form>
         );
     }
