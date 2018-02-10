@@ -13,12 +13,12 @@ const _renderValues = (ctx, categorizedValues, j) => {
 
     return categorizedValues.map((item, i) => {
         return (<li key={`${i}${j !== undefined ? j : ''}`}>
-            <CategorizedValue
+            {!item.splitted && <CategorizedValue
                 data={item}
                 styles={ctx.props.styles}
                 onChange={data => { ctx.onItemChnage(data, i, j); }}
-                onEdit={() => { ctx.handleEditClick(i, j); }} />
-            {i < len - 1 && (<a className="rx-btn-join" onClick={() => { ctx.handleJoinClick(i, j); }}>
+                onEdit={() => { ctx.handleEditClick(i, j); }} />}
+            {(i < len - 1 || j !== undefined) && !item.splitted && (<a className="rx-btn-join" onClick={() => { ctx.handleJoinClick(i, j); }}>
                 <i className="fa fa-chain" />
             </a>)}
             {item.splitted && item.splitted.length && <ul>
@@ -40,7 +40,6 @@ export class ConfirmInputTab extends Component {
             selectedCatVal: undefined,
             categorizedValues: this.props.categorizedValues || []
         };
-
 
         this.onItemChnage = this.onItemChnage.bind(this);
         this.handleEditClick = this.handleEditClick.bind(this);
@@ -122,6 +121,7 @@ export class ConfirmInputTab extends Component {
         this.setState({
             categorizedValues: _categorizedValues
         }, () => {
+            this.state.selectedCatVal && this.handleEditClick(i, j);
             this.props.onChange(this.state.categorizedValues);
         });
     }

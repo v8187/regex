@@ -146,6 +146,7 @@ export class CategorizedValueSettings extends Component {
 
         data = this.updateRegEx(data);
         this.setState({ data: data }, () => {
+            data.splitted && this.props.on
             this.props.onChange(this.state.data);
         });
     }
@@ -195,7 +196,7 @@ export class CategorizedValueSettings extends Component {
                     <input type="checkbox" data-ctrl="canSplit"
                         checked={data.canSplit}
                         onChange={(event) => this.handleSplit(event)} />
-                    <i className="fa fa-level-down" />
+                    <i className="fa fa-chain-broken" />
                 </label>}
             {(data.type === 'lowerAlpha' || data.type === 'upperAlpha') &&
                 <label className={`rx_btn_icon ${data.isSensitive ? 'rx_checked' : ''}`}>

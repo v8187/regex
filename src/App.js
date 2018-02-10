@@ -20,7 +20,7 @@ class App extends Component {
 
         this.state = {
             categorizedValues: [],
-            inputValue: 'asdas3123@asdad.sdfs',
+            inputValue: 'vikram-1234gupta@yhaoo.com',
             currentTab: 'input'
         };
 
@@ -76,8 +76,8 @@ class App extends Component {
         // srvcData.data('currentTab', 'confirmInput');
         this.setState({
             categorizedValues: categorizedValues,
-            inputValue: inputValue,
-            currentTab: 'confirmInput'
+            inputValue: inputValue/* ,
+            currentTab: 'confirmInput' */
         }, () => {
             console.log('onChangeFromInputTab', this.state.categorizedValues, this.state.inputValue);
         });
