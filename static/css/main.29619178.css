@@ -102,8 +102,40 @@ li {
       -webkit-transform: rotate(-45deg);
       transform: rotate(-45deg); }
 
+.main_rx_toolbar_wrapper__3UhYC button {
+  display: inline-block;
+  padding: 0 20px;
+  font-size: 25px;
+  line-height: 25px;
+  background: transparent;
+  border: 1px solid #c2bece;
+  color: #c2bece;
+  outline: 0 none;
+  cursor: pointer; }
+  .main_rx_toolbar_wrapper__3UhYC button:hover {
+    color: #5a526e;
+    background: #f9f8fa; }
+  .main_rx_toolbar_wrapper__3UhYC button:not(:first-child) {
+    margin-left: 15px; }
+
+.main_rx_toolbar_wrapper__3UhYC:after, .main_rx_toolbar_wrapper__3UhYC:before {
+  content: " ";
+  display: table; }
+
+.main_rx_toolbar_wrapper__3UhYC:after {
+  clear: both; }
+
+.main_rx_toolbar_wrapper__3UhYC .main_rx_help_btns__1ZpUN {
+  float: right;
+  padding: 5px 10px; }
+
+.main_rx_toolbar_wrapper__3UhYC .main_rx_nav_btns__2ouwp {
+  float: left;
+  padding: 5px 10px; }
+
 .main_input_tab__2_UWF > input {
   width: 100%;
-  padding: 100px 10px; }
+  padding: 100px 10px;
+  box-sizing: border-box; }
 
-/*# sourceMappingURL=main.7740657d.css.map*/
+/*# sourceMappingURL=main.29619178.css.map*/
