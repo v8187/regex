@@ -54,14 +54,9 @@ li {
   font-weight: bold; }
   .main_rx_btn_icon__j2OJY.main_rx_checked__1VcCH {
     background: #a7a0b9; }
-  .main_rx_btn_icon__j2OJY .main_fa-minus-square__ZuRVa {
-    font-size: 14px; }
-  .main_rx_btn_icon__j2OJY .main_fa-level-down__1w6Jn {
+  .main_rx_btn_icon__j2OJY .main_fa-unlock__11xK1,
+  .main_rx_btn_icon__j2OJY .main_fa-lock__33SEA {
     font-size: 19px; }
-  .main_rx_btn_icon__j2OJY .main_fa-level-up__28Dnp {
-    font-size: 19px; }
-  .main_rx_btn_icon__j2OJY .main_fa-text-height__13RQ8 {
-    font-size: 17px; }
   .main_rx_btn_icon__j2OJY .main_fa-exclamation__36feE {
     font-size: 18px; }
   .main_rx_btn_icon__j2OJY > input[type=radio],
@@ -77,19 +72,16 @@ li {
   .main_rx-btn-edit__3j8Ho:hover, .main_rx-btn-edit__3j8Ho.main_active__zHpow {
     color: white; }
 
-.main_input_text__3VIBL {
-  width: 150px;
-  padding: 0 5px; }
-
 .main_input_num__29jZv {
   width: 50px; }
 
-.main_cate_val_wrapper__tXKPn {
-  display: inline-block;
+.main_cate_val_wrapper__tXKPn,
+.main_cate_val_settings_wrapper__3NM9_ {
   padding: 5px 10px;
   margin-top: 10px;
   background: rgba(255, 255, 255, 0.3); }
-  .main_cate_val_wrapper__tXKPn + a {
+  .main_cate_val_wrapper__tXKPn + a,
+  .main_cate_val_settings_wrapper__3NM9_ + a {
     display: inline-block;
     font-size: 21px;
     width: 32px;
@@ -97,10 +89,28 @@ li {
     padding: 0 5px;
     vertical-align: middle;
     cursor: pointer; }
-    .main_cate_val_wrapper__tXKPn + a .main_fa__37FkT {
+    .main_cate_val_wrapper__tXKPn + a .main_fa__37FkT,
+    .main_cate_val_settings_wrapper__3NM9_ + a .main_fa__37FkT {
       -o-transform: rotate(-45deg);
       -webkit-transform: rotate(-45deg);
       transform: rotate(-45deg); }
+
+.main_cate_val_wrapper__tXKPn {
+  display: inline-block; }
+
+.main_cate_val_settings_wrapper__3NM9_ p {
+  margin: 5px 0 10px;
+  padding-bottom: 10px;
+  font-size: 16px;
+  border-bottom: 1px solid white; }
+
+.main_cate_val_settings_wrapper__3NM9_ label:last-child {
+  display: block; }
+  .main_cate_val_settings_wrapper__3NM9_ label:last-child input {
+    width: 100%;
+    padding: 0 10px;
+    margin: 10px auto;
+    box-sizing: border-box; }
 
 .main_rx_toolbar_wrapper__3UhYC button {
   display: inline-block;
@@ -138,4 +148,17 @@ li {
   padding: 100px 10px;
   box-sizing: border-box; }
 
-/*# sourceMappingURL=main.29619178.css.map*/
+.main_fa-list-remove__YnchO {
+  position: relative; }
+  .main_fa-list-remove__YnchO:before {
+    content: "\F03A";
+    color: #534b66; }
+  .main_fa-list-remove__YnchO:after {
+    color: #2a2634;
+    content: "\F00D";
+    position: absolute;
+    right: -3px;
+    font-size: 90%;
+    top: -4px; }
+
+/*# sourceMappingURL=main.f63717c1.css.map*/
