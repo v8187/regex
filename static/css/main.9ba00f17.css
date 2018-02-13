@@ -20,14 +20,14 @@ ol {
 li {
   display: inline-block; }
 
-.main_root__3rPfT {
+.local {
   max-width: 600px;
   margin: 0 auto; }
 
-.main_rx_btn_icon__j2OJY,
-.main_rx_btn_text__2Q7SO,
-.main_input_text__3VIBL,
-.main_input_num__29jZv {
+.local,
+.local,
+.local,
+.local {
   display: inline-block;
   line-height: 25px;
   vertical-align: middle;
@@ -37,51 +37,51 @@ li {
   outline: 0 none;
   margin-right: 5px; }
 
-.main_rx_btn_icon__j2OJY,
-.main_rx_btn_text__2Q7SO {
+.local,
+.local {
   cursor: pointer; }
 
-.main_rx_btn_icon__j2OJY,
-.main_rx_btn_text__2Q7SO,
-.main_input_num__29jZv {
+.local,
+.local,
+.local {
   text-align: center; }
 
-.main_rx_btn_text__2Q7SO {
+.local {
   background: red; }
 
-.main_rx_btn_icon__j2OJY {
+.local {
   width: 32px;
   font-weight: bold; }
-  .main_rx_btn_icon__j2OJY.main_rx_checked__1VcCH {
+  .local.local {
     background: #a7a0b9; }
-  .main_rx_btn_icon__j2OJY .main_fa-unlock__11xK1,
-  .main_rx_btn_icon__j2OJY .main_fa-lock__33SEA {
+  .local .local,
+  .local .local {
     font-size: 19px; }
-  .main_rx_btn_icon__j2OJY .main_fa-exclamation__36feE {
+  .local .local {
     font-size: 18px; }
-  .main_rx_btn_icon__j2OJY > input[type=radio],
-  .main_rx_btn_icon__j2OJY > input[type=checkbox] {
+  .local > input[type=radio],
+  .local > input[type=checkbox] {
     display: none; }
 
-.main_rx-btn-edit__3j8Ho {
+.local {
   display: inline-block;
   font-size: 16px;
   color: #c2bece;
   cursor: pointer;
   padding: 0 0 0 10px; }
-  .main_rx-btn-edit__3j8Ho:hover, .main_rx-btn-edit__3j8Ho.main_active__zHpow {
+  .local:hover, .local.local {
     color: white; }
 
-.main_input_num__29jZv {
+.local {
   width: 50px; }
 
-.main_cate_val_wrapper__tXKPn,
-.main_cate_val_settings_wrapper__3NM9_ {
+.local,
+.local {
   padding: 5px 10px;
   margin-top: 10px;
   background: rgba(255, 255, 255, 0.3); }
-  .main_cate_val_wrapper__tXKPn + a,
-  .main_cate_val_settings_wrapper__3NM9_ + a {
+  .local + a,
+  .local + a {
     display: inline-block;
     font-size: 21px;
     width: 32px;
@@ -89,30 +89,30 @@ li {
     padding: 0 5px;
     vertical-align: middle;
     cursor: pointer; }
-    .main_cate_val_wrapper__tXKPn + a .main_fa__37FkT,
-    .main_cate_val_settings_wrapper__3NM9_ + a .main_fa__37FkT {
+    .local + a .local,
+    .local + a .local {
       -o-transform: rotate(-45deg);
       -webkit-transform: rotate(-45deg);
       transform: rotate(-45deg); }
 
-.main_cate_val_wrapper__tXKPn {
+.local {
   display: inline-block; }
 
-.main_cate_val_settings_wrapper__3NM9_ p {
+.local p {
   margin: 5px 0 10px;
   padding-bottom: 10px;
   font-size: 16px;
   border-bottom: 1px solid white; }
 
-.main_cate_val_settings_wrapper__3NM9_ label:last-child {
+.local label:last-child {
   display: block; }
-  .main_cate_val_settings_wrapper__3NM9_ label:last-child input {
+  .local label:last-child input {
     width: 100%;
     padding: 0 10px;
     margin: 10px auto;
     box-sizing: border-box; }
 
-.main_rx_toolbar_wrapper__3UhYC button {
+.local button {
   display: inline-block;
   padding: 0 20px;
   font-size: 25px;
@@ -122,38 +122,38 @@ li {
   color: #c2bece;
   outline: 0 none;
   cursor: pointer; }
-  .main_rx_toolbar_wrapper__3UhYC button:hover {
+  .local button:hover {
     color: #5a526e;
     background: #f9f8fa; }
-  .main_rx_toolbar_wrapper__3UhYC button:not(:first-child) {
+  .local button:not(:first-child) {
     margin-left: 15px; }
 
-.main_rx_toolbar_wrapper__3UhYC:after, .main_rx_toolbar_wrapper__3UhYC:before {
+.local:after, .local:before {
   content: " ";
   display: table; }
 
-.main_rx_toolbar_wrapper__3UhYC:after {
+.local:after {
   clear: both; }
 
-.main_rx_toolbar_wrapper__3UhYC .main_rx_help_btns__1ZpUN {
+.local .local {
   float: right;
   padding: 5px 10px; }
 
-.main_rx_toolbar_wrapper__3UhYC .main_rx_nav_btns__2ouwp {
+.local .local {
   float: left;
   padding: 5px 10px; }
 
-.main_input_tab__2_UWF > input {
+.local > input {
   width: 100%;
   padding: 100px 10px;
   box-sizing: border-box; }
 
-.main_fa-list-remove__YnchO {
+.local {
   position: relative; }
-  .main_fa-list-remove__YnchO:before {
+  .local:before {
     content: "\F03A";
     color: #534b66; }
-  .main_fa-list-remove__YnchO:after {
+  .local:after {
     color: #2a2634;
     content: "\F00D";
     position: absolute;
@@ -161,4 +161,4 @@ li {
     font-size: 90%;
     top: -4px; }
 
-/*# sourceMappingURL=main.f63717c1.css.map*/
+/*# sourceMappingURL=main.9ba00f17.css.map*/
