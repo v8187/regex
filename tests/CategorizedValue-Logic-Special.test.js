@@ -20,7 +20,7 @@ describe(`CategorizedValue: If input will be "${SPECIAL}"`, () => {
         _find(wpr, 'isOptional').simulate('change', { target: { checked: false } });
         _find(wpr, 'canSplit').simulate('change', { target: { checked: false } });
         _find(wpr, 'maxLength').simulate('change', { target: { value: SPECIAL_LEN } });
-        _find(wpr, 'alternateValues').simulate('change', { target: { value: '' } });
+        _find(wpr, 'customValues').simulate('change', { target: { value: '' } });
     });
 
     describe('If "Constant" set to false and', () => {
@@ -49,9 +49,9 @@ describe(`CategorizedValue: If input will be "${SPECIAL}"`, () => {
             expect(wpr.state().data.regEx).toBe(`[${escapeSpecial(SPECIAL_CHARS)}]{2,4}`);
         });
 
-        test(`If "alternateValues" set to "+>>?.?:{", regex should be "[\\&\\^\\*\\#\\+\\>\\?\\.\\:\\{]{1,${SPECIAL_LEN}}"`, () => {
+        test(`If "customValues" set to "+>>?.?:{", regex should be "[\\&\\^\\*\\#\\+\\>\\?\\.\\:\\{]{1,${SPECIAL_LEN}}"`, () => {
 
-            _find(wpr, 'alternateValues').simulate('change', { target: { value: '+>>?.?:{' } });
+            _find(wpr, 'customValues').simulate('change', { target: { value: '+>>?.?:{' } });
             expect(wpr.state().data.regEx).toBe(`[\\&\\^\\*\\#\\+\\>\\?\\.\\:\\{]{1,${SPECIAL_LEN}}`);
         });
     });

@@ -14,7 +14,7 @@ describe(`CategorizedValue: If input will be "${DIGITS}"`, () => {
         _find(wpr, 'isOptional').simulate('change', { target: { checked: false } });
         _find(wpr, 'canSplit').simulate('change', { target: { checked: false } });
         _find(wpr, 'maxLength').simulate('change', { target: { value: DIGITS_LEN } });
-        _find(wpr, 'alternateValues').simulate('change', { target: { value: '' } });
+        _find(wpr, 'customValues').simulate('change', { target: { value: '' } });
     });
 
     describe('If "Constant" set to false and', () => {
@@ -43,9 +43,9 @@ describe(`CategorizedValue: If input will be "${DIGITS}"`, () => {
             expect(wpr.state().data.regEx).toBe('\\d{2,4}');
         });
 
-        test(`If "alternateValues" set to "7745556666", regex should be "[2968475]{1,7}"`, () => {
+        test(`If "customValues" set to "7745556666", regex should be "[2968475]{1,7}"`, () => {
 
-            _find(wpr, 'alternateValues').simulate('change', { target: { value: '7745556666' } });
+            _find(wpr, 'customValues').simulate('change', { target: { value: '7745556666' } });
             expect(wpr.state().data.regEx).toBe('[2968475]{1,7}');
         });
     });

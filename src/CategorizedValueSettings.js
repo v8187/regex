@@ -43,7 +43,10 @@ export class CategorizedValueSettings extends Component {
                     data.canSplit = false;
                     data.maxLength = data.chars.length;
                 }
-                (data.canSplit || data.isConstant) && (data.alternateValues = '');
+                if (data.canSplit || data.isConstant) {
+                    data.customValues = '';
+                    data.exclude = false;
+                };
                 data.splitted = data.canSplit && !data.isConstant ? data.chars.split('').map((val, valI) => {
                     return new CategorizedValueClass(data.type, val);
                 }) : null;
@@ -69,7 +72,7 @@ export class CategorizedValueSettings extends Component {
                     <input type="checkbox" data-ctrl="isConstant"
                         checked={data.isConstant}
                         onChange={(evt) => this.updateState('isConstant', evt.target.checked)} />
-                    <i className={`fa fa-${data.isConstant ? 'lock' : 'unlock-alt'}`} />
+                    <i className={`fa fa-${data.isConstant ? 'lock' : 'unlock'}`} />
                 </label>}
             {data.type !== 'space' && data.chars.length > 1 && !data.isConstant &&
                 <label className={`rx_btn_icon ${data.canSplit ? 'rx_checked' : ''}`}>
@@ -98,7 +101,7 @@ export class CategorizedValueSettings extends Component {
                         className="input_num"
                         placeholder="Min."
                         disabled={data.isOptional}
-                        onChange={(evt) =>this.updateState('minLength', evt.target.value)} />
+                        onChange={(evt) => this.updateState('minLength', evt.target.value)} />
                     <input type="text" data-ctrl="maxLength"
                         value={data.maxLength}
                         className="input_num"
@@ -107,12 +110,19 @@ export class CategorizedValueSettings extends Component {
                         onChange={(evt) => this.updateState('maxLength', evt.target.value)} />
                 </label>}
             {data.type !== 'space' && !data.isConstant && !data.canSplit &&
+                <label className={`rx_btn_icon ${data.exclude ? 'rx_checked' : ''}`}>
+                    <input type="checkbox" data-ctrl="exclude"
+                        checked={data.exclude}
+                        onChange={(evt) => this.updateState('exclude', evt.target.checked)} />
+                    <i className={`fa fa-${data.exclude ? 'list-remove' : 'list'}`} />
+                </label>}
+            {data.type !== 'space' && !data.isConstant && !data.canSplit &&
                 <label>
-                    <input type="text" data-ctrl="alternateValues"
-                        value={data.alternateValues}
+                    <input type="text" data-ctrl="customValues"
+                        value={data.customValues}
                         className="input_text"
-                        placeholder="Alternate Values"
-                        onChange={(evt) => this.updateState('alternateValues', evt.target.value)} />
+                        placeholder="Custom Values"
+                        onChange={(evt) => this.updateState('customValues', evt.target.value)} />
                 </label>}
         </div>);
     }

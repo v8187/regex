@@ -68,17 +68,9 @@ li {
     &.rx_checked {
         background: lighten($COLOR_PRIMARY, 40%);
     }
-    .fa-minus-square {
-        font-size: 14px;
-    }
-    .fa-level-down {
+    .fa-unlock,
+    .fa-lock {
         font-size: 19px;
-    }
-    .fa-level-up {
-        font-size: 19px;
-    }
-    .fa-text-height {
-        font-size: 17px;
     }
     .fa-exclamation {
         font-size: 18px;
@@ -99,11 +91,6 @@ li {
     &.active {
         color: white;
     }
-}
-
-.input_text {
-    width: 150px;
-    padding: 0 5px;
 }
 
 .input_num {
@@ -133,6 +120,24 @@ li {
 
 .cate_val_wrapper {
     display: inline-block;
+}
+
+.cate_val_settings_wrapper {
+    p {
+        margin: 5px 0 10px;
+        padding-bottom: 10px;
+        font-size: 16px;
+        border-bottom: 1px solid white;
+    }
+    label:last-child {
+        display: block;
+        input {
+            width: 100%;
+            padding: 0 10px;
+            margin: 10px auto;
+            box-sizing: border-box;
+        }
+    }
 }
 
 .rx_toolbar_wrapper {
@@ -177,5 +182,21 @@ li {
         width: 100%;
         padding: 100px 10px;
         box-sizing: border-box;
+    }
+}
+
+.fa-list-remove {
+    position: relative;
+    &:before {
+        content: "\F03A";
+        color: lighten($COLOR_PRIMARY, 7%);
+    }
+    &:after {
+        color: darken($COLOR_PRIMARY, 10%);
+        content: "\F00D";
+        position: absolute;
+        right: -3px;
+        font-size: 90%;
+        top: -4px;
     }
 }

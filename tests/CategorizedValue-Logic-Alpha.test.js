@@ -14,7 +14,7 @@ describe(`CategorizedValue: If input will be "${CHARS}"`, () => {
         _find(wpr, 'isOptional').simulate('change', { target: { checked: false } });
         _find(wpr, 'canSplit').simulate('change', { target: { checked: false } });
         _find(wpr, 'maxLength').simulate('change', { target: { value: CHARS_LEN } });
-        _find(wpr, 'alternateValues').simulate('change', { target: { value: '' } });
+        _find(wpr, 'customValues').simulate('change', { target: { value: '' } });
     });
 
     describe('If "Constant" set to false and', () => {
@@ -49,15 +49,15 @@ describe(`CategorizedValue: If input will be "${CHARS}"`, () => {
             expect(wpr.state().data.regEx).toBe('[a-zA-Z]{2,4}');
         });
 
-        test(`If "alternateValues" set to "aaajjjlknmb", regex should be "[asdfgjlknmbASDFGJLKNMB]{1,6}"`, () => {
+        test(`If "customValues" set to "aaajjjlknmb", regex should be "[asdfgjlknmbASDFGJLKNMB]{1,6}"`, () => {
 
-            _find(wpr, 'alternateValues').simulate('change', { target: { value: 'aaajjjlknmb' } });
+            _find(wpr, 'customValues').simulate('change', { target: { value: 'aaajjjlknmb' } });
             expect(wpr.state().data.regEx).toBe('[asdfgjlknmbASDFGJLKNMB]{1,6}');
         });
 
-        test(`If "alternateValues" set to "aaajjjlknmb" and "Case Sensitive" set to true, regex should be "[asdfgjlknmb]{1,6}"`, () => {
+        test(`If "customValues" set to "aaajjjlknmb" and "Case Sensitive" set to true, regex should be "[asdfgjlknmb]{1,6}"`, () => {
 
-            _find(wpr, 'alternateValues').simulate('change', { target: { value: 'aaajjjlknmb' } });
+            _find(wpr, 'customValues').simulate('change', { target: { value: 'aaajjjlknmb' } });
             _find(wpr, 'isSensitive').simulate('change', { target: { checked: true } });
             expect(wpr.state().data.regEx).toBe('[asdfgjlknmb]{1,6}');
         });

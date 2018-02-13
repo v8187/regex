@@ -10,7 +10,8 @@ export class CategorizedValueClass {
         this.isSensitive = false;
         this.isOptional = false;
         this.splitted = null;
-        this.alternateValues = '';
+        this.customValues = '';
+        this.exclude = false;
         this.regEx = '';
     }
 };

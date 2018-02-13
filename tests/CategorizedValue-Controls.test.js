@@ -38,11 +38,11 @@ describe('CategorizedValue: If "Is Constant" is checked', () => {
         expect(wpr.state().data.splitted).toBeNull();
     });
 
-    test('hides the "Alternate Values" control', () => {
+    test('hides the "Custom Values" control', () => {
 
-        expect(_find(wpr, 'alternateValues').length).toBe(1);
+        expect(_find(wpr, 'customValues').length).toBe(1);
         _find(wpr, 'isConstant').simulate('change', { target: { checked: true } });
-        expect(_find(wpr, 'alternateValues').length).toBe(0);
+        expect(_find(wpr, 'customValues').length).toBe(0);
     });
 
     test('shows the "Min length" controls', () => {
@@ -82,11 +82,11 @@ describe('CategorizedValue: If "Is Constant" is unchecked', () => {
         expect(_find(wpr, 'canSplit').length).toBe(1);
     });
 
-    test('shows the "Alternate Values" control', () => {
+    test('shows the "Custom Values" control', () => {
 
-        expect(_find(wpr, 'alternateValues').length).toBe(0);
+        expect(_find(wpr, 'customValues').length).toBe(0);
         _find(wpr, 'isConstant').simulate('change', { target: { checked: false } });
-        expect(_find(wpr, 'alternateValues').length).toBe(1);
+        expect(_find(wpr, 'customValues').length).toBe(1);
     });
 });
 
@@ -96,11 +96,11 @@ describe('CategorizedValue: If "Can Split" is checked', () => {
         _find(wpr, 'canSplit').simulate('change', { target: { checked: false } });
     });
 
-    test('hides the "Alternate Values" control', () => {
+    test('hides the "Custom Values" control', () => {
 
-        expect(_find(wpr, 'alternateValues').length).toBe(1);
+        expect(_find(wpr, 'customValues').length).toBe(1);
         _find(wpr, 'canSplit').simulate('change', { target: { checked: true } });
-        expect(_find(wpr, 'alternateValues').length).toBe(0);
+        expect(_find(wpr, 'customValues').length).toBe(0);
     });
 
     test('disables the "Min" and "Max" length controls', () => {
@@ -126,11 +126,11 @@ describe('CategorizedValue: If "Can Split" is unchecked', () => {
         _find(wpr, 'canSplit').simulate('change', { target: { checked: true } });
     });
 
-    test('shows the "Alternate Values" control', () => {
+    test('shows the "Custom Values" control', () => {
 
-        expect(_find(wpr, 'alternateValues').length).toBe(0);
+        expect(_find(wpr, 'customValues').length).toBe(0);
         _find(wpr, 'canSplit').simulate('change', { target: { checked: false } });
-        expect(_find(wpr, 'alternateValues').length).toBe(1);
+        expect(_find(wpr, 'customValues').length).toBe(1);
     });
 
     test('shows the "Min" and "Max" length controls', () => {
