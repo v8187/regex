@@ -109,7 +109,7 @@ export class InputTab extends Component {
     render() {
         console.log('InputTab', this.state);
         return (
-            <form onSubmit={this.handleSubmit} className={this.props.styles.input_tab}>
+            <form onSubmit={this.handleSubmit} className="input_tab">
                 <input type="text"
                     ref={textarea => this.elTA = textarea}
                     onChange={this.handleInputChange}

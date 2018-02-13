@@ -94,6 +94,13 @@ export class CategorizedValueSettings extends Component {
                     onChange={(evt) => this.updateState('isOptional', evt.target.checked)} />
                 <i className="fa fa-exclamation" />
             </label>
+            {data.type !== 'space' && !data.isConstant && !data.canSplit &&
+                <label className={`rx_btn_icon ${data.exclude ? 'rx_checked' : ''}`}>
+                    <input type="checkbox" data-ctrl="exclude"
+                        checked={data.exclude}
+                        onChange={(evt) => this.updateState('exclude', evt.target.checked)} />
+                    <i className={`fa fa-${data.exclude ? 'list-remove' : 'list'}`} />
+                </label>}
             {data.type !== 'space' && !data.canSplit &&
                 <label>
                     <input type="text" data-ctrl="minLength"
@@ -109,13 +116,7 @@ export class CategorizedValueSettings extends Component {
                         disabled={data.isConstant}
                         onChange={(evt) => this.updateState('maxLength', evt.target.value)} />
                 </label>}
-            {data.type !== 'space' && !data.isConstant && !data.canSplit &&
-                <label className={`rx_btn_icon ${data.exclude ? 'rx_checked' : ''}`}>
-                    <input type="checkbox" data-ctrl="exclude"
-                        checked={data.exclude}
-                        onChange={(evt) => this.updateState('exclude', evt.target.checked)} />
-                    <i className={`fa fa-${data.exclude ? 'list-remove' : 'list'}`} />
-                </label>}
+
             {data.type !== 'space' && !data.isConstant && !data.canSplit &&
                 <label>
                     <input type="text" data-ctrl="customValues"

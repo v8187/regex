@@ -144,7 +144,7 @@ class App extends Component {
     render() {
         console.log('App', this.state);
         return (
-            <div className={styles.root}>
+            <div className="root">
                 <ToolBar
                     currentTab={this.state.currentTab}
                     doNext={this.doNext}
