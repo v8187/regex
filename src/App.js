@@ -118,6 +118,7 @@ class App extends Component {
             case 'confirmInput':
                 // srvcData.data('currentTab', 'confirmInput');
                 // this.setState({currentTab:'confirmInput'});
+                this.onChangeFromConfirmInputTab();
                 break;
         }
     }
