@@ -20,14 +20,14 @@ ol {
 li {
   display: inline-block; }
 
-.local {
+.root {
   max-width: 600px;
   margin: 0 auto; }
 
-.local,
-.local,
-.local,
-.local {
+.rx_btn_icon,
+.rx_btn_text,
+.input_text,
+.input_num {
   display: inline-block;
   line-height: 25px;
   vertical-align: middle;
@@ -37,51 +37,51 @@ li {
   outline: 0 none;
   margin-right: 5px; }
 
-.local,
-.local {
+.rx_btn_icon,
+.rx_btn_text {
   cursor: pointer; }
 
-.local,
-.local,
-.local {
+.rx_btn_icon,
+.rx_btn_text,
+.input_num {
   text-align: center; }
 
-.local {
+.rx_btn_text {
   background: red; }
 
-.local {
+.rx_btn_icon {
   width: 32px;
   font-weight: bold; }
-  .local.local {
+  .rx_btn_icon.rx_checked {
     background: #a7a0b9; }
-  .local .local,
-  .local .local {
+  .rx_btn_icon .fa-unlock,
+  .rx_btn_icon .fa-lock {
     font-size: 19px; }
-  .local .local {
+  .rx_btn_icon .fa-exclamation {
     font-size: 18px; }
-  .local > input[type=radio],
-  .local > input[type=checkbox] {
+  .rx_btn_icon > input[type=radio],
+  .rx_btn_icon > input[type=checkbox] {
     display: none; }
 
-.local {
+.rx-btn-edit {
   display: inline-block;
   font-size: 16px;
   color: #c2bece;
   cursor: pointer;
   padding: 0 0 0 10px; }
-  .local:hover, .local.local {
+  .rx-btn-edit:hover, .rx-btn-edit.active {
     color: white; }
 
-.local {
+.input_num {
   width: 50px; }
 
-.local,
-.local {
+.cate_val_wrapper,
+.cate_val_settings_wrapper {
   padding: 5px 10px;
   margin-top: 10px;
   background: rgba(255, 255, 255, 0.3); }
-  .local + a,
-  .local + a {
+  .cate_val_wrapper + a,
+  .cate_val_settings_wrapper + a {
     display: inline-block;
     font-size: 21px;
     width: 32px;
@@ -89,30 +89,30 @@ li {
     padding: 0 5px;
     vertical-align: middle;
     cursor: pointer; }
-    .local + a .local,
-    .local + a .local {
+    .cate_val_wrapper + a .fa,
+    .cate_val_settings_wrapper + a .fa {
       -o-transform: rotate(-45deg);
       -webkit-transform: rotate(-45deg);
       transform: rotate(-45deg); }
 
-.local {
+.cate_val_wrapper {
   display: inline-block; }
 
-.local p {
+.cate_val_settings_wrapper p {
   margin: 5px 0 10px;
   padding-bottom: 10px;
   font-size: 16px;
   border-bottom: 1px solid white; }
 
-.local label:last-child {
+.cate_val_settings_wrapper label:last-child {
   display: block; }
-  .local label:last-child input {
+  .cate_val_settings_wrapper label:last-child input {
     width: 100%;
     padding: 0 10px;
     margin: 10px auto;
     box-sizing: border-box; }
 
-.local button {
+.rx_toolbar_wrapper button {
   display: inline-block;
   padding: 0 20px;
   font-size: 25px;
@@ -122,38 +122,38 @@ li {
   color: #c2bece;
   outline: 0 none;
   cursor: pointer; }
-  .local button:hover {
+  .rx_toolbar_wrapper button:hover {
     color: #5a526e;
     background: #f9f8fa; }
-  .local button:not(:first-child) {
+  .rx_toolbar_wrapper button:not(:first-child) {
     margin-left: 15px; }
 
-.local:after, .local:before {
+.rx_toolbar_wrapper:after, .rx_toolbar_wrapper:before {
   content: " ";
   display: table; }
 
-.local:after {
+.rx_toolbar_wrapper:after {
   clear: both; }
 
-.local .local {
+.rx_toolbar_wrapper .rx_help_btns {
   float: right;
   padding: 5px 10px; }
 
-.local .local {
+.rx_toolbar_wrapper .rx_nav_btns {
   float: left;
   padding: 5px 10px; }
 
-.local > input {
+.input_tab > input {
   width: 100%;
   padding: 100px 10px;
   box-sizing: border-box; }
 
-.local {
+.fa-list-remove {
   position: relative; }
-  .local:before {
+  .fa-list-remove:before {
     content: "\F03A";
     color: #534b66; }
-  .local:after {
+  .fa-list-remove:after {
     color: #2a2634;
     content: "\F00D";
     position: absolute;
@@ -161,4 +161,4 @@ li {
     font-size: 90%;
     top: -4px; }
 
-/*# sourceMappingURL=main.9ba00f17.css.map*/
+/*# sourceMappingURL=main.02bdd740.css.map*/
