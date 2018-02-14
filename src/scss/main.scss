@@ -130,14 +130,12 @@ li {
         font-size: 16px;
         border-bottom: 1px solid white;
     }
-    label:last-child {
+    .input_text {
         display: block;
-        input {
-            width: 100%;
-            padding: 0 10px;
-            margin: 10px auto;
-            box-sizing: border-box;
-        }
+        width: 100%;
+        padding: 0 10px;
+        margin: 10px auto;
+        box-sizing: border-box;
     }
 }
 

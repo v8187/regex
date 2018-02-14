@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 // import srvcData from './data.service';
 
-import { CategorizedValueClass } from './CategorizedValue.class';
+import { splitValue } from './regex.service';
 
 // var _subscriptions = [];
 
@@ -62,37 +62,9 @@ export class InputTab extends Component {
     handleInputChange(evt) {
         evt && evt.preventDefault();
 
-        var val = this.elTA.value,
-            lastItem, catVals = [],
-            _fn = (char, type) => {
-                if (lastItem && lastItem.type === type) {
-                    lastItem.chars += char;
-                    lastItem.maxLength = lastItem.chars.length;
-                } else {
-                    catVals.push(lastItem = new CategorizedValueClass(type, char));
-                }
-            };
-
-        val.split('').forEach((char, i) => {
-            lastItem = catVals[catVals.length - 1];
-
-            if (/[a-z]/.test(char)) {
-                _fn(char, 'lowerAlpha');
-            } else if (/[A-Z]/.test(char)) {
-                _fn(char, 'upperAlpha');
-            } else if (/\d/.test(char)) {
-                _fn(char, 'digit');
-            } else if (/\s/.test(char)) {
-                _fn(char, 'space');
-            } else if (/[^a-z\d\s]/i.test(char)) {
-                _fn(char, 'special');
-            }
-        }, this);
-        // srvcData.data('categorizedValues', catVals);
-        // evt && srvcData.data('inputValue', val);
-        console.log(catVals);
+        var val = this.elTA.value;
         this.setState({
-            categorizedValues: catVals,
+            categorizedValues: splitValue(val),
             inputValue: val
         }, () => {
             this.props.onChange(this.state.categorizedValues, this.state.inputValue);
@@ -107,18 +79,12 @@ export class InputTab extends Component {
     }
 
     render() {
-        console.log('InputTab', this.state);
         return (
             <form onSubmit={this.handleSubmit} className="input_tab">
                 <input type="text"
                     ref={textarea => this.elTA = textarea}
                     onChange={this.handleInputChange}
                     value={this.state.inputValue} />
-                {/* <div>
-                    <button type="button" onClick={this.handleSubmit}>
-                        <i className="fa fa-angle-double-right" />
-                    </button>
-                </div> */}
             </form>
         );
     }

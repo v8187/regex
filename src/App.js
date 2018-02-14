@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 // import Sortable from 'sortablejs';
 
-
 // import srvcData from './data.service';
 // import { Token } from './models';
 import { ToolBar } from './ToolBar';
@@ -108,7 +107,6 @@ class App extends Component {
     }
 
     doNext() {
-
         switch (this.state.currentTab) {
             case 'input':
             default:
@@ -142,7 +140,6 @@ class App extends Component {
     }
 
     render() {
-        console.log('App', this.state);
         return (
             <div className="root">
                 <ToolBar

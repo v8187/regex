@@ -150,14 +150,6 @@ export class ConfirmInputTab extends Component {
                         styles={this.props.styles}
                         onChange={data => { this.onItemChnage(data, this.state.selectedI, this.state.selectedJ); }} />
                 </div>}
-                {/* <div>
-                    <button type="button" onClick={this.goBack}>
-                        <i className="fa fa-angle-double-left" />
-                    </button>
-                    <button type="button" onClick={this.handleSubmit}>
-                        <i className="fa fa-angle-double-right" />
-                    </button>
-                </div> */}
             </form>
         );
     }

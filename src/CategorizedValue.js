@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { CategorizedValueClass } from './CategorizedValue.class';
+// import { CategorizedValueClass } from './CategorizedValue.class';
 import { updateRegEx } from './regex.service';
 
 export class CategorizedValue extends Component {

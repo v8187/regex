@@ -1,8 +1,10 @@
+import { CategorizedValueClass } from './CategorizedValue.class';
+
 const
     SPECIAL_CHARS = '`~!@#$%^&*()-_=+[{]}\\|;:\'",<.>/?',
     calcLimit = data => {
-        return (data.canSplit || (data.minLength == 1 && data.maxLength == 1)) ? '' :
-            (data.minLength == 0 && data.maxLength == 1 ? '?' : `{${data.minLength == data.maxLength ? data.minLength :
+        return (data.canSplit || (Number(data.minLength) === 1 && Number(data.maxLength) === 1)) ? '' :
+            (Number(data.minLength) === 0 && Number(data.maxLength) === 1 ? '?' : `{${Number(data.minLength) === Number(data.maxLength) ? Number(data.minLength) :
                 (`${data.isOptional ? 0 :
                     data.minLength},${data.maxLength}`)}}`);
     },
@@ -32,8 +34,8 @@ const
 export function updateRegEx(data) {
     const _sensitive = data.isSensitive,
         _type = data.type,
-        _isAlpha = isAlpha(_type),
-        _optional = data.isOptional;
+        _isAlpha = isAlpha(_type)/* ,
+        _optional = data.isOptional */;
 
     var strRegEx = '';
 
@@ -77,4 +79,38 @@ export function updateRegEx(data) {
     }
     data.regEx = strRegEx;
     return data;
+};
+
+export function splitValue(val, type) {
+    if (type && type !== 'mixed') {
+        return val.split('').map((val, valI) => {
+            return new CategorizedValueClass(type, val);
+        });
+    }
+    var lastItem, catVals = [],
+        _fn = (char, type) => {
+            if (lastItem && lastItem.type === type) {
+                lastItem.chars += char;
+                lastItem.maxLength = lastItem.chars.length;
+            } else {
+                catVals.push(lastItem = new CategorizedValueClass(type, char));
+            }
+        };
+
+    val.split('').forEach((char, i) => {
+        lastItem = catVals[catVals.length - 1];
+
+        if (/[a-z]/.test(char)) {
+            _fn(char, 'lowerAlpha');
+        } else if (/[A-Z]/.test(char)) {
+            _fn(char, 'upperAlpha');
+        } else if (/\d/.test(char)) {
+            _fn(char, 'digit');
+        } else if (/\s/.test(char)) {
+            _fn(char, 'space');
+        } else if (/[^a-z\d\s]/i.test(char)) {
+            _fn(char, 'special');
+        }
+    }, this);
+    return catVals;
 };

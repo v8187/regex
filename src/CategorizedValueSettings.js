@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import { CategorizedValueClass } from './CategorizedValue.class';
-import { updateRegEx } from './regex.service';
+// import { CategorizedValueClass } from './CategorizedValue.class';
+import { updateRegEx, splitValue } from './regex.service';
 
 export class CategorizedValueSettings extends Component {
 
@@ -47,9 +47,10 @@ export class CategorizedValueSettings extends Component {
                     data.customValues = '';
                     data.exclude = false;
                 };
-                data.splitted = data.canSplit && !data.isConstant ? data.chars.split('').map((val, valI) => {
-                    return new CategorizedValueClass(data.type, val);
-                }) : null;
+                // data.splitted = data.canSplit && !data.isConstant ? data.chars.split('').map((val, valI) => {
+                //     return new CategorizedValueClass(data.type, val);
+                // }) : null;
+                data.splitted = data.canSplit && !data.isConstant ? splitValue(data.chars, data.type) : null;
                 break;
             default:
                 data[prop] = val;
@@ -118,13 +119,12 @@ export class CategorizedValueSettings extends Component {
                 </label>}
 
             {data.type !== 'space' && !data.isConstant && !data.canSplit &&
-                <label>
-                    <input type="text" data-ctrl="customValues"
-                        value={data.customValues}
-                        className="input_text"
-                        placeholder="Custom Values"
-                        onChange={(evt) => this.updateState('customValues', evt.target.value)} />
-                </label>}
+                <input type="text" data-ctrl="customValues"
+                    value={data.customValues}
+                    className="input_text"
+                    placeholder="Custom Values"
+                    onChange={(evt) => this.updateState('customValues', evt.target.value)} />
+            }
         </div>);
     }
 }
