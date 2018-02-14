@@ -2313,13 +2313,12 @@ li {
   font-size: 16px;
   border-bottom: 1px solid white; }
 
-.cate_val_settings_wrapper label:last-child {
-  display: block; }
-  .cate_val_settings_wrapper label:last-child input {
-    width: 100%;
-    padding: 0 10px;
-    margin: 10px auto;
-    box-sizing: border-box; }
+.cate_val_settings_wrapper .input_text {
+  display: block;
+  width: 100%;
+  padding: 0 10px;
+  margin: 10px auto;
+  box-sizing: border-box; }
 
 .rx_toolbar_wrapper button {
   display: inline-block;
@@ -2370,4 +2369,4 @@ li {
     font-size: 90%;
     top: -4px; }
 
-/*# sourceMappingURL=main.e59f05c0.css.map*/
+/*# sourceMappingURL=main.49f6db28.css.map*/
