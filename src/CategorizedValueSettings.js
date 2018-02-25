@@ -82,12 +82,19 @@ export class CategorizedValueSettings extends Component {
                         onChange={(evt) => this.updateState('canSplit', evt.target.checked)} />
                     <i className="fa fa-chain-broken" />
                 </label>}
-            {(data.type === 'lowerAlpha' || data.type === 'upperAlpha') &&
-                <label className={`rx_btn_icon ${data.isSensitive ? 'rx_checked' : ''}`}>
-                    <input type="checkbox" data-ctrl="isSensitive"
-                        checked={data.isSensitive}
-                        onChange={(evt) => this.updateState('isSensitive', evt.target.checked)} />
-                    <i className="fa fa-font" />
+            {(data.type !== 'digit' && data.type !== 'special') &&
+                <label className={`rx_btn_text ${data.isUpper ? 'rx_checked' : ''}`}>
+                    <input type="checkbox" data-ctrl="isUpper"
+                        checked={data.isUpper}
+                        onChange={(evt) => this.updateState('isUpper', evt.target.checked)} />
+                    A
+                </label>}
+            {(data.type !== 'digit' && data.type !== 'special') &&
+                <label className={`rx_btn_text ${data.isLower ? 'rx_checked' : ''}`}>
+                    <input type="checkbox" data-ctrl="isLower"
+                        checked={data.isLower}
+                        onChange={(evt) => this.updateState('isLower', evt.target.checked)} />
+                    a
                 </label>}
             <label className={`rx_btn_icon ${data.isOptional ? 'rx_checked' : ''}`}>
                 <input type="checkbox" data-ctrl="isOptional"
@@ -101,6 +108,27 @@ export class CategorizedValueSettings extends Component {
                         checked={data.exclude}
                         onChange={(evt) => this.updateState('exclude', evt.target.checked)} />
                     <i className={`fa fa-${data.exclude ? 'list-remove' : 'list'}`} />
+                </label>}
+            {!data.isConstant && !data.canSplit &&
+                <label className={`rx_btn_text ${data.alphabets ? 'rx_checked' : ''}`}>
+                    <input type="checkbox" data-ctrl="alphabets"
+                        checked={data.alphabets}
+                        onChange={(evt) => this.updateState('alphabets', evt.target.checked)} />
+                    abc
+                </label>}
+            {!data.isConstant && !data.canSplit &&
+                <label className={`rx_btn_text ${data.digits ? 'rx_checked' : ''}`}>
+                    <input type="checkbox" data-ctrl="digits"
+                        checked={data.digits}
+                        onChange={(evt) => this.updateState('digits', evt.target.checked)} />
+                    123
+                </label>}
+            {!data.isConstant && !data.canSplit &&
+                <label className={`rx_btn_text ${data.specialChars ? 'rx_checked' : ''}`}>
+                    <input type="checkbox" data-ctrl="specialChars"
+                        checked={data.specialChars}
+                        onChange={(evt) => this.updateState('specialChars', evt.target.checked)} />
+                    #"$
                 </label>}
             {data.type !== 'space' && !data.canSplit &&
                 <label>

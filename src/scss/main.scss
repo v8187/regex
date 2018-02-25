@@ -60,10 +60,11 @@ li {
 }
 
 .rx_btn_text {
-    background: red;
+    font-size: 12px;
 }
 
-.rx_btn_icon {
+.rx_btn_icon,
+.rx_btn_text {
     width: 32px;
     font-weight: bold;
     &.rx_checked {

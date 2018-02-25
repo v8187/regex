@@ -7,11 +7,15 @@ export class CategorizedValueClass {
         this.maxLength = this.chars.length;
         this.isConstant = false;
         this.canSplit = false;
-        this.isSensitive = false;
+        this.isLower = type === 'lowerAlpha';
+        this.isUpper = type === 'upperAlpha';
         this.isOptional = false;
         this.splitted = null;
         this.customValues = '';
         this.exclude = false;
         this.regEx = '';
+        this.alphabets = type.indexOf('Alpha') !== -1;
+        this.digits = type === 'digit';
+        this.specialChars = type === 'special';
     }
 };

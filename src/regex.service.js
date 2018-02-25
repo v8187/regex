@@ -32,7 +32,7 @@ const
 
 
 export function updateRegEx(data) {
-    const _sensitive = data.isSensitive,
+    const _sensitive = data.isLower,
         _type = data.type,
         _isAlpha = isAlpha(_type)/* ,
         _optional = data.isOptional */;
