@@ -94,12 +94,22 @@ export class ConfirmInputTab extends Component {
         //     this.state.categorizedValues[j].splitted[i]);
         // srvcData.data('selectedI', i);
         // srvcData.data('selectedJ', j);
+        var _catVals = this.state.categorizedValues,
+            _index = null,
+            _selCatVal = j === undefined ? _catVals[i] : _catVals[j].splitted[i];
+
+        _catVals.forEach((cv, k) => {
+            if (cv.splitted && cv.splitted.length) {
+                _index = k;
+            }
+        }, this);
+        _catVals = _index === null ? _catVals :
+            [].concat(_catVals.slice(0, _index), _catVals[_index].splitted, _catVals.slice(_index + 1));
+        console.log(_catVals);
         this.setState({
-            selectedCatVal: j === undefined ?
-                this.state.categorizedValues[i] :
-                this.state.categorizedValues[j].splitted[i],
-            selectedI: i,
-            selectedJ: j
+            categorizedValues: _catVals,
+            selectedCatVal: _catVals[_index === null ? i : j + i],
+            selectedI: _index === null ? i : j + i
         });
     }
 
@@ -148,7 +158,7 @@ export class ConfirmInputTab extends Component {
                     <CategorizedValueSettings
                         data={this.state.selectedCatVal}
                         styles={this.props.styles}
-                        onChange={data => { this.onItemChnage(data, this.state.selectedI, this.state.selectedJ); }} />
+                        onChange={data => { this.onItemChnage(data, this.state.selectedI); }} />
                 </div>}
             </form>
         );
