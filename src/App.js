@@ -19,7 +19,7 @@ class App extends Component {
 
         this.state = {
             categorizedValues: [],
-            inputValue: 'vikram-1234gupta@yhaoo.com',
+            inputValue: 'vikrAM-1234gupta@yhaoo.com',
             currentTab: 'input'
         };
 

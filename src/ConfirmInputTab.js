@@ -95,21 +95,25 @@ export class ConfirmInputTab extends Component {
         // srvcData.data('selectedI', i);
         // srvcData.data('selectedJ', j);
         var _catVals = this.state.categorizedValues,
-            _index = null,
-            _selCatVal = j === undefined ? _catVals[i] : _catVals[j].splitted[i];
-
+            _index = null/* ,
+            _selCatVal = j === undefined ? _catVals[i] : _catVals[j].splitted[i] */;
+        console.log(`i: ${i}, j: ${j}`);
         _catVals.forEach((cv, k) => {
             if (cv.splitted && cv.splitted.length) {
                 _index = k;
+                if (i > k) {
+                    i += cv.splitted.length - 1;
+                }
+                console.log(`cv.splitted.length: ${cv.splitted.length}, k: ${k}`);
             }
         }, this);
         _catVals = _index === null ? _catVals :
             [].concat(_catVals.slice(0, _index), _catVals[_index].splitted, _catVals.slice(_index + 1));
-        console.log(_catVals);
+        // console.log(_catVals);
         this.setState({
             categorizedValues: _catVals,
-            selectedCatVal: _catVals[_index === null ? i : j + i],
-            selectedI: _index === null ? i : j + i
+            selectedCatVal: _catVals[_index === null || j === undefined ? i : j + i],
+            selectedI: _index === null || j === undefined ? i : j + i
         });
     }
 
