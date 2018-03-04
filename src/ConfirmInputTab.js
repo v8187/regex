@@ -97,14 +97,14 @@ export class ConfirmInputTab extends Component {
         var _catVals = this.state.categorizedValues,
             _index = null/* ,
             _selCatVal = j === undefined ? _catVals[i] : _catVals[j].splitted[i] */;
-        console.log(`i: ${i}, j: ${j}`);
+        // console.log(`i: ${i}, j: ${j}`);
         _catVals.forEach((cv, k) => {
             if (cv.splitted && cv.splitted.length) {
                 _index = k;
                 if (i > k) {
                     i += cv.splitted.length - 1;
                 }
-                console.log(`cv.splitted.length: ${cv.splitted.length}, k: ${k}`);
+                // console.log(`cv.splitted.length: ${cv.splitted.length}, k: ${k}`);
             }
         }, this);
         _catVals = _index === null ? _catVals :

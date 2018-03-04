@@ -32,7 +32,8 @@ const
 
 
 export function updateRegEx(data) {
-    const _sensitive = data.isLower,
+    const _isLower = data.isLower,
+        _isUpper = data.isUpper,
         _type = data.type,
         _isAlpha = isAlpha(_type)/* ,
         _optional = data.isOptional */;
@@ -47,31 +48,36 @@ export function updateRegEx(data) {
         for (; i >= 0; i--) {
             let range = i >= data.minLength && i < data.maxLength + 1,
                 char = splitted[i];
-            _rx = `${range ? '(' : ''}${_sensitive || !_isAlpha ? (_type === 'special' ? escapeSpecial(char) : char) : `[${char.toLowerCase()}${char.toUpperCase()}]`}${_rx}${range ? ')?' : ''}`;
+            _rx = `${range ? '(' : ''}${_isLower || !_isAlpha ? (_type === 'special' ? escapeSpecial(char) : char) : `[${char.toLowerCase()}${char.toUpperCase()}]`}${_rx}${range ? ')?' : ''}`;
         }
         strRegEx += /* _optional ? `(${_rx})?` : */ _rx;
     } else if (!data.canSplit) {
         if (_type === 'digit') {
             strRegEx += data.customValues ? `[${parseCustomValues(data)}]` : '\\d';
         } else if (_type === 'special') {
-            strRegEx += data.customValues ? `[${escapeSpecial(parseCustomValues(data))}]` : `[${escapeSpecial(SPECIAL_CHARS)}]`;
+            strRegEx += data.customValues ? `[${escapeSpecial(parseCustomValues(data))}]` : `[^a-zA-Z\\d\\s]`;
         } else {
             strRegEx += '[';
             if (data.customValues) {
                 let custVals = parseCustomValues(data);
                 // strRegEx += custVals.toLowerCase() + custVals.toUpperCase();
-                strRegEx += _sensitive ? custVals : custVals.toLowerCase() + custVals.toUpperCase();
+                // strRegEx += _isLower ? custVals : custVals.toLowerCase() + custVals.toUpperCase();
+                if (_isUpper) {
+                    strRegEx += custVals.toUpperCase();
+                }
+                if (_isLower) {
+                    strRegEx += custVals.toLowerCase();
+                }
             } else if (_isAlpha) {
-                if (!_sensitive) {
-                    strRegEx += 'a-zA-Z';
-                } else if (data.type === 'lowerAlpha') {
+                if (_isLower) {
                     strRegEx += 'a-z';
-                } else {
+                }
+                if (_isUpper) {
                     strRegEx += 'A-Z';
                 }
             } else {
                 let alphas = parseCustomValues(data);
-                strRegEx += _sensitive ? alphas : alphas.toLowerCase() + alphas.toUpperCase();
+                strRegEx += _isLower ? alphas : alphas.toLowerCase() + alphas.toUpperCase();
             }
             strRegEx += ']';
         }
