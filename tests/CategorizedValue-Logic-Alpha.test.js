@@ -10,7 +10,7 @@ describe(`CategorizedValue: If input will be "${CHARS}"`, () => {
 
     beforeEach(() => {
         _find(wpr, 'isConstant').simulate('change', { target: { checked: false } });
-        _find(wpr, 'isLower').simulate('change', { target: { checked: false } });
+        _find(wpr, 'canLower').simulate('change', { target: { checked: false } });
         _find(wpr, 'isOptional').simulate('change', { target: { checked: false } });
         _find(wpr, 'canSplit').simulate('change', { target: { checked: false } });
         _find(wpr, 'maxLength').simulate('change', { target: { value: CHARS_LEN } });
@@ -38,7 +38,7 @@ describe(`CategorizedValue: If input will be "${CHARS}"`, () => {
 
         test(`If "Case Sensitive" set to true, regex should be "[a-z]{1,${CHARS_LEN}}"`, () => {
 
-            _find(wpr, 'isLower').simulate('change', { target: { checked: true } });
+            _find(wpr, 'canLower').simulate('change', { target: { checked: true } });
             expect(wpr.state().data.regEx).toBe(`[a-z]{1,${CHARS_LEN}}`);
         });
 
@@ -58,7 +58,7 @@ describe(`CategorizedValue: If input will be "${CHARS}"`, () => {
         test(`If "customValues" set to "aaajjjlknmb" and "Case Sensitive" set to true, regex should be "[asdfgjlknmb]{1,6}"`, () => {
 
             _find(wpr, 'customValues').simulate('change', { target: { value: 'aaajjjlknmb' } });
-            _find(wpr, 'isLower').simulate('change', { target: { checked: true } });
+            _find(wpr, 'canLower').simulate('change', { target: { checked: true } });
             expect(wpr.state().data.regEx).toBe('[asdfgjlknmb]{1,6}');
         });
     });
@@ -91,7 +91,7 @@ describe(`CategorizedValue: If input will be "${CHARS}"`, () => {
         describe('If "Case Sensitive" set to true', () => {
 
             beforeEach(() => {
-                _find(wpr, 'isLower').simulate('change', { target: { checked: true } });
+                _find(wpr, 'canLower').simulate('change', { target: { checked: true } });
             });
 
             test(`regex should be "${result3}"`, () => {

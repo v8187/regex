@@ -32,8 +32,8 @@ const
 
 
 export function updateRegEx(data) {
-    const _isLower = data.isLower,
-        _isUpper = data.isUpper,
+    const _canLower = data.canLower,
+        _canUpper = data.canUpper,
         _type = data.type,
         _isAlpha = isAlpha(_type)/* ,
         _optional = data.isOptional */;
@@ -48,7 +48,7 @@ export function updateRegEx(data) {
         for (; i >= 0; i--) {
             let range = i >= data.minLength && i < data.maxLength + 1,
                 char = splitted[i];
-            _rx = `${range ? '(' : ''}${_isLower || !_isAlpha ? (_type === 'special' ? escapeSpecial(char) : char) : `[${char.toLowerCase()}${char.toUpperCase()}]`}${_rx}${range ? ')?' : ''}`;
+            _rx = `${range ? '(' : ''}${_canLower || !_isAlpha ? (_type === 'special' ? escapeSpecial(char) : char) : `[${char.toLowerCase()}${char.toUpperCase()}]`}${_rx}${range ? ')?' : ''}`;
         }
         strRegEx += /* _optional ? `(${_rx})?` : */ _rx;
     } else if (!data.canSplit) {
@@ -61,23 +61,23 @@ export function updateRegEx(data) {
             if (data.customValues) {
                 let custVals = parseCustomValues(data);
                 // strRegEx += custVals.toLowerCase() + custVals.toUpperCase();
-                // strRegEx += _isLower ? custVals : custVals.toLowerCase() + custVals.toUpperCase();
-                if (_isUpper) {
+                // strRegEx += _canLower ? custVals : custVals.toLowerCase() + custVals.toUpperCase();
+                if (_canUpper) {
                     strRegEx += custVals.toUpperCase();
                 }
-                if (_isLower) {
+                if (_canLower) {
                     strRegEx += custVals.toLowerCase();
                 }
             } else if (_isAlpha) {
-                if (_isLower) {
+                if (_canLower) {
                     strRegEx += 'a-z';
                 }
-                if (_isUpper) {
+                if (_canUpper) {
                     strRegEx += 'A-Z';
                 }
             } else {
                 let alphas = parseCustomValues(data);
-                strRegEx += _isLower ? alphas : alphas.toLowerCase() + alphas.toUpperCase();
+                strRegEx += _canLower ? alphas : alphas.toLowerCase() + alphas.toUpperCase();
             }
             strRegEx += ']';
         }
