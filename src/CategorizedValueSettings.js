@@ -83,7 +83,7 @@ export class CategorizedValueSettings extends Component {
             {/* Can Split Control */}
             {data.type !== 'space' && data.chars.length > 1 && !data.isConstant &&
                 <label className={`rx_btn_icon ${data.canSplit ? 'rx_checked' : ''}`}
-                    title="Split the text">
+                    title="Split the value">
                     <input type="checkbox" data-ctrl="canSplit"
                         checked={data.canSplit}
                         onChange={(evt) => this.updateState('canSplit', evt.target.checked)} />
@@ -92,7 +92,7 @@ export class CategorizedValueSettings extends Component {
             {/* Is Constant Control */}
             {data.type !== 'space' && !data.canSplit &&
                 <label className={`rx_btn_icon ${data.isConstant ? 'rx_checked' : ''}`}
-                    title="Can Split">
+                    title="Is a Constant Value">
                     <input type="checkbox" data-ctrl="isConstant"
                         checked={data.isConstant}
                         onChange={(evt) => this.updateState('isConstant', evt.target.checked)} />
@@ -101,7 +101,7 @@ export class CategorizedValueSettings extends Component {
             {/* Can Upper Case Control */}
             {!data.canSplit &&
                 <label className={`rx_btn_text ${data.canUpper ? 'rx_checked' : ''}`}
-                    title="Can Split">
+                    title="Uppercase value">
                     <input type="checkbox" data-ctrl="canUpper"
                         checked={data.canUpper}
                         onChange={(evt) => this.updateState('canUpper', evt.target.checked)} />
@@ -110,41 +110,16 @@ export class CategorizedValueSettings extends Component {
             {/* Can Lower Case Control */}
             {!data.canSplit &&
                 <label className={`rx_btn_text ${data.canLower ? 'rx_checked' : ''}`}
-                    title="Can Split">
+                    title="Lowercase value">
                     <input type="checkbox" data-ctrl="canLower"
                         checked={data.canLower}
                         onChange={(evt) => this.updateState('canLower', evt.target.checked)} />
                     a
                 </label>}
-            {/* is Optional Control */}
-            {!data.canSplit &&
-                <label className={`rx_btn_icon ${data.isOptional ? 'rx_checked' : ''}`}
-                    title="Can Split">
-                    <input type="checkbox" data-ctrl="isOptional"
-                        checked={data.isOptional}
-                        onChange={(evt) => this.updateState('isOptional', evt.target.checked)} />
-                    <i className="fa fa-exclamation" />
-                </label>}
-            {/* Need To Exclude Control */}
-            {data.type !== 'space' && !data.isConstant && !data.canSplit &&
-                <label className={`rx_btn_icon ${data.exclude ? 'rx_checked' : ''}`}
-                    title="Can Split">
-                    <input type="checkbox" data-ctrl="exclude"
-                        checked={data.exclude}
-                        onChange={(evt) => this.updateState('exclude', evt.target.checked)} />
-                    <i className={`fa fa-${data.exclude ? 'list-remove' : 'list'}`} />
-                </label>}
-            {/* !data.isConstant && !data.canSplit &&
-                <label className={`rx_btn_text ${data.alphabets ? 'rx_checked' : ''}`}>
-                    <input type="checkbox" data-ctrl="alphabets"
-                        checked={data.alphabets}
-                        onChange={(evt) => this.updateState('alphabets', evt.target.checked)} />
-                    abc
-                </label> */}
             {/* Can Digits Control */}
             {!data.isConstant && !data.canSplit &&
                 <label className={`rx_btn_text ${data.canDigit ? 'rx_checked' : ''}`}
-                    title="Can Split">
+                    title="Digits">
                     <input type="checkbox" data-ctrl="canDigit"
                         checked={data.canDigit}
                         onChange={(evt) => this.updateState('canDigit', evt.target.checked)} />
@@ -153,17 +128,69 @@ export class CategorizedValueSettings extends Component {
             {/* Can Special Characters Control */}
             {!data.isConstant && !data.canSplit &&
                 <label className={`rx_btn_text ${data.canSpecial ? 'rx_checked' : ''}`}
-                    title="Can Split">
+                    title="Special Characters">
                     <input type="checkbox" data-ctrl="canSpecial"
                         checked={data.canSpecial}
                         onChange={(evt) => this.updateState('canSpecial', evt.target.checked)} />
                     #"$
                 </label>}
+            {/* is Optional Control */}
+            {!data.canSplit &&
+                <label className={`rx_btn_icon ${data.isOptional ? 'rx_checked' : ''}`}
+                    title="It is Optional">
+                    <input type="checkbox" data-ctrl="isOptional"
+                        checked={data.isOptional}
+                        onChange={(evt) => this.updateState('isOptional', evt.target.checked)} />
+                    <i className="fa fa-exclamation" />
+                </label>}
+            {/* Need To Exclude Control */}
+            {data.type !== 'space' && !data.isConstant && !data.canSplit &&
+                <label className={`rx_btn_icon ${data.exclude ? 'rx_checked' : ''}`}
+                    title="Exclude this value">
+                    <input type="checkbox" data-ctrl="exclude"
+                        checked={data.exclude}
+                        onChange={(evt) => this.updateState('exclude', evt.target.checked)} />
+                    <i className={`fa fa-${data.exclude ? 'list-remove' : 'list'}`} />
+                </label>}
+            {/* Any characters in Custom Value */}
+            {data.type !== 'space' && !data.isConstant && !data.canSplit &&
+                <label className={`rx_btn_text ${data.customValType === 'any' ? 'rx_checked' : ''}`}
+                    title="Any characters in Custom Value">
+                    <input type="radio" data-ctrl="customValType" name="customValType"
+                        checked={data.customValType === 'any'}
+                        onChange={(evt) => this.updateState('customValType', 'any')} />
+                    .*
+                </label>}
+            {/* Selected words in Custom Value */}
+            {data.type !== 'space' && !data.isConstant && !data.canSplit &&
+                <label className={`rx_btn_text ${data.customValType === 'list' ? 'rx_checked' : ''}`}
+                    title="Selected words in Custom Value">
+                    <input type="radio" data-ctrl="customValType" name="customValType"
+                        checked={data.customValType === 'list'}
+                        onChange={(evt) => this.updateState('customValType', 'list')} />
+                    a|2
+                </label>}
+            {/* Values Range in Custom Value */}
+            {data.type !== 'space' && !data.isConstant && !data.canSplit &&
+                <label className={`rx_btn_text ${data.customValType === 'range' ? 'rx_checked' : ''}`}
+                    title="Values Range in Custom Value">
+                    <input type="radio" data-ctrl="customValType" name="customValType"
+                        checked={data.customValType === 'range'}
+                        onChange={(evt) => this.updateState('customValType', 'range')} />
+                    a-b
+                </label>}
+            {/* !data.isConstant && !data.canSplit &&
+                <label className={`rx_btn_text ${data.alphabets ? 'rx_checked' : ''}`}>
+                    <input type="checkbox" data-ctrl="alphabets"
+                        checked={data.alphabets}
+                        onChange={(evt) => this.updateState('alphabets', evt.target.checked)} />
+                    abc
+                </label> */}
             {data.type !== 'space' && !data.canSplit &&
                 <label>
                     {/* Minimum Length Control */}
                     <input type="text" data-ctrl="minLength"
-                        title="Can Split"
+                        title="Minimum Length"
                         value={data.minLength}
                         className="input_num"
                         placeholder="Min."
@@ -171,7 +198,7 @@ export class CategorizedValueSettings extends Component {
                         onChange={(evt) => this.updateState('minLength', evt.target.value)} />
                     {/* Maximum Length Control */}
                     <input type="text" data-ctrl="maxLength"
-                        title="Can Split"
+                        title="Maximum Length"
                         value={data.maxLength}
                         className="input_num"
                         placeholder="Max."
@@ -181,7 +208,7 @@ export class CategorizedValueSettings extends Component {
             {/* Custom Values Control */}
             {data.type !== 'space' && !data.isConstant && !data.canSplit &&
                 <input type="text" data-ctrl="customValues"
-                    title="Can Split"
+                    title="Custom Values"
                     value={data.customValues}
                     className="input_text"
                     placeholder="Custom Values"
