@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0; }
+
+html, body {
+  height: 100%; }
+
+body {
+  background: #423c51;
+  font-family: arial, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  color: #444; }
+
+ul, ol {
+  list-style: none; }
+
+input[type=text],
+input[type=number] {
+  border: 1px solid #bbb;
+  height: 25px; }
+  input[type=text]:hover, input[type=text]:focus,
+  input[type=number]:hover,
+  input[type=number]:focus {
+    outline: 0 none;
+    border-color: #423c51; }
+
+#root {
+  max-width: 600px;
+  margin: 0 auto; }

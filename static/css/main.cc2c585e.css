@@ -2256,20 +2256,27 @@ li {
   text-align: center; }
 
 .rx_btn_text {
-  background: red; }
+  font-size: 12px; }
 
-.rx_btn_icon {
+.rx_btn_icon,
+.rx_btn_text {
   width: 32px;
   font-weight: bold; }
-  .rx_btn_icon.rx_checked {
+  .rx_btn_icon.rx_checked,
+  .rx_btn_text.rx_checked {
     background: #a7a0b9; }
   .rx_btn_icon .fa-unlock,
-  .rx_btn_icon .fa-lock {
+  .rx_btn_icon .fa-lock,
+  .rx_btn_text .fa-unlock,
+  .rx_btn_text .fa-lock {
     font-size: 19px; }
-  .rx_btn_icon .fa-exclamation {
+  .rx_btn_icon .fa-exclamation,
+  .rx_btn_text .fa-exclamation {
     font-size: 18px; }
   .rx_btn_icon > input[type=radio],
-  .rx_btn_icon > input[type=checkbox] {
+  .rx_btn_icon > input[type=checkbox],
+  .rx_btn_text > input[type=radio],
+  .rx_btn_text > input[type=checkbox] {
     display: none; }
 
 .rx-btn-edit {
@@ -2369,4 +2376,4 @@ li {
     font-size: 90%;
     top: -4px; }
 
-/*# sourceMappingURL=main.49f6db28.css.map*/
+/*# sourceMappingURL=main.cc2c585e.css.map*/
