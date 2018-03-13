@@ -29,10 +29,19 @@ const
             return '\\' + char;
         }).join('');
     },
-    _alphas = (char, l, u) => {
+    _unique = data => {
+        var uniqueVals = '';
+        (data.customValues || '').split('').forEach(char => {
+            if (uniqueVals.indexOf(char) === -1) {
+                uniqueVals += char;
+            }
+        });
+        return uniqueVals;
+    },
+    _alphas = (char, l, u, asList) => {
         var isAlpha = /[a-zA-Z]/.test(char);
         if (isAlpha && l && u) {
-            return `[${char.toLowerCase()}${char.toUpperCase()}]`;
+            return `${asList ? '[' : ''}${char.toLowerCase()}${char.toUpperCase()}${asList ? ']' : ''}`;
         }
         else if (isAlpha && l) {
             return char.toLowerCase();
@@ -63,6 +72,7 @@ export function updateRegEx(data) {
         _U = data.canUpper,
         _D = data.canDigit,
         _SC = data.canSpecial,
+        _SP = data.canSpace,
         _type = data.type,
         _isAlpha = isAlpha(_type)/* ,
  _optional = data.isOptional */;
@@ -78,40 +88,75 @@ export function updateRegEx(data) {
             let range = i >= data.minLength && i < data.maxLength + 1,
                 char = splitted[i];
             // _rx = `${range ? '(' : ''}${_L || !_isAlpha ? (_type === 'special' ? escapeSpecial(char) : char) : `[${char.toLowerCase()}${char.toUpperCase()}]`}${_rx}${range ? ')?' : ''}`;
-            _rx = `${range ? '(' : ''}${_alphas(char, _L, _U)}${_digits(char)}${_spclChars(char)}${_rx}${range ? ')?' : ''}`;
+            _rx = `${range ? '(' : ''}${_alphas(char, _L, _U, true)}${_digits(char)}${_spclChars(char)}${_rx}${range ? ')?' : ''}`;
         }
         strRegEx += /* _optional ? `(${_rx})?` : */ _rx;
     } else if (!data.canSplit) {
         if (data.customValues) {
-
+            switch (data.customValType) {
+                case 'any':
+                default:
+                    strRegEx += '[';
+                    _unique(data).split('').forEach(char => {
+                        strRegEx += `${_alphas(char, _L, _U, false)}${_digits(char)}${_spclChars(char)}`;
+                    });
+                    strRegEx += ']';
+                    break;
+                case 'list':
+                    break;
+                case 'range':
+                    break;
+            }
         } else {
-            if (_SC) {
-                if (!_D && !_L && !_U) {            // 0 0 0
-                    strRegEx += '[^\\s\\da-zA-Z]';
-                } else if (!_D && !_L && _U) {      // 0 0 1
-                    strRegEx += '[^\\s\\da-z]';
-                } else if (!_D && _L && !_U) {      // 0 1 0
-                    strRegEx += '[^\\s\\dA-Z]';
-                } else if (!_D && _L && _U) {       // 0 1 1
-                    strRegEx += '[^\\s\\d]';
-                } else if (_D && !_L && !_U) {      // 1 0 0
-                    strRegEx += '[^\\sa-zA-Z]';
-                } else if (_D && !_L && _U) {       // 1 0 1
-                    strRegEx += '[^\\sa-z]';
-                } else if (_D && _L && !_U) {       // 1 1 0
-                    strRegEx += '[^\\sA-Z]';
-                } else if (_D && _L && _U) {        // 1 1 1
-                    strRegEx += '[^\\s]';
+            if (!_SC) {
+                // Only Space
+                if (_SP && !_D && !_L && !_U) {
+                    strRegEx += '\\s';
                 }
-            } else {
-                if (_D && !_L && !_U) {
+                // Only Digits
+                else if (!_SP && _D && !_L && !_U) {
                     strRegEx += '\\d';
                 } else {
                     strRegEx += '[';
+                    _SP && (strRegEx += '\\s');
                     _D && (strRegEx += '\\d');
                     _L && (strRegEx += 'a-z');
                     _U && (strRegEx += 'A-Z');
                     strRegEx += ']';
+                }
+            } else {                                        // S    D   L   U
+                if (!_SP && !_D && !_L && !_U) {            // 0    0   0   0
+                    strRegEx += '[^\\s\\da-zA-Z]';
+                } else if (!_SP && !_D && !_L && _U) {      // 0    0   0   1
+                    strRegEx += '[^\\s\\da-z]';
+                } else if (!_SP && !_D && _L && !_U) {      // 0    0   1   0
+                    strRegEx += '[^\\s\\dA-Z]';
+                } else if (!_SP && !_D && _L && _U) {       // 0    0   1   1
+                    strRegEx += '[^\\s\\d]';
+                } else if (!_SP && _D && !_L && !_U) {      // 0    1   0   0
+                    strRegEx += '[^\\sa-zA-Z]';
+                } else if (!_SP && _D && !_L && _U) {       // 0    1   0   1
+                    strRegEx += '[^\\sa-z]';
+                } else if (!_SP && _D && _L && !_U) {       // 0    1   1   0
+                    strRegEx += '[^\\sA-Z]';
+                } else if (!_SP && _D && _L && _U) {        // 0    1   1   1
+                    strRegEx += '[^\\s]';
+                } else if (_SP && !_D && !_L && !_U) {      // 1    0   0   0
+                    strRegEx += '[^\\da-zA-Z]';
+                } else if (_SP && !_D && !_L && _U) {       // 1    0   0   1
+                    strRegEx += '[^\\da-z]';
+                } else if (_SP && !_D && _L && !_U) {       // 1    0   1   0
+                    strRegEx += '[^\\dA-Z]';
+                } else if (_SP && !_D && _L && _U) {        // 1    0   1   1
+                    strRegEx += '[^\\d]';
+                } else if (_SP && _D && !_L && !_U) {       // 1    1   0   0
+                    strRegEx += '[^a-zA-Z]';
+                } else if (_SP && _D && !_L && _U) {        // 1    1   0   1
+                    strRegEx += '[^a-z]';
+                } else if (_SP && _D && _L && !_U) {        // 1    1   1   0
+                    strRegEx += '[^A-Z]';
+                } else if (_SP && _D && _L && _U) {         // 1    1   1   1
+                    strRegEx += '.';
                 }
             }
         }

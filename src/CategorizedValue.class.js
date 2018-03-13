@@ -12,6 +12,7 @@ export class CategorizedValueClass {
         this.canUpper = this.hasUpper();
         this.canDigit = this.hasDigit();
         this.canSpecial = this.hasSpecial();
+        this.canSpace = this.hasSpace();
         this.isOptional = false;
         this.splitted = null;
         this.customValues = '';
@@ -35,5 +36,9 @@ export class CategorizedValueClass {
     hasSpecial(bool) {
         this.canSpecial = bool !== undefined ? bool : /[^a-zA-Z\d\s]/.test(this.chars);
         return this.canSpecial;
+    }
+    hasSpace(bool) {
+        this.canSpace = bool !== undefined ? bool : /\s/.test(this.chars);
+        return this.canSpace;
     }
 };

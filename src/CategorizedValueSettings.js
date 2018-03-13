@@ -64,6 +64,9 @@ export class CategorizedValueSettings extends Component {
             case 'canSpecial':
                 data.hasSpecial(val);
                 break;
+            case 'canSpace':
+                data.hasSpace(val);
+                break;
             default:
                 data[prop] = val;
                 break;
@@ -133,6 +136,15 @@ export class CategorizedValueSettings extends Component {
                         checked={data.canSpecial}
                         onChange={(evt) => this.updateState('canSpecial', evt.target.checked)} />
                     #"$
+                </label>}
+            {/* Can Space Control */}
+            {!data.isConstant && !data.canSplit &&
+                <label className={`rx_btn_text ${data.canSpace ? 'rx_checked' : ''}`}
+                    title="Space">
+                    <input type="checkbox" data-ctrl="canSpace"
+                        checked={data.canSpace}
+                        onChange={(evt) => this.updateState('canSpace', evt.target.checked)} />
+                    _
                 </label>}
             {/* is Optional Control */}
             {!data.canSplit &&
