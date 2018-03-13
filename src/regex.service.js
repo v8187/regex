@@ -74,8 +74,9 @@ export function updateRegEx(data) {
         _SC = data.canSpecial,
         _SP = data.canSpace,
         _type = data.type,
-        _isAlpha = isAlpha(_type)/* ,
- _optional = data.isOptional */;
+        _xcld = data.exclude/* ,
+        _isAlpha = isAlpha(_type),
+        _optional = data.isOptional */;
 
     var strRegEx = '';
 
@@ -93,19 +94,17 @@ export function updateRegEx(data) {
         strRegEx += /* _optional ? `(${_rx})?` : */ _rx;
     } else if (!data.canSplit) {
         if (data.customValues) {
-            switch (data.customValType) {
-                case 'any':
-                default:
-                    strRegEx += '[';
-                    _unique(data).split('').forEach(char => {
-                        strRegEx += `${_alphas(char, _L, _U, false)}${_digits(char)}${_spclChars(char)}`;
-                    });
-                    strRegEx += ']';
-                    break;
-                case 'list':
-                    break;
-                case 'range':
-                    break;
+            if (data.customValType !== 'list') {
+                strRegEx += '[';
+                _xcld && (strRegEx += '^');
+                _unique(data).split('').forEach(char => {
+                    strRegEx += `${_alphas(char, _L, _U, false)}${_digits(char)}${_spclChars(char)}`;
+                });
+                strRegEx += ']';
+            } else {
+                strRegEx += '(';
+                strRegEx += data.customValues.split(',').join('|');
+                strRegEx += ')';
             }
         } else {
             if (!_SC) {
