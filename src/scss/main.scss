@@ -200,3 +200,42 @@ li {
         top: -4px;
     }
 }
+
+.guide-wrapper {
+    background: white;
+    padding: 15px;
+    margin: 15px 0;
+    color: #333;
+    font-size: 13px;
+    line-height: 21px;
+    h1 {
+        font-size: 16px;
+        line-height: 30px;
+    }
+    table {
+        border-top: 2px solid $COLOR_PRIMARY;
+        border-collapse: collapse;
+        thead {
+            border-bottom: 2px solid $COLOR_PRIMARY;
+            text-align: left;
+            th {
+                padding: 0 5px;
+                &:first-child {
+                    width: 60px;
+                }
+            }
+        }
+        tbody {
+            tr {
+                border-bottom: 1px solid $COLOR_PRIMARY;
+            }
+            td {
+                padding: 5px;
+                vertical-align: top;
+                .rx_btn_text {
+                    margin-top: 5px;
+                }
+            }
+        }
+    }
+}

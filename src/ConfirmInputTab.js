@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 // import srvcData from './data.service';
-
 import { CategorizedValue } from './CategorizedValue';
 import { CategorizedValueSettings } from './CategorizedValueSettings';
 import { CategorizedValueClass } from './CategorizedValue.class';

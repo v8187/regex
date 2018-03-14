@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 // import srvcData from './data.service';
 // import { Token } from './models';
 import { ToolBar } from './ToolBar';
+import { Guide } from './Guide';
 import { InputTab } from './InputTab';
 import { ConfirmInputTab } from './ConfirmInputTab';
 
@@ -147,6 +148,7 @@ class App extends Component {
                     doNext={this.doNext}
                     doBack={this.doBack}
                     doHelp={this.doHelp} />
+                <Guide />
                 {this.state.currentTab === 'input' &&
                     <InputTab
                         styles={styles}
