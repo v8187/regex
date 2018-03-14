@@ -2376,4 +2376,32 @@ li {
     font-size: 90%;
     top: -4px; }
 
-/*# sourceMappingURL=main.cc2c585e.css.map*/
+.guide-wrapper {
+  background: white;
+  padding: 15px;
+  margin: 15px 0;
+  color: #333;
+  font-size: 13px;
+  line-height: 21px; }
+  .guide-wrapper h1 {
+    font-size: 16px;
+    line-height: 30px; }
+  .guide-wrapper table {
+    border-top: 2px solid #423c51;
+    border-collapse: collapse; }
+    .guide-wrapper table thead {
+      border-bottom: 2px solid #423c51;
+      text-align: left; }
+      .guide-wrapper table thead th {
+        padding: 0 5px; }
+        .guide-wrapper table thead th:first-child {
+          width: 60px; }
+    .guide-wrapper table tbody tr {
+      border-bottom: 1px solid #423c51; }
+    .guide-wrapper table tbody td {
+      padding: 5px;
+      vertical-align: top; }
+      .guide-wrapper table tbody td .rx_btn_text {
+        margin-top: 5px; }
+
+/*# sourceMappingURL=main.daa12656.css.map*/
