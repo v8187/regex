@@ -2230,13 +2230,13 @@ li {
   display: inline-block; }
 
 .root {
-  max-width: 600px;
+  max-width: 780px;
   margin: 0 auto; }
 
-.rx_btn_icon,
-.rx_btn_text,
-.input_text,
-.input_num {
+.rx-btn-icon,
+.rx-btn-text,
+.input-text,
+.input-num {
   display: inline-block;
   line-height: 25px;
   vertical-align: middle;
@@ -2245,39 +2245,47 @@ li {
   border: 1px solid #555;
   outline: 0 none;
   margin-right: 5px; }
+  .guide-wrapper .rx-btn-icon, .guide-wrapper
+  .rx-btn-text, .guide-wrapper
+  .input-text, .guide-wrapper
+  .input-num {
+    line-height: 20px; }
 
-.rx_btn_icon,
-.rx_btn_text {
+.rx-btn-icon,
+.rx-btn-text {
   cursor: pointer; }
 
-.rx_btn_icon,
-.rx_btn_text,
-.input_num {
+.rx-btn-icon,
+.rx-btn-text,
+.input-num {
   text-align: center; }
 
-.rx_btn_text {
+.rx-btn-text {
   font-size: 12px; }
 
-.rx_btn_icon,
-.rx_btn_text {
+.rx-btn-icon,
+.rx-btn-text {
   width: 32px;
   font-weight: bold; }
-  .rx_btn_icon.rx_checked,
-  .rx_btn_text.rx_checked {
+  .rx-btn-icon.rx-checked,
+  .rx-btn-text.rx-checked {
     background: #a7a0b9; }
-  .rx_btn_icon .fa-unlock,
-  .rx_btn_icon .fa-lock,
-  .rx_btn_text .fa-unlock,
-  .rx_btn_text .fa-lock {
+  .rx-btn-icon .fa-unlock,
+  .rx-btn-icon .fa-lock,
+  .rx-btn-text .fa-unlock,
+  .rx-btn-text .fa-lock {
     font-size: 19px; }
-  .rx_btn_icon .fa-exclamation,
-  .rx_btn_text .fa-exclamation {
+  .rx-btn-icon .fa-exclamation,
+  .rx-btn-text .fa-exclamation {
     font-size: 18px; }
-  .rx_btn_icon > input[type=radio],
-  .rx_btn_icon > input[type=checkbox],
-  .rx_btn_text > input[type=radio],
-  .rx_btn_text > input[type=checkbox] {
+  .rx-btn-icon > input[type=radio],
+  .rx-btn-icon > input[type=checkbox],
+  .rx-btn-text > input[type=radio],
+  .rx-btn-text > input[type=checkbox] {
     display: none; }
+  .guide-wrapper .rx-btn-icon, .guide-wrapper
+  .rx-btn-text {
+    width: 22px; }
 
 .rx-btn-edit {
   display: inline-block;
@@ -2288,16 +2296,16 @@ li {
   .rx-btn-edit:hover, .rx-btn-edit.active {
     color: white; }
 
-.input_num {
+.input-num {
   width: 50px; }
 
-.cate_val_wrapper,
-.cate_val_settings_wrapper {
+.cate-val-wrapper,
+.cate-val-settings-wrapper {
   padding: 5px 10px;
   margin-top: 10px;
   background: rgba(255, 255, 255, 0.3); }
-  .cate_val_wrapper + a,
-  .cate_val_settings_wrapper + a {
+  .cate-val-wrapper + a,
+  .cate-val-settings-wrapper + a {
     display: inline-block;
     font-size: 21px;
     width: 32px;
@@ -2305,29 +2313,29 @@ li {
     padding: 0 5px;
     vertical-align: middle;
     cursor: pointer; }
-    .cate_val_wrapper + a .fa,
-    .cate_val_settings_wrapper + a .fa {
+    .cate-val-wrapper + a .fa,
+    .cate-val-settings-wrapper + a .fa {
       -o-transform: rotate(-45deg);
       -webkit-transform: rotate(-45deg);
       transform: rotate(-45deg); }
 
-.cate_val_wrapper {
+.cate-val-wrapper {
   display: inline-block; }
 
-.cate_val_settings_wrapper p {
+.cate-val-settings-wrapper p {
   margin: 5px 0 10px;
   padding-bottom: 10px;
   font-size: 16px;
   border-bottom: 1px solid white; }
 
-.cate_val_settings_wrapper .input_text {
+.cate-val-settings-wrapper .input-text {
   display: block;
   width: 100%;
   padding: 0 10px;
   margin: 10px auto;
   box-sizing: border-box; }
 
-.rx_toolbar_wrapper button {
+.rx-toolbar-wrapper button {
   display: inline-block;
   padding: 0 20px;
   font-size: 25px;
@@ -2337,28 +2345,28 @@ li {
   color: #c2bece;
   outline: 0 none;
   cursor: pointer; }
-  .rx_toolbar_wrapper button:hover {
+  .rx-toolbar-wrapper button:hover, .rx-toolbar-wrapper button.active {
     color: #5a526e;
     background: #f9f8fa; }
-  .rx_toolbar_wrapper button:not(:first-child) {
+  .rx-toolbar-wrapper button:not(:first-child) {
     margin-left: 15px; }
 
-.rx_toolbar_wrapper:after, .rx_toolbar_wrapper:before {
+.rx-toolbar-wrapper:after, .rx-toolbar-wrapper:before {
   content: " ";
   display: table; }
 
-.rx_toolbar_wrapper:after {
+.rx-toolbar-wrapper:after {
   clear: both; }
 
-.rx_toolbar_wrapper .rx_help_btns {
+.rx-toolbar-wrapper .rx-help-btns {
   float: right;
   padding: 5px 10px; }
 
-.rx_toolbar_wrapper .rx_nav_btns {
+.rx-toolbar-wrapper .rx-nav-btns {
   float: left;
   padding: 5px 10px; }
 
-.input_tab > input {
+.input-tab > input {
   width: 100%;
   padding: 100px 10px;
   box-sizing: border-box; }
@@ -2378,30 +2386,60 @@ li {
 
 .guide-wrapper {
   background: white;
-  padding: 15px;
-  margin: 15px 0;
   color: #333;
   font-size: 13px;
-  line-height: 21px; }
+  line-height: 20px;
+  opacity: 0;
+  height: 0;
+  margin: 0 auto;
+  transition: all 500ms linear; }
+  .guide-wrapper.visible {
+    height: auto;
+    opacity: 1;
+    margin: 15px 0;
+    padding: 15px; }
+  .guide-wrapper > div {
+    height: calc(100% - 50px);
+    max-height: 210px;
+    overflow: auto;
+    transition: all 500ms linear; }
+  .guide-wrapper article {
+    margin-top: 30px; }
+    .guide-wrapper article h3 {
+      font-size: 14px;
+      line-height: 22px;
+      margin-bottom: 15px; }
+    .guide-wrapper article label {
+      cursor: pointer;
+      text-decoration: underline;
+      color: #a7a0b9; }
+      .guide-wrapper article label .fa-sort-up {
+        display: none; }
+      .guide-wrapper article label span:nth-of-type(2) {
+        display: none; }
+      .guide-wrapper article label ~ p {
+        display: none; }
+    .guide-wrapper article [type="checkbox"] {
+      display: none; }
+      .guide-wrapper article [type="checkbox"]:checked ~ label {
+        color: #363142; }
+        .guide-wrapper article [type="checkbox"]:checked ~ label .fa-sort-up {
+          display: inline-block; }
+        .guide-wrapper article [type="checkbox"]:checked ~ label .fa-sort-down {
+          display: none; }
+        .guide-wrapper article [type="checkbox"]:checked ~ label span:nth-of-type(1) {
+          display: none; }
+        .guide-wrapper article [type="checkbox"]:checked ~ label span:nth-of-type(2) {
+          display: inline; }
+        .guide-wrapper article [type="checkbox"]:checked ~ label ~ p {
+          display: block; }
+    .guide-wrapper article ol {
+      list-style: decimal;
+      padding: 5px 0 5px 50px; }
+      .guide-wrapper article ol li {
+        display: list-item; }
   .guide-wrapper h1 {
-    font-size: 16px;
-    line-height: 30px; }
-  .guide-wrapper table {
-    border-top: 2px solid #423c51;
-    border-collapse: collapse; }
-    .guide-wrapper table thead {
-      border-bottom: 2px solid #423c51;
-      text-align: left; }
-      .guide-wrapper table thead th {
-        padding: 0 5px; }
-        .guide-wrapper table thead th:first-child {
-          width: 60px; }
-    .guide-wrapper table tbody tr {
-      border-bottom: 1px solid #423c51; }
-    .guide-wrapper table tbody td {
-      padding: 5px;
-      vertical-align: top; }
-      .guide-wrapper table tbody td .rx_btn_text {
-        margin-top: 5px; }
+    font-size: 17px;
+    line-height: 24px; }
 
-/*# sourceMappingURL=main.daa12656.css.map*/
+/*# sourceMappingURL=main.5285878c.css.map*/
