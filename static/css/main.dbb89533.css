@@ -2442,4 +2442,24 @@ li {
     font-size: 17px;
     line-height: 24px; }
 
-/*# sourceMappingURL=main.5285878c.css.map*/
+.homepage-wrapper li {
+  border: 2px solid #72678c;
+  box-sizing: border-box;
+  cursor: pointer;
+  margin: 7% 7%;
+  width: 32%;
+  text-align: center;
+  font-size: 75px;
+  line-height: 150px; }
+  .homepage-wrapper li:hover {
+    border-color: #ebe9ef; }
+
+.homepage-wrapper a {
+  display: block;
+  text-decoration: none; }
+  .homepage-wrapper a, .homepage-wrapper a:active, .homepage-wrapper a:visited {
+    color: #72678c; }
+  .homepage-wrapper a:hover {
+    color: #ebe9ef; }
+
+/*# sourceMappingURL=main.dbb89533.css.map*/
