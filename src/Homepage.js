@@ -9,7 +9,7 @@ export class Homepage extends Component {
     }
 
     render() {
-        return (<div className={`homepage-wrapper ${this.props.showGuide ? '' : ''}`}>
+        return (<div className={`homepage-wrapper`}>
             <ul>
                 <li>
                     <NavLink to="/contact" activeClassName="active" title="Contact Me">

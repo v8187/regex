@@ -286,3 +286,31 @@ li {
         line-height: 24px;
     }
 }
+
+.homepage-wrapper {
+    li {
+        border: 2px solid lighten($COLOR_PRIMARY, 20%);
+        box-sizing: border-box;
+        cursor: pointer;
+        margin: 7% 7%;
+        width: 32%;
+        text-align: center;
+        font-size: 75px;
+        line-height: 150px;
+        &:hover {
+            border-color: lighten($COLOR_PRIMARY, 65%);
+        }
+    }
+    a {
+        display: block;
+        text-decoration: none;
+        &,
+        &:active,
+        &:visited {
+            color: lighten($COLOR_PRIMARY, 20%);
+        }
+        &:hover {
+            color: lighten($COLOR_PRIMARY, 65%);
+        }
+    }
+}
