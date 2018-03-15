@@ -81,11 +81,11 @@ export class CategorizedValueSettings extends Component {
     render() {
         let { data } = this.state;
 
-        return (<div className="cate_val_settings_wrapper">
+        return (<div className="cate-val-settings-wrapper">
             <p>{`${data.chars}`}</p>
             {/* Can Split Control */}
             {data.type !== 'space' && data.chars.length > 1 && !data.isConstant &&
-                <label className={`rx_btn_icon ${data.canSplit ? 'rx_checked' : ''}`}
+                <label className={`rx-btn-icon ${data.canSplit ? 'rx-checked' : ''}`}
                     title="Split the value">
                     <input type="checkbox" data-ctrl="canSplit"
                         checked={data.canSplit}
@@ -94,7 +94,7 @@ export class CategorizedValueSettings extends Component {
                 </label>}
             {/* Is Constant Control */}
             {data.type !== 'space' && !data.canSplit &&
-                <label className={`rx_btn_icon ${data.isConstant ? 'rx_checked' : ''}`}
+                <label className={`rx-btn-icon ${data.isConstant ? 'rx-checked' : ''}`}
                     title="Is a Constant Value">
                     <input type="checkbox" data-ctrl="isConstant"
                         checked={data.isConstant}
@@ -103,7 +103,7 @@ export class CategorizedValueSettings extends Component {
                 </label>}
             {/* Can Upper Case Control */}
             {!data.canSplit &&
-                <label className={`rx_btn_text ${data.canUpper ? 'rx_checked' : ''}`}
+                <label className={`rx-btn-text ${data.canUpper ? 'rx-checked' : ''}`}
                     title="Uppercase value">
                     <input type="checkbox" data-ctrl="canUpper"
                         checked={data.canUpper}
@@ -112,7 +112,7 @@ export class CategorizedValueSettings extends Component {
                 </label>}
             {/* Can Lower Case Control */}
             {!data.canSplit &&
-                <label className={`rx_btn_text ${data.canLower ? 'rx_checked' : ''}`}
+                <label className={`rx-btn-text ${data.canLower ? 'rx-checked' : ''}`}
                     title="Lowercase value">
                     <input type="checkbox" data-ctrl="canLower"
                         checked={data.canLower}
@@ -121,7 +121,7 @@ export class CategorizedValueSettings extends Component {
                 </label>}
             {/* Can Digits Control */}
             {!data.isConstant && !data.canSplit &&
-                <label className={`rx_btn_text ${data.canDigit ? 'rx_checked' : ''}`}
+                <label className={`rx-btn-text ${data.canDigit ? 'rx-checked' : ''}`}
                     title="Digits">
                     <input type="checkbox" data-ctrl="canDigit"
                         checked={data.canDigit}
@@ -130,7 +130,7 @@ export class CategorizedValueSettings extends Component {
                 </label>}
             {/* Can Special Characters Control */}
             {!data.isConstant && !data.canSplit &&
-                <label className={`rx_btn_text ${data.canSpecial ? 'rx_checked' : ''}`}
+                <label className={`rx-btn-text ${data.canSpecial ? 'rx-checked' : ''}`}
                     title="Special Characters">
                     <input type="checkbox" data-ctrl="canSpecial"
                         checked={data.canSpecial}
@@ -139,7 +139,7 @@ export class CategorizedValueSettings extends Component {
                 </label>}
             {/* Can Space Control */}
             {!data.isConstant && !data.canSplit &&
-                <label className={`rx_btn_text ${data.canSpace ? 'rx_checked' : ''}`}
+                <label className={`rx-btn-text ${data.canSpace ? 'rx-checked' : ''}`}
                     title="Space">
                     <input type="checkbox" data-ctrl="canSpace"
                         checked={data.canSpace}
@@ -148,7 +148,7 @@ export class CategorizedValueSettings extends Component {
                 </label>}
             {/* is Optional Control */}
             {!data.canSplit &&
-                <label className={`rx_btn_icon ${data.isOptional ? 'rx_checked' : ''}`}
+                <label className={`rx-btn-icon ${data.isOptional ? 'rx-checked' : ''}`}
                     title="It is Optional">
                     <input type="checkbox" data-ctrl="isOptional"
                         checked={data.isOptional}
@@ -157,7 +157,7 @@ export class CategorizedValueSettings extends Component {
                 </label>}
             {/* Need To Exclude Control */}
             {data.type !== 'space' && !data.isConstant && !data.canSplit &&
-                <label className={`rx_btn_icon ${data.exclude ? 'rx_checked' : ''}`}
+                <label className={`rx-btn-icon ${data.exclude ? 'rx-checked' : ''}`}
                     title="Exclude this value">
                     <input type="checkbox" data-ctrl="exclude"
                         checked={data.exclude}
@@ -166,7 +166,7 @@ export class CategorizedValueSettings extends Component {
                 </label>}
             {/* Any characters in Custom Value */}
             {data.type !== 'space' && !data.isConstant && !data.canSplit &&
-                <label className={`rx_btn_text ${data.customValType === 'any' ? 'rx_checked' : ''}`}
+                <label className={`rx-btn-text ${data.customValType === 'any' ? 'rx-checked' : ''}`}
                     title="Any characters in Custom Value">
                     <input type="radio" data-ctrl="customValType" name="customValType"
                         checked={data.customValType === 'any'}
@@ -175,7 +175,7 @@ export class CategorizedValueSettings extends Component {
                 </label>}
             {/* Selected words in Custom Value */}
             {data.type !== 'space' && !data.isConstant && !data.canSplit &&
-                <label className={`rx_btn_text ${data.customValType === 'list' ? 'rx_checked' : ''}`}
+                <label className={`rx-btn-text ${data.customValType === 'list' ? 'rx-checked' : ''}`}
                     title="Selected words in Custom Value">
                     <input type="radio" data-ctrl="customValType" name="customValType"
                         checked={data.customValType === 'list'}
@@ -184,7 +184,7 @@ export class CategorizedValueSettings extends Component {
                 </label>}
             {/* Values Range in Custom Value */}
             {data.type !== 'space' && !data.isConstant && !data.canSplit &&
-                <label className={`rx_btn_text ${data.customValType === 'range' ? 'rx_checked' : ''}`}
+                <label className={`rx-btn-text ${data.customValType === 'range' ? 'rx-checked' : ''}`}
                     title="Values Range in Custom Value">
                     <input type="radio" data-ctrl="customValType" name="customValType"
                         checked={data.customValType === 'range'}
@@ -192,7 +192,7 @@ export class CategorizedValueSettings extends Component {
                     a-b
                 </label>}
             {/* !data.isConstant && !data.canSplit &&
-                <label className={`rx_btn_text ${data.alphabets ? 'rx_checked' : ''}`}>
+                <label className={`rx-btn-text ${data.alphabets ? 'rx-checked' : ''}`}>
                     <input type="checkbox" data-ctrl="alphabets"
                         checked={data.alphabets}
                         onChange={(evt) => this.updateState('alphabets', evt.target.checked)} />
@@ -204,7 +204,7 @@ export class CategorizedValueSettings extends Component {
                     <input type="text" data-ctrl="minLength"
                         title="Minimum Length"
                         value={data.minLength}
-                        className="input_num"
+                        className="input-num"
                         placeholder="Min."
                         disabled={data.isOptional}
                         onChange={(evt) => this.updateState('minLength', evt.target.value)} />
@@ -212,7 +212,7 @@ export class CategorizedValueSettings extends Component {
                     <input type="text" data-ctrl="maxLength"
                         title="Maximum Length"
                         value={data.maxLength}
-                        className="input_num"
+                        className="input-num"
                         placeholder="Max."
                         disabled={data.isConstant}
                         onChange={(evt) => this.updateState('maxLength', evt.target.value)} />
@@ -222,7 +222,7 @@ export class CategorizedValueSettings extends Component {
                 <input type="text" data-ctrl="customValues"
                     title="Custom Values"
                     value={data.customValues}
-                    className="input_text"
+                    className="input-text"
                     placeholder="Custom Values"
                     onChange={(evt) => this.updateState('customValues', evt.target.value)} />
             }

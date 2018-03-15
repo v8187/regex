@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
-import { Switch, Route, HashRouter, Redirect } from 'react-router-dom';
-// import Sortable from 'sortablejs';
 
-// import srvcData from './data.service';
-// import { Token } from './models';
-import { Homepage } from './Homepage';
-import { Generator } from './Generator'
 import { ToolBar } from './ToolBar';
 import { Guide } from './Guide';
 import { InputTab } from './InputTab';
 import { ConfirmInputTab } from './ConfirmInputTab';
 
-import styles from './scss/main.scss';
 
-// var _subscriptions = [];
-
-class App extends Component {
+export class Generator extends Component {
 
     constructor(props) {
 
@@ -28,7 +19,6 @@ class App extends Component {
             showGuide: false
         };
 
-        // this.handleSort = this.handleSort.bind(this);
         this.onChangeFromInputTab = this.onChangeFromInputTab.bind(this);
         this.onChangeFromConfirmInputTab = this.onChangeFromConfirmInputTab.bind(this);
         this.handleConfirmInputBack = this.handleConfirmInputBack.bind(this);
@@ -38,50 +28,20 @@ class App extends Component {
     }
 
     componentDidMount() {
-        /* this.sortable = new Sortable(this.elUl, {
-            handle: '.handle-icon',
-            sort: true,
-            onSort: this.handleSort
-        }); */
-        // _subscriptions.push(
-        //     srvcData.categorizedValues$.subscribe(categorizedValues => {
-        //         this.setState({ categorizedValues: categorizedValues });
-        //     }),
-        //     srvcData.inputValue$.subscribe(inputValue => {
-        //         this.setState({ inputValue: inputValue });
-        //     }),
-        //     srvcData.currentTab$.subscribe(currentTab => {
-        //         this.setState({ currentTab: currentTab });
-        //     })
-        // );
+
     }
 
     componeneWillUnMount() {
-        this.sortable = null;
-        // _subscriptions.map(subcr => {
-        //     subcr.unsubscribe();
-        // });
+
+
     }
 
-    handleSort(evt) {
-        /* console.log('Sortable: onSort', evt);
-        var firstTokenId = this.elUl.childNodes[0].id;
-        this.setState({
-            tokenControls: this.state.tokenControls.map(tkn => {
-                tkn.canJoin = tkn.id !== firstTokenId;
-                return tkn;
-            }, this)
-        }); */
-    }
 
     onChangeFromInputTab(categorizedValues, inputValue) {
-        // srvcData.data('categorizedValues', categorizedValues);
-        // srvcData.data('inputValue', inputValue);
-        // srvcData.data('currentTab', 'confirmInput');
+
         this.setState({
             categorizedValues: categorizedValues,
-            inputValue: inputValue/* ,
-            currentTab: 'confirmInput' */
+            inputValue: inputValue
         }, () => {
             console.log('onChangeFromInputTab', this.state.categorizedValues, this.state.inputValue);
         });
@@ -103,7 +63,7 @@ class App extends Component {
     }
 
     handleConfirmInputBack() {
-        // srvcData.data('currentTab', 'input');
+
         this.setState({
             currentTab: 'input'
         }, () => {
@@ -115,12 +75,9 @@ class App extends Component {
         switch (this.state.currentTab) {
             case 'input':
             default:
-                // srvcData.data('currentTab', 'confirmInput');
                 this.setState({ currentTab: 'confirmInput' });
                 break;
             case 'confirmInput':
-                // srvcData.data('currentTab', 'confirmInput');
-                // this.setState({currentTab:'confirmInput'});
                 this.onChangeFromConfirmInputTab();
                 break;
         }
@@ -130,11 +87,8 @@ class App extends Component {
         switch (this.state.currentTab) {
             case 'input':
             default:
-                // srvcData.data('currentTab', 'input');
-                // this.setState({currentTab:'confirmInput'});
                 break;
             case 'confirmInput':
-                // srvcData.data('currentTab', 'input');
                 this.setState({ showGuide: 'input' });
                 break;
         }
@@ -146,14 +100,8 @@ class App extends Component {
 
     render() {
         return (
-            <div className="root">
-                <HashRouter>
-                    <Switch>
-                        <Route path="/generator" component={Generator} />
-                        <Route component={Homepage} />
-                    </Switch>
-                </HashRouter>
-                {/* <ToolBar
+            <div className="generator">
+                <ToolBar
                     currentTab={this.state.currentTab}
                     showGuide={this.state.showGuide}
                     doNext={this.doNext}
@@ -162,21 +110,19 @@ class App extends Component {
                 <Guide showGuide={this.state.showGuide} />
                 {this.state.currentTab === 'input' &&
                     <InputTab
-                        styles={styles}
+                        /* styles={styles} */
                         categorizedValues={this.state.categorizedValues}
                         inputValue={this.state.inputValue}
                         onChange={this.onChangeFromInputTab}
                         onSubmit={this.doNext} />}
                 {this.state.currentTab === 'confirmInput' &&
                     <ConfirmInputTab
-                        styles={styles}
+                       /*  styles={styles} */
                         categorizedValues={this.state.categorizedValues}
                         onChange={this.onChangeFromConfirmInputTab}
                         onSubmit={this.doNext}
-                        onBack={this.handleConfirmInputBack} />} */}
+                        onBack={this.handleConfirmInputBack} />}
             </div>
         );
     }
 }
-
-export default App;

@@ -30,14 +30,14 @@ li {
 }
 
 .root {
-    max-width: 600px;
+    max-width: 780px;
     margin: 0 auto;
 }
 
-.rx_btn_icon,
-.rx_btn_text,
-.input_text,
-.input_num {
+.rx-btn-icon,
+.rx-btn-text,
+.input-text,
+.input-num {
     display: inline-block;
     line-height: 25px;
     vertical-align: middle;
@@ -46,28 +46,31 @@ li {
     border: 1px solid #555;
     outline: 0 none;
     margin-right: 5px;
+    .guide-wrapper & {
+        line-height: 20px;
+    }
 }
 
-.rx_btn_icon,
-.rx_btn_text {
+.rx-btn-icon,
+.rx-btn-text {
     cursor: pointer;
 }
 
-.rx_btn_icon,
-.rx_btn_text,
-.input_num {
+.rx-btn-icon,
+.rx-btn-text,
+.input-num {
     text-align: center;
 }
 
-.rx_btn_text {
+.rx-btn-text {
     font-size: 12px;
 }
 
-.rx_btn_icon,
-.rx_btn_text {
+.rx-btn-icon,
+.rx-btn-text {
     width: 32px;
     font-weight: bold;
-    &.rx_checked {
+    &.rx-checked {
         background: lighten($COLOR_PRIMARY, 40%);
     }
     .fa-unlock,
@@ -80,6 +83,9 @@ li {
     >input[type=radio],
     >input[type=checkbox] {
         display: none;
+    }
+    .guide-wrapper & {
+        width: 22px;
     }
 }
 
@@ -95,12 +101,12 @@ li {
     }
 }
 
-.input_num {
+.input-num {
     width: 50px;
 }
 
-.cate_val_wrapper,
-.cate_val_settings_wrapper {
+.cate-val-wrapper,
+.cate-val-settings-wrapper {
     padding: 5px 10px;
     margin-top: 10px;
     background: rgba(255, 255, 255, 0.3);
@@ -120,18 +126,18 @@ li {
     }
 }
 
-.cate_val_wrapper {
+.cate-val-wrapper {
     display: inline-block;
 }
 
-.cate_val_settings_wrapper {
+.cate-val-settings-wrapper {
     p {
         margin: 5px 0 10px;
         padding-bottom: 10px;
         font-size: 16px;
         border-bottom: 1px solid white;
     }
-    .input_text {
+    .input-text {
         display: block;
         width: 100%;
         padding: 0 10px;
@@ -140,7 +146,7 @@ li {
     }
 }
 
-.rx_toolbar_wrapper {
+.rx-toolbar-wrapper {
     button {
         display: inline-block;
         padding: 0 20px;
@@ -151,7 +157,8 @@ li {
         color: lighten($COLOR_PRIMARY, 50%);
         outline: 0 none;
         cursor: pointer;
-        &:hover {
+        &:hover,
+        &.active {
             color: lighten($COLOR_PRIMARY, 10%);
             background: lighten($COLOR_PRIMARY, 70%);
         }
@@ -167,17 +174,17 @@ li {
     &:after {
         clear: both;
     }
-    .rx_help_btns {
+    .rx-help-btns {
         float: right;
         padding: 5px 10px;
     }
-    .rx_nav_btns {
+    .rx-nav-btns {
         float: left;
         padding: 5px 10px;
     }
 }
 
-.input_tab {
+.input-tab {
     >input {
         width: 100%;
         padding: 100px 10px;
@@ -203,39 +210,79 @@ li {
 
 .guide-wrapper {
     background: white;
-    padding: 15px;
-    margin: 15px 0;
     color: #333;
     font-size: 13px;
-    line-height: 21px;
-    h1 {
-        font-size: 16px;
-        line-height: 30px;
+    line-height: 20px;
+    opacity: 0;
+    height: 0;
+    margin: 0 auto;
+    transition: all 500ms linear;
+    &.visible {
+        height: auto;
+        opacity: 1;
+        margin: 15px 0;
+        padding: 15px;
     }
-    table {
-        border-top: 2px solid $COLOR_PRIMARY;
-        border-collapse: collapse;
-        thead {
-            border-bottom: 2px solid $COLOR_PRIMARY;
-            text-align: left;
-            th {
-                padding: 0 5px;
-                &:first-child {
-                    width: 60px;
+    &>div {
+        height: calc(100% - 50px);
+        max-height: 210px;
+        overflow: auto;
+        transition: all 500ms linear;
+    }
+    article {
+        margin-top: 30px;
+        h3 {
+            font-size: 14px;
+            line-height: 22px;
+            margin-bottom: 15px;
+        }
+        label {
+            cursor: pointer;
+            text-decoration: underline;
+            color: lighten($COLOR_PRIMARY, 40%);
+            .fa-sort-up {
+                display: none;
+            }
+            span:nth-of-type(2) {
+                display: none;
+            }
+            ~p {
+                display: none;
+            }
+        }
+        [type="checkbox"] {
+            display: none;
+            &:checked {
+                ~label {
+                    color: darken($COLOR_PRIMARY, 5%);
+                    .fa-sort-up {
+                        display: inline-block;
+                    }
+                    .fa-sort-down {
+                        display: none;
+                    }
+                    span:nth-of-type(1) {
+                        display: none;
+                    }
+                    span:nth-of-type(2) {
+                        display: inline;
+                    }
+                    ~p {
+                        display: block;
+                    }
                 }
             }
         }
-        tbody {
-            tr {
-                border-bottom: 1px solid $COLOR_PRIMARY;
-            }
-            td {
-                padding: 5px;
-                vertical-align: top;
-                .rx_btn_text {
-                    margin-top: 5px;
-                }
+        ol {
+            list-style: decimal;
+            padding: 5px 0 5px 50px;
+            li {
+                display: list-item;
             }
         }
+    }
+    h1 {
+        font-size: 17px;
+        line-height: 24px;
     }
 }

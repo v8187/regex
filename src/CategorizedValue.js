@@ -21,7 +21,7 @@ export class CategorizedValue extends Component {
     }
 
     render() {
-        return (<div className="cate_val_wrapper">
+        return (<div className="cate-val-wrapper">
             <p>
                 {`${this.state.data.chars}`}
                 <a className="rx-btn-edit" onClick={this.props.onEdit}>
