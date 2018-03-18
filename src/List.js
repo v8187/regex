@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export class Guide extends Component {
+export class List extends Component {
 
     constructor(props) {
 
@@ -8,7 +8,7 @@ export class Guide extends Component {
     }
 
     render() {
-        return (<div className={`guide-wrapper`}>
+        return (<div className={`list-wrapper`}>
             <h1>Guide</h1>
             <div>
                 <article>

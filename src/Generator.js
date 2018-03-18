@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import { ToolBar } from './ToolBar';
-import { Guide } from './Guide';
 import { InputTab } from './InputTab';
 import { ConfirmInputTab } from './ConfirmInputTab';
 
@@ -107,7 +106,7 @@ export class Generator extends Component {
                     doNext={this.doNext}
                     doBack={this.doBack}
                     doHelp={this.doHelp} />
-                <Guide showGuide={this.state.showGuide} />
+
                 {this.state.currentTab === 'input' &&
                     <InputTab
                         /* styles={styles} */
@@ -117,7 +116,7 @@ export class Generator extends Component {
                         onSubmit={this.doNext} />}
                 {this.state.currentTab === 'confirmInput' &&
                     <ConfirmInputTab
-                       /*  styles={styles} */
+                        /*  styles={styles} */
                         categorizedValues={this.state.categorizedValues}
                         onChange={this.onChangeFromConfirmInputTab}
                         onSubmit={this.doNext}

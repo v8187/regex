@@ -79,11 +79,11 @@ export class ToolBar extends Component {
                 </button>
             </div>
 
-            <div className="rx-help-btns">
+           {/*  <div className="rx-help-btns">
                 <button type="button" onClick={this.props.doHelp} className={this.props.showGuide ? 'active' : ''}>
                     <i className="fa fa-question" />
                 </button>
-            </div>
+            </div> */}
         </div>);
     }
 }
