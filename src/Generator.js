@@ -3,19 +3,31 @@ import React, { Component } from 'react';
 import { ToolBar } from './ToolBar';
 import { InputTab } from './InputTab';
 import { ConfirmInputTab } from './ConfirmInputTab';
+import { CategorizedValueClass } from './CategorizedValue.class';
 
+const
+    si = (key, data) => {
+        localStorage.setItem(key, JSON.stringify(data));
+    },
+    gi = (key) => {
+        var data = localStorage.getItem(key);
+        return data === null ? data : JSON.parse(data);
+    };
 
 export class Generator extends Component {
 
     constructor(props) {
 
         super(props);
+        var _categorizedValues = (gi('categorizedValues') || []).map(catVal => {
+            return new CategorizedValueClass(catVal.type, catVal.chars);
+        });
 
         this.state = {
-            categorizedValues: [],
-            inputValue: 'vikrAM-1234gupta@yhaoo.com',
-            currentTab: 'input',
-            showGuide: false
+            categorizedValues: _categorizedValues,
+            inputValue: gi('inputValue') || 'vikrAM-1234gupta@yhaoo.com',
+            currentTab: gi('currentTab') || 'input'/* ,
+            showGuide: false */
         };
 
         this.onChangeFromInputTab = this.onChangeFromInputTab.bind(this);
@@ -23,18 +35,12 @@ export class Generator extends Component {
         this.handleConfirmInputBack = this.handleConfirmInputBack.bind(this);
         this.doNext = this.doNext.bind(this);
         this.doBack = this.doBack.bind(this);
-        this.doHelp = this.doHelp.bind(this);
+        // this.doHelp = this.doHelp.bind(this);
     }
 
-    componentDidMount() {
+    componentDidMount() { }
 
-    }
-
-    componeneWillUnMount() {
-
-
-    }
-
+    componeneWillUnMount() { }
 
     onChangeFromInputTab(categorizedValues, inputValue) {
 
@@ -42,6 +48,8 @@ export class Generator extends Component {
             categorizedValues: categorizedValues,
             inputValue: inputValue
         }, () => {
+            si('categorizedValues', categorizedValues);
+            si('inputValue', inputValue);
             console.log('onChangeFromInputTab', this.state.categorizedValues, this.state.inputValue);
         });
     }
@@ -66,6 +74,7 @@ export class Generator extends Component {
         this.setState({
             currentTab: 'input'
         }, () => {
+            si('currentTab', 'input');
             console.log('handleConfirmInputBack');
         });
     }
@@ -75,6 +84,7 @@ export class Generator extends Component {
             case 'input':
             default:
                 this.setState({ currentTab: 'confirmInput' });
+                si('currentTab', 'confirmInput');
                 break;
             case 'confirmInput':
                 this.onChangeFromConfirmInputTab();
@@ -88,13 +98,14 @@ export class Generator extends Component {
             default:
                 break;
             case 'confirmInput':
-                this.setState({ showGuide: 'input' });
+                this.setState({ currentTab: 'input' });
+                si('currentTab', 'input');
                 break;
         }
     }
 
     doHelp() {
-        this.setState({ showGuide: !this.state.showGuide });
+        // this.setState({ showGuide: !this.state.showGuide });
     }
 
     render() {
@@ -102,10 +113,10 @@ export class Generator extends Component {
             <div className="generator">
                 <ToolBar
                     currentTab={this.state.currentTab}
-                    showGuide={this.state.showGuide}
+                    /* showGuide={this.state.showGuide} */
                     doNext={this.doNext}
                     doBack={this.doBack}
-                    doHelp={this.doHelp} />
+                    /* doHelp={this.doHelp} */ />
 
                 {this.state.currentTab === 'input' &&
                     <InputTab
