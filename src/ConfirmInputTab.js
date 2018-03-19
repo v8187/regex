@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { si, gi } from './utils';
+
 // import srvcData from './data.service';
 import { CategorizedValue } from './CategorizedValue';
 import { CategorizedValueSettings } from './CategorizedValueSettings';
@@ -34,9 +36,9 @@ export class ConfirmInputTab extends Component {
         super(props);
 
         this.state = {
-            selectedI: undefined,
-            selectedJ: undefined,
-            selectedCatVal: undefined,
+            selectedI: gi('selectedI') || undefined,
+            selectedJ: gi('selectedJ') || undefined,
+            selectedCatVal: gi('selectedCatVal') || undefined,
             categorizedValues: this.props.categorizedValues || []
         };
 
@@ -84,7 +86,10 @@ export class ConfirmInputTab extends Component {
         // srvcData.data('categorizedValues', this.state.categorizedValues);
         this.setState({
             categorizedValues: this.state.categorizedValues
+        }, () => {
+            si('categorizedValues', this.state.categorizedValues);
         });
+
     }
 
     handleEditClick(i, j) {
@@ -113,6 +118,10 @@ export class ConfirmInputTab extends Component {
             categorizedValues: _catVals,
             selectedCatVal: _catVals[_index === null || j === undefined ? i : j + i],
             selectedI: _index === null || j === undefined ? i : j + i
+        }, () => {
+            si('categorizedValues', this.state.categorizedValues);
+            si('selectedCatVal', this.state.selectedCatVal);
+            si('selectedI', this.state.selectedI);
         });
     }
 
@@ -134,6 +143,7 @@ export class ConfirmInputTab extends Component {
         this.setState({
             categorizedValues: _categorizedValues
         }, () => {
+            si('categorizedValues', this.state.categorizedValues);
             this.state.selectedCatVal && this.handleEditClick(i, j);
             this.props.onChange(this.state.categorizedValues);
         });

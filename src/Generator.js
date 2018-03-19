@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 
+import { si, gi } from './utils';
 import { ToolBar } from './ToolBar';
 import { InputTab } from './InputTab';
 import { ConfirmInputTab } from './ConfirmInputTab';
 import { CategorizedValueClass } from './CategorizedValue.class';
 
-const
-    si = (key, data) => {
-        localStorage.setItem(key, JSON.stringify(data));
-    },
-    gi = (key) => {
-        var data = localStorage.getItem(key);
-        return data === null ? data : JSON.parse(data);
-    };
+
 
 export class Generator extends Component {
 

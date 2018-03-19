@@ -16,3 +16,11 @@ export const removeNumbers = val => {
 export const removeSpecialChars = val => {
     return val.replace(RE_SCHAR, '');
 };
+
+export const si = (key, data) => {
+    localStorage.setItem(key, JSON.stringify(data));
+};
+export const gi = (key) => {
+    var data = localStorage.getItem(key);
+    return data === null ? data : JSON.parse(data);
+};
