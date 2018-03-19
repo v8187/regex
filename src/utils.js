@@ -22,5 +22,7 @@ export const si = (key, data) => {
 };
 export const gi = (key) => {
     var data = localStorage.getItem(key);
-    return data === null ? data : JSON.parse(data);
+    data = data === null ? data : JSON.parse(data);
+    console.log(key, typeof data, data);
+    return data;
 };
