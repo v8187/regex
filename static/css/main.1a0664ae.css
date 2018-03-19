@@ -2389,20 +2389,8 @@ li {
   color: #333;
   font-size: 13px;
   line-height: 20px;
-  opacity: 0;
-  height: 0;
-  margin: 0 auto;
+  padding: 15px;
   transition: all 500ms linear; }
-  .guide-wrapper.visible {
-    height: auto;
-    opacity: 1;
-    margin: 15px 0;
-    padding: 15px; }
-  .guide-wrapper > div {
-    height: calc(100% - 50px);
-    max-height: 210px;
-    overflow: auto;
-    transition: all 500ms linear; }
   .guide-wrapper article {
     margin-top: 30px; }
     .guide-wrapper article h3 {
@@ -2462,4 +2450,24 @@ li {
   .homepage-wrapper a:hover {
     color: #ebe9ef; }
 
-/*# sourceMappingURL=main.dbb89533.css.map*/
+.main-nav li {
+  width: 33%;
+  box-sizing: border-box; }
+  .main-nav li a {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    line-height: 50px;
+    text-decoration: none;
+    border-bottom: 5px solid #72678c; }
+    .main-nav li a, .main-nav li a:active, .main-nav li a:visited {
+      color: #72678c; }
+    .main-nav li a:hover, .main-nav li a.active {
+      color: #ebe9ef;
+      border-color: #ebe9ef; }
+    .main-nav li a .fa {
+      font-size: 24px;
+      vertical-align: middle;
+      margin-right: 10px; }
+
+/*# sourceMappingURL=main.1a0664ae.css.map*/
