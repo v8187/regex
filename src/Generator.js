@@ -14,7 +14,7 @@ export class Generator extends Component {
 
         super(props);
         var _categorizedValues = (gi('categorizedValues') || []).map(catVal => {
-            return new CategorizedValueClass(catVal.type, catVal.chars);
+            return new CategorizedValueClass(catVal);
         });
 
         this.state = {

@@ -1,24 +1,24 @@
 export class CategorizedValueClass {
 
-    constructor(type, chars) {
-        this.type = type;
-        this.chars = chars;
-        this.minLength = 1;
-        this.maxLength = this.chars.length;
-        this.isConstant = false;
-        this.canSplit = false;
+    constructor(options) {
+        this.type = options.type;
+        this.chars = options.chars;
+        this.minLength = options.minLength || 1;
+        this.maxLength = options.maxLength || this.chars.length;
+        this.isConstant = options.isConstant || false;
+        this.canSplit = options.canSplit || false;
         // this.alphabets = type.indexOf('Alpha') !== -1;
         this.canLower = this.hasLower();
         this.canUpper = this.hasUpper();
         this.canDigit = this.hasDigit();
         this.canSpecial = this.hasSpecial();
         this.canSpace = this.hasSpace();
-        this.isOptional = false;
-        this.splitted = null;
-        this.customValues = '';
-        this.customValType = 'any';
-        this.exclude = false;
-        this.regEx = '';
+        this.isOptional = options.isOptional || false;
+        this.splitted = options.splitted || null;
+        this.customValues = options.customValues || '';
+        this.customValType = options.customValType || 'any';
+        this.exclude = options.exclude || false;
+        this.regEx = options.regEx || '';
     }
 
     hasLower(bool) {

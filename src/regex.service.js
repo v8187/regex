@@ -1,16 +1,16 @@
 import { CategorizedValueClass } from './CategorizedValue.class';
 
 const
-    SPECIAL_CHARS = '`~!@#$%^&*()-_=+[{]}\\|;:\'",<.>/?',
+    // SPECIAL_CHARS = '`~!@#$%^&*()-_=+[{]}\\|;:\'",<.>/?',
     calcLimit = data => {
         return (data.canSplit || (Number(data.minLength) === 1 && Number(data.maxLength) === 1)) ? '' :
             (Number(data.minLength) === 0 && Number(data.maxLength) === 1 ? '?' : `{${Number(data.minLength) === Number(data.maxLength) ? Number(data.minLength) :
                 (`${data.isOptional ? 0 :
                     data.minLength},${data.maxLength}`)}}`);
     },
-    isAlpha = type => {
+    /* isAlpha = type => {
         return ['lowerAlpha', 'upperAlpha'].indexOf(type) !== -1;
-    },
+    }, 
     parseCustomValues = data => {
         var uniqueVals = '';
         if (/^([a-z]-[a-z])|(\d-\d)|([A-Z]-[A-Z])$/.test(data.customValues)) {
@@ -23,7 +23,7 @@ const
             });
         }
         return uniqueVals;
-    },
+    },*/
     escapeSpecial = chars => {
         return chars.split('').map(char => {
             return '\\' + char;
@@ -73,7 +73,7 @@ export function updateRegEx(data) {
         _D = data.canDigit,
         _SC = data.canSpecial,
         _SP = data.canSpace,
-        _type = data.type,
+        // _type = data.type,
         _xcld = data.exclude/* ,
         _isAlpha = isAlpha(_type),
         _optional = data.isOptional */;
@@ -197,7 +197,7 @@ export function updateRegEx(data) {
 export function splitValue(val, type) {
     if (type && type !== 'mixed') {
         return val.split('').map((val, valI) => {
-            return new CategorizedValueClass(type, val);
+            return new CategorizedValueClass({ type: type, chars: val });
         });
     }
     var lastItem, catVals = [],
@@ -206,7 +206,7 @@ export function splitValue(val, type) {
                 lastItem.chars += char;
                 lastItem.maxLength = lastItem.chars.length;
             } else {
-                catVals.push(lastItem = new CategorizedValueClass(type, char));
+                catVals.push(lastItem = new CategorizedValueClass({ type: type, chars: char }));
             }
         };
 

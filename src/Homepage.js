@@ -3,11 +3,6 @@ import { NavLink } from 'react-router-dom';
 
 export class Homepage extends Component {
 
-    constructor(props) {
-
-        super(props);
-    }
-
     render() {
         return (<div className={`homepage-wrapper`}>
             <ul>

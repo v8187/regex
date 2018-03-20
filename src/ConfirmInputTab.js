@@ -34,11 +34,16 @@ export class ConfirmInputTab extends Component {
     constructor(props) {
 
         super(props);
+        var _selectedCatVal = gi('selectedCatVal');
+
+        if (_selectedCatVal !== null) {
+            _selectedCatVal = new CategorizedValueClass(_selectedCatVal);
+        }
 
         this.state = {
             selectedI: gi('selectedI') || undefined,
             selectedJ: gi('selectedJ') || undefined,
-            selectedCatVal: gi('selectedCatVal') || undefined,
+            selectedCatVal: _selectedCatVal || undefined,
             categorizedValues: this.props.categorizedValues || []
         };
 
@@ -130,7 +135,7 @@ export class ConfirmInputTab extends Component {
             dest = j === undefined ? _categorizedValues[i] : _categorizedValues[j].splitted[i],
             src = j === undefined ? _categorizedValues[i + 1] : _categorizedValues[j].splitted[i + 1];
 
-        dest = new CategorizedValueClass('mixed', dest.chars + src.chars);
+        dest = new CategorizedValueClass({ type: 'mixed', chars: dest.chars + src.chars });
 
         if (j === undefined) {
             _categorizedValues.splice(i, 1, dest);

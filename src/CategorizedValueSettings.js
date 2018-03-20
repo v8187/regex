@@ -48,7 +48,7 @@ export class CategorizedValueSettings extends Component {
                     data.exclude = false;
                 };
                 // data.splitted = data.canSplit && !data.isConstant ? data.chars.split('').map((val, valI) => {
-                //     return new CategorizedValueClass(data.type, val);
+                //     return new CategorizedValueClass(data);
                 // }) : null;
                 data.splitted = data.canSplit && !data.isConstant ? splitValue(data.chars, data.type) : null;
                 break;

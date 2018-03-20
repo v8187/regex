@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { Switch, Route, BrowserRouter, HashRouter, Redirect, NavLink } from 'react-router-dom';
+import { Switch, Route, BrowserRouter, HashRouter, NavLink } from 'react-router-dom';
 // import Sortable from 'sortablejs';
 
 // import srvcData from './data.service';
 // import { Token } from './models';
 import { Homepage } from './Homepage';
 import { Generator } from './Generator'
-import { ToolBar } from './ToolBar';
+// import { ToolBar } from './ToolBar';
 import { Guide } from './Guide';
 import { List } from './List';
-import { InputTab } from './InputTab';
-import { ConfirmInputTab } from './ConfirmInputTab';
+// import { InputTab } from './InputTab';
+// import { ConfirmInputTab } from './ConfirmInputTab';
 
 import styles from './scss/main.scss';
 

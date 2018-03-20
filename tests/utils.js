@@ -8,7 +8,7 @@ export const rndWrapper = (dumData) => {
     return shallow(<CategorizedValue data={dumData} onChange={data => { }} />);
 };
 export const catVal = (type, chars) => {
-    return new CategorizedValueClass(type, chars);
+    return new CategorizedValueClass({ type: type, chars: chars });
 };
 export const _find = (wrapper, ref) => {
     return wrapper.find(`[data-ctrl="${ref}"]`);

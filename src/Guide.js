@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 
 export class Guide extends Component {
 
-    constructor(props) {
-
-        super(props);
-    }
-
     render() {
         return (<div className={`guide-wrapper`}>
             <h1>Guide</h1>
@@ -90,7 +85,7 @@ export class Guide extends Component {
                     <p>
                         Click this button to allow Special character values<br />
                         Only the folllowing characters will be included.<br />
-                        ${'` ~ ! @ # $ % ^ & * ( ) - _ = + [ { ] } \\ | ; : \ \' " , < . > / ?'}
+                        ${'` ~ ! @ # $ % ^ & * ( ) - _ = + [ { ] } \\ | ; : \' " , < . > / ?'}
                     </p>
                 </article>
                 <article>
