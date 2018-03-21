@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route, BrowserRouter, HashRouter, NavLink } from 'react-router-dom';
+import { Switch, Route, BrowserRouter, HashRouter, NavLink, Redirect } from 'react-router-dom';
 // import Sortable from 'sortablejs';
 
 // import srvcData from './data.service';
@@ -9,6 +9,7 @@ import { Generator } from './Generator'
 // import { ToolBar } from './ToolBar';
 import { Guide } from './Guide';
 import { List } from './List';
+import { About } from './About';
 // import { InputTab } from './InputTab';
 // import { ConfirmInputTab } from './ConfirmInputTab';
 
@@ -154,24 +155,30 @@ class App extends Component {
                             <li>
                                 <NavLink to="/create" activeClassName="active" title="Contact Me">
                                     <i className="fa fa-gears"></i> Create
-                        </NavLink>
+                                </NavLink>
                             </li>
                             <li>
                                 <NavLink to="/list" activeClassName="active" title="Contact Me">
-                                    <i className="fa fa-list"></i> Reg Expressions
-                        </NavLink>
+                                    <i className="fa fa-list"></i> RegExps
+                                </NavLink>
                             </li>
                             <li>
                                 <NavLink to="/guide" activeClassName="active" title="Contact Me">
                                     <i className="fa fa-question"></i> Guide
-                        </NavLink>
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/about" activeClassName="active" title="About">
+                                    <i className="fa fa-info"></i> About
+                                </NavLink>
                             </li>
                         </ul>
                         <Switch>
                             <Route path="/create" component={Generator} />
                             <Route path="/list" component={List} />
                             <Route path="/guide" component={Guide} />
-                            <Route component={Homepage} />
+                            <Route path="/about" component={About} />
+                            <Route path="/" render={() => (<Redirect to="/create" />)} />
                         </Switch>
                     </div>
                 </BrowserRouter>

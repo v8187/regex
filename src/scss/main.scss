@@ -208,27 +208,28 @@ li {
     }
 }
 
+.about-wrapper,
+.guide-wrapper,
+.list-wrapper {
+    background: lighten($COLOR_PRIMARY, 65%);
+    color: $COLOR_PRIMARY;
+    padding: 0 0 20px;
+    >* {
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+    h1 {
+        font-size: 18px;
+        line-height: 75px;
+        border-bottom: 2px solid $COLOR_PRIMARY;
+        margin: 0 0 20px;
+    }
+}
+
 .guide-wrapper {
-    background: white;
-    color: #333;
     font-size: 13px;
     line-height: 20px;
-    padding: 15px; // opacity: 0;
-    // height: 0;
-    // margin: 0 auto;
     transition: all 500ms linear;
-    &.visible {
-        // height: auto;
-        // opacity: 1;
-        // margin: 15px 0;
-        // padding: 15px;
-    }
-    &>div {
-        // height: calc(100% - 50px);
-        // max-height: 210px;
-        // overflow: auto;
-        // transition: all 500ms linear;
-    }
     article {
         margin-top: 30px;
         h3 {
@@ -281,10 +282,6 @@ li {
             }
         }
     }
-    h1 {
-        font-size: 17px;
-        line-height: 24px;
-    }
 }
 
 .homepage-wrapper {
@@ -317,7 +314,7 @@ li {
 
 .main-nav {
     li {
-        width: 33%;
+        width: 25%;
         box-sizing: border-box;
         a {
             display: block;
@@ -343,4 +340,56 @@ li {
             }
         }
     }
+}
+
+.about-wrapper {
+    p {
+        font-size: 16px;
+        line-height: 30px;
+        b {
+            display: inline-block;
+            width: 150px;
+            vertical-align: middle;
+        }
+    }
+}
+
+.list-wrapper {
+    table {
+        width: calc(100% - 40px);
+        margin: 0px auto 20px;
+        border-collapse: collapse;
+        font-size: 14px;
+        line-height: 20px;
+        tr {
+            border-bottom: 2px solid lighten($COLOR_PRIMARY, 50%);
+        }
+        thead {
+            tr {
+                th {
+                    padding: 10px 0;
+                    text-align: left;
+                }
+            }
+        }
+        tbody {
+            tr {
+                border-width: 1px;
+                td {
+                    padding: 5px 0;
+                }
+            }
+        }
+    }
+}
+
+code {
+    display: inline-block;
+    color: #333;
+    border: 1px solid lighten($COLOR_PRIMARY, 40%);
+    padding: 0 5px;
+    border-radius: 2px;
+    background: lighten($COLOR_PRIMARY, 60%);
+    line-height: 22px;
+    font-size: 13px;
 }
