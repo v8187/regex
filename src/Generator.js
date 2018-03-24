@@ -4,6 +4,7 @@ import { si, gi } from './utils';
 import { ToolBar } from './ToolBar';
 import { InputTab } from './InputTab';
 import { ConfirmInputTab } from './ConfirmInputTab';
+import { OutputTab } from './OutputTab';
 import { CategorizedValueClass } from './CategorizedValue.class';
 
 
@@ -20,12 +21,14 @@ export class Generator extends Component {
         this.state = {
             categorizedValues: _categorizedValues,
             inputValue: gi('inputValue') || 'vikrAM-1234gupta@yhaoo.com',
+            outputValue: gi('outputValue') || null,
             currentTab: gi('currentTab') || 'input'/* ,
             showGuide: false */
         };
 
         this.onChangeFromInputTab = this.onChangeFromInputTab.bind(this);
         this.onChangeFromConfirmInputTab = this.onChangeFromConfirmInputTab.bind(this);
+        this.onChangeFromOutputTab = this.onChangeFromOutputTab.bind(this);
         this.handleConfirmInputBack = this.handleConfirmInputBack.bind(this);
         this.doNext = this.doNext.bind(this);
         this.doBack = this.doBack.bind(this);
@@ -61,10 +64,15 @@ export class Generator extends Component {
             }
         });
         console.log(strRegEx);
+        this.setState({ outputValue: strRegEx });
+        si('outputValue', strRegEx);
+    }
+
+    onChangeFromOutputTab() {
+
     }
 
     handleConfirmInputBack() {
-
         this.setState({
             currentTab: 'input'
         }, () => {
@@ -82,6 +90,8 @@ export class Generator extends Component {
                 break;
             case 'confirmInput':
                 this.onChangeFromConfirmInputTab();
+                this.setState({ currentTab: 'output' });
+                si('currentTab', 'output');
                 break;
         }
     }
@@ -94,6 +104,10 @@ export class Generator extends Component {
             case 'confirmInput':
                 this.setState({ currentTab: 'input' });
                 si('currentTab', 'input');
+                break;
+            case 'output':
+                this.setState({ currentTab: 'confirmInput' });
+                si('currentTab', 'confirmInput');
                 break;
         }
     }
@@ -125,7 +139,12 @@ export class Generator extends Component {
                         categorizedValues={this.state.categorizedValues}
                         onChange={this.onChangeFromConfirmInputTab}
                         onSubmit={this.doNext}
-                        onBack={this.handleConfirmInputBack} />}
+                        onBack={this.doBack} />}
+                {this.state.currentTab === 'output' &&
+                    <OutputTab
+                        outputValue={this.state.outputValue}
+                        onChange={this.onChangeFromOutputTab}
+                        onBack={this.doBack} />}
             </div>
         );
     }

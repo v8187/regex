@@ -51,7 +51,6 @@ export class ConfirmInputTab extends Component {
         this.handleEditClick = this.handleEditClick.bind(this);
         this.handleJoinClick = this.handleJoinClick.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.goBack = this.goBack.bind(this);
     }
 
     componentDidMount() {
@@ -89,6 +88,7 @@ export class ConfirmInputTab extends Component {
             this.state.categorizedValues[j].splitted[i], data);
 
         // srvcData.data('categorizedValues', this.state.categorizedValues);
+        si('selectedCatVal', data);
         this.setState({
             categorizedValues: this.state.categorizedValues
         }, () => {
@@ -158,12 +158,6 @@ export class ConfirmInputTab extends Component {
         evt.preventDefault();
 
         this.props.onSubmit();
-    }
-
-    goBack(evt) {
-        evt.preventDefault();
-
-        this.props.onBack();
     }
 
     render() {

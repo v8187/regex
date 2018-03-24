@@ -74,12 +74,13 @@ export class ToolBar extends Component {
                     <button type="button" onClick={this.props.doBack}>
                         <i className="fa fa-angle-double-left" />
                     </button>}
-                <button type="button" onClick={this.props.doNext}>
-                    <i className="fa fa-angle-double-right" />
-                </button>
+                {this.props.currentTab !== 'output' &&
+                    <button type="button" onClick={this.props.doNext}>
+                        <i className="fa fa-angle-double-right" />
+                    </button>}
             </div>
 
-           {/*  <div className="rx-help-btns">
+            {/*  <div className="rx-help-btns">
                 <button type="button" onClick={this.props.doHelp} className={this.props.showGuide ? 'active' : ''}>
                     <i className="fa fa-question" />
                 </button>

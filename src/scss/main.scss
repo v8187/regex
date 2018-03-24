@@ -184,10 +184,11 @@ li {
     }
 }
 
-.input-tab {
+.input-tab,
+.output-tab {
     >input {
         width: 100%;
-        padding: 100px 10px;
+        padding: 15px 10px;
         box-sizing: border-box;
     }
 }

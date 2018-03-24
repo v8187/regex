@@ -80,7 +80,7 @@ export class CategorizedValueSettings extends Component {
 
     render() {
         let { data } = this.state;
-
+        console.log(data);
         return (<div className="cate-val-settings-wrapper">
             <p>{`${data.chars}`}</p>
             {/* Can Split Control */}
