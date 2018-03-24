@@ -2366,9 +2366,11 @@ li {
   float: left;
   padding: 5px 10px; }
 
-.input-tab > input {
+.input-tab > input,
+.output-tab > input {
   width: 100%;
-  padding: 100px 10px;
+  padding: 15px 10px;
+  margin: 10px 0 15px;
   box-sizing: border-box; }
 
 .fa-list-remove {
@@ -2507,6 +2509,43 @@ li {
     .list-wrapper table tbody tr td {
       padding: 5px 0; }
 
+.output-tab ul li {
+  background: #ebe9ef;
+  color: #423c51;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box; }
+  .output-tab ul li:not(:last-child) {
+    border-bottom: 1px solid #423c51; }
+  .output-tab ul li input {
+    width: 200px;
+    font-size: 13px;
+    line-height: 25px;
+    padding: 0 5px; }
+    .output-tab ul li input + span {
+      display: inline-block;
+      line-height: 25px;
+      font-size: 14px;
+      font-weight: bold;
+      width: 75px;
+      text-align: center; }
+      .output-tab ul li input + span.failed {
+        color: red; }
+      .output-tab ul li input + span.passed {
+        color: green; }
+  .output-tab ul li button {
+    background: transparent;
+    border: 1px solid #a7a0b9;
+    color: #72678c;
+    cursor: pointer;
+    outline: 0 none;
+    width: 30px;
+    height: 29px;
+    margin: 0 5px; }
+    .output-tab ul li button:hover {
+      color: #423c51;
+      border: 1px solid #5a526e; }
+
 code {
   display: inline-block;
   color: #333;
@@ -2517,4 +2556,4 @@ code {
   line-height: 22px;
   font-size: 13px; }
 
-/*# sourceMappingURL=main.1b689590.css.map*/
+/*# sourceMappingURL=main.665c95b1.css.map*/
