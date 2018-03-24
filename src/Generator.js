@@ -42,11 +42,13 @@ export class Generator extends Component {
     onChangeFromInputTab(categorizedValues, inputValue) {
 
         this.setState({
-            categorizedValues: categorizedValues,
-            inputValue: inputValue
+            inputValue: inputValue,
+            categorizedValues: categorizedValues
+            
         }, () => {
-            si('categorizedValues', categorizedValues);
             si('inputValue', inputValue);
+            si('categorizedValues', categorizedValues);
+            
             console.log('onChangeFromInputTab', this.state.categorizedValues, this.state.inputValue);
         });
     }

@@ -5,7 +5,7 @@ import { si, gi } from './utils';
 class TestModel {
     constructor(options) {
         this.value = options && options.value !== undefined ? options.value : '';
-        this.valid = options && options.valid !== undefined ? options.valid : false;
+        this.passed = options && options.passed !== undefined ? options.passed : false;
     }
 };
 
@@ -18,18 +18,18 @@ const _renderTests = (ctx) => {
             <input type="text"
                 value={test.value}
                 onChange={(evt) => ctx.updateTest(i, evt.target.value, evt)} />
-            {test.passed && <span className="passed">
-                Passed <i className="fa fa-tick"></i>
+            {test.passed && test.value && <span className="passed">
+                <i className="fa fa-check"></i> Passed
             </span>}
-            {!test.passed && <span className="Failed">
-                Failed <i className="fa fa-tick"></i>
+            {!test.passed && test.value && <span className="failed">
+                <i className="fa fa-times"></i> Failed
             </span>}
-            <button className="btn-add">
+            {tests.length < 10 && <button className="btn-add" onClick={(evt) => ctx.addTest(evt)}>
                 <i className="fa fa-plus"></i>
-            </button>
-            <button className="btn-remove">
-                <i className="fa fa-track"></i>
-            </button>
+            </button>}
+            {tests.length > 1 && <button className="btn-remove" onClick={(evt) => ctx.removeTest(evt, i)}>
+                <i className="fa fa-minus"></i>
+            </button>}
         </li>);
     }, ctx);
 };
@@ -55,6 +55,8 @@ export class OutputTab extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.updateTest = this.updateTest.bind(this);
+        this.addTest = this.addTest.bind(this);
+        this.removeTest = this.removeTest.bind(this);
     }
 
     componentDidMount() { }
@@ -77,7 +79,21 @@ export class OutputTab extends Component {
 
         this.state.tests[i].value = val;
         this.state.tests[i].passed = this.regExp.test(val);
-        this.setState({ tests: this.tests });
+        this.setState({ tests: this.state.tests });
+        si('regexp-tests', JSON.stringify(this.state.tests));
+    }
+
+    addTest(evt) {
+        evt && evt.preventDefault();
+        this.state.tests.push(new TestModel());
+        this.setState({ test: this.state.tests });
+        si('regexp-tests', JSON.stringify(this.state.tests));
+    }
+
+    removeTest(evt, i) {
+        evt && evt.preventDefault();
+        this.state.tests.splice(i, 1);
+        this.setState({ test: this.state.tests });
         si('regexp-tests', JSON.stringify(this.state.tests));
     }
 

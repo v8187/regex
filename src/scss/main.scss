@@ -189,6 +189,7 @@ li {
     >input {
         width: 100%;
         padding: 15px 10px;
+        margin: 10px 0 15px;
         box-sizing: border-box;
     }
 }
@@ -378,6 +379,55 @@ li {
                 border-width: 1px;
                 td {
                     padding: 5px 0;
+                }
+            }
+        }
+    }
+}
+
+.output-tab {
+    ul {
+        li {
+            background: lighten($COLOR_PRIMARY, 65%);
+            color: $COLOR_PRIMARY;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            &:not(:last-child) {
+                border-bottom: 1px solid $COLOR_PRIMARY;
+            }
+            input {
+                width: 200px;
+                font-size: 13px;
+                line-height: 25px;
+                padding: 0 5px;
+                +span {
+                    display: inline-block;
+                    line-height: 25px;
+                    font-size: 14px;
+                    font-weight: bold;
+                    width: 75px;
+                    text-align: center;
+                    &.failed {
+                        color: red;
+                    }
+                    &.passed {
+                        color: green;
+                    }
+                }
+            }
+            button {
+                background: transparent;
+                border: 1px solid lighten($COLOR_PRIMARY, 40%);
+                color: lighten($COLOR_PRIMARY, 20%);
+                cursor: pointer;
+                outline: 0 none;
+                width: 30px;
+                height: 29px;
+                margin: 0 5px;
+                &:hover {
+                    color: $COLOR_PRIMARY;
+                    border: 1px solid lighten($COLOR_PRIMARY, 10%);
                 }
             }
         }
