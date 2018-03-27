@@ -382,21 +382,26 @@ li {
                 border-bottom: 1px solid $COLOR_PRIMARY;
             }
             input {
-                width: 200px;
+                width: calc(100% - 192px);
+                border: 1px solid #aaa;
                 font-size: 13px;
                 line-height: 25px;
                 padding: 0 5px;
+                &:focus {
+                    outline: 0 none;
+                    border-color: $COLOR_PRIMARY;
+                }
                 +span {
                     display: inline-block;
                     line-height: 25px;
                     font-size: 14px;
                     font-weight: bold;
-                    width: 75px;
+                    width: 100px;
                     text-align: center;
-                    &.failed {
+                    .failed {
                         color: red;
                     }
-                    &.passed {
+                    .passed {
                         color: green;
                     }
                 }
