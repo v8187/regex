@@ -2366,6 +2366,17 @@ li {
   float: left;
   padding: 5px 10px; }
 
+.rx-toolbar-wrapper + * > h1 {
+  font-size: 18px;
+  line-height: 25px;
+  font-weight: normal;
+  margin: 8px 0; }
+
+.rx-toolbar-wrapper + * > p {
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 8px; }
+
 .input-tab > input,
 .output-tab > input {
   width: 100%;
@@ -2445,26 +2456,6 @@ li {
       .guide-wrapper article ol li {
         display: list-item; }
 
-.homepage-wrapper li {
-  border: 2px solid #72678c;
-  box-sizing: border-box;
-  cursor: pointer;
-  margin: 7% 7%;
-  width: 32%;
-  text-align: center;
-  font-size: 75px;
-  line-height: 150px; }
-  .homepage-wrapper li:hover {
-    border-color: #ebe9ef; }
-
-.homepage-wrapper a {
-  display: block;
-  text-decoration: none; }
-  .homepage-wrapper a, .homepage-wrapper a:active, .homepage-wrapper a:visited {
-    color: #72678c; }
-  .homepage-wrapper a:hover {
-    color: #ebe9ef; }
-
 .main-nav li {
   width: 25%;
   box-sizing: border-box; }
@@ -2518,20 +2509,24 @@ li {
   .output-tab ul li:not(:last-child) {
     border-bottom: 1px solid #423c51; }
   .output-tab ul li input {
-    width: 200px;
+    width: calc(100% - 192px);
+    border: 1px solid #aaa;
     font-size: 13px;
     line-height: 25px;
     padding: 0 5px; }
+    .output-tab ul li input:focus {
+      outline: 0 none;
+      border-color: #423c51; }
     .output-tab ul li input + span {
       display: inline-block;
       line-height: 25px;
       font-size: 14px;
       font-weight: bold;
-      width: 75px;
+      width: 100px;
       text-align: center; }
-      .output-tab ul li input + span.failed {
+      .output-tab ul li input + span .failed {
         color: red; }
-      .output-tab ul li input + span.passed {
+      .output-tab ul li input + span .passed {
         color: green; }
   .output-tab ul li button {
     background: transparent;
@@ -2556,4 +2551,4 @@ code {
   line-height: 22px;
   font-size: 13px; }
 
-/*# sourceMappingURL=main.665c95b1.css.map*/
+/*# sourceMappingURL=main.adaa38a0.css.map*/
