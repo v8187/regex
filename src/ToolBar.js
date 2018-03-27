@@ -46,10 +46,10 @@ export class ToolBar extends Component {
         switch (this.state.currentTab) {
             case 'input':
             default:
-                // srvcData.data('currentTab', 'confirmInput');
+                // srvcData.data('currentTab', 'configValue');
                 break;
-            case 'confirmInput':
-                // srvcData.data('currentTab', 'confirmInput');
+            case 'configValue':
+                // srvcData.data('currentTab', 'configValue');
                 break;
         }
     }
@@ -61,7 +61,7 @@ export class ToolBar extends Component {
             default:
                 // srvcData.data('currentTab', 'input');
                 break;
-            case 'confirmInput':
+            case 'configValue':
                 // srvcData.data('currentTab', 'input');
                 break;
         }

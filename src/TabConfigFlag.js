@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 
 import { si, gi } from './utils';
 
-// import srvcData from './data.service';
 import { CategorizedValue } from './CategorizedValue';
 import { CategorizedValueSettings } from './CategorizedValueSettings';
 import { CategorizedValueClass } from './CategorizedValue.class';
-
-// var _subscriptions = [];
 
 const _renderValues = (ctx, categorizedValues, j) => {
     let len = categorizedValues.length;
@@ -29,7 +26,7 @@ const _renderValues = (ctx, categorizedValues, j) => {
     }, ctx);
 };
 
-export class ConfirmInputTab extends Component {
+export class TabConfigFlag extends Component {
 
     constructor(props) {
 
@@ -41,6 +38,7 @@ export class ConfirmInputTab extends Component {
         }
 
         this.state = {
+            hasBegin: false,
             selectedI: gi('selectedI') || undefined,
             selectedJ: gi('selectedJ') || undefined,
             selectedCatVal: _selectedCatVal || undefined,
@@ -54,32 +52,9 @@ export class ConfirmInputTab extends Component {
     }
 
     componentDidMount() {
-        // _subscriptions.push(
-        //     srvcData.categorizedValues$.subscribe(categorizedValues => {
-        //         this.setState({ categorizedValues: categorizedValues });
-        //     }),
-        //     srvcData.inputValue$.subscribe(inputValue => {
-        //         this.setState({ inputValue: inputValue });
-        //     }),
-        //     srvcData.currentTab$.subscribe(currentTab => {
-        //         this.setState({ currentTab: currentTab });
-        //     }),
-        //     srvcData.selectedCatVal$.subscribe(selectedCatVal => {
-        //         this.setState({ selectedCatVal: selectedCatVal });
-        //     }),
-        //     srvcData.selectedI$.subscribe(selectedI => {
-        //         this.setState({ selectedI: selectedI });
-        //     }),
-        //     srvcData.selectedJ$.subscribe(selectedJ => {
-        //         this.setState({ selectedJ: selectedJ });
-        //     })
-        // );
     }
 
     componeneWillUnMount() {
-        // _subscriptions.map(subcr => {
-        //     subcr.unsubscribe();
-        // });
     }
 
     onItemChnage(data, i, j) {
@@ -87,7 +62,7 @@ export class ConfirmInputTab extends Component {
             this.state.categorizedValues[i] :
             this.state.categorizedValues[j].splitted[i], data);
 
-        // srvcData.data('categorizedValues', this.state.categorizedValues);
+
         si('selectedCatVal', data);
         this.setState({
             categorizedValues: this.state.categorizedValues
@@ -98,27 +73,21 @@ export class ConfirmInputTab extends Component {
     }
 
     handleEditClick(i, j) {
-        // srvcData.data('selectedCatVal', j === undefined ?
-        //     this.state.categorizedValues[i] :
-        //     this.state.categorizedValues[j].splitted[i]);
-        // srvcData.data('selectedI', i);
-        // srvcData.data('selectedJ', j);
+
         var _catVals = this.state.categorizedValues,
-            _index = null/* ,
-            _selCatVal = j === undefined ? _catVals[i] : _catVals[j].splitted[i] */;
-        // console.log(`i: ${i}, j: ${j}`);
+            _index = null;
         _catVals.forEach((cv, k) => {
             if (cv.splitted && cv.splitted.length) {
                 _index = k;
                 if (i > k) {
                     i += cv.splitted.length - 1;
                 }
-                // console.log(`cv.splitted.length: ${cv.splitted.length}, k: ${k}`);
+
             }
         }, this);
         _catVals = _index === null ? _catVals :
             [].concat(_catVals.slice(0, _index), _catVals[_index].splitted, _catVals.slice(_index + 1));
-        // console.log(_catVals);
+
         this.setState({
             categorizedValues: _catVals,
             selectedCatVal: _catVals[_index === null || j === undefined ? i : j + i],
@@ -144,7 +113,7 @@ export class ConfirmInputTab extends Component {
             _categorizedValues[j].splitted.splice(i, 1, dest);
             _categorizedValues[j].splitted.splice(i + 1, 1);
         }
-        // srvcData.data('categorizedValues', _categorizedValues);
+
         this.setState({
             categorizedValues: _categorizedValues
         }, () => {
@@ -163,15 +132,17 @@ export class ConfirmInputTab extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
+                <h1>Configure the Expression:</h1>
                 <ul>
-                    {_renderValues(this, this.state.categorizedValues)}
+                    <li>
+                        <label>
+                            <input type="checkbox" checked={this.state.hasBegin} />
+                            <i className={`fa ${this.state.hasBegin ? 'fa-check-square' : 'fa-square-o'}`}></i>
+                            Value has to be start from begining.
+                        </label>
+                    </li>
                 </ul>
-                {!!this.state.selectedCatVal && <div>
-                    <CategorizedValueSettings
-                        data={this.state.selectedCatVal}
-                        styles={this.props.styles}
-                        onChange={data => { this.onItemChnage(data, this.state.selectedI); }} />
-                </div>}
+
             </form>
         );
     }

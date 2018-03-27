@@ -6,7 +6,7 @@ import { splitValue } from './regex.service';
 
 // var _subscriptions = [];
 
-export class InputTab extends Component {
+export class TabInput extends Component {
 
     constructor(props) {
 
@@ -75,12 +75,14 @@ export class InputTab extends Component {
     handleSubmit(evt) {
         evt.preventDefault();
         this.props.onSubmit();
-        // srvcData.data('currentTab', 'confirmInput');
+        // srvcData.data('currentTab', 'configValue');
     }
 
     render() {
         return (
             <form onSubmit={this.handleSubmit} className="input-tab">
+                <h1>Provide a value:</h1>
+                <p>Enter a valid value for which Regular Expression needs to be created.</p>
                 <input type="text"
                     ref={textarea => this.elTA = textarea}
                     onChange={this.handleInputChange}

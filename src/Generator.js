@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 
 import { si, gi } from './utils';
 import { ToolBar } from './ToolBar';
-import { InputTab } from './InputTab';
-import { ConfirmInputTab } from './ConfirmInputTab';
-import { OutputTab } from './OutputTab';
+import { TabInput } from './TabInput';
+import { TabConfigValue } from './TabConfigValue';
+import { TabConfigFlag } from './TabConfigFlag';
+import { TabOutput } from './TabOutput';
 import { CategorizedValueClass } from './CategorizedValue.class';
-
-
 
 export class Generator extends Component {
 
@@ -22,38 +21,36 @@ export class Generator extends Component {
             categorizedValues: _categorizedValues,
             inputValue: gi('inputValue') || 'vikrAM-1234gupta@yhaoo.com',
             outputValue: gi('outputValue') || null,
-            currentTab: gi('currentTab') || 'input'/* ,
-            showGuide: false */
+            currentTab: gi('currentTab') || 'input'
         };
 
-        this.onChangeFromInputTab = this.onChangeFromInputTab.bind(this);
-        this.onChangeFromConfirmInputTab = this.onChangeFromConfirmInputTab.bind(this);
-        this.onChangeFromOutputTab = this.onChangeFromOutputTab.bind(this);
+        this.onChangeFromTabInput = this.onChangeFromTabInput.bind(this);
+        this.onChangeFromTabConfigValue = this.onChangeFromTabConfigValue.bind(this);
+        this.onChangeFromTabConfigFlag = this.onChangeFromTabConfigFlag.bind(this);
+        this.onChangeFromTabOutput = this.onChangeFromTabOutput.bind(this);
         this.handleConfirmInputBack = this.handleConfirmInputBack.bind(this);
         this.doNext = this.doNext.bind(this);
         this.doBack = this.doBack.bind(this);
-        // this.doHelp = this.doHelp.bind(this);
     }
 
     componentDidMount() { }
 
     componeneWillUnMount() { }
 
-    onChangeFromInputTab(categorizedValues, inputValue) {
+    onChangeFromTabInput(categorizedValues, inputValue) {
 
         this.setState({
             inputValue: inputValue,
             categorizedValues: categorizedValues
-            
+
         }, () => {
             si('inputValue', inputValue);
             si('categorizedValues', categorizedValues);
-            
-            console.log('onChangeFromInputTab', this.state.categorizedValues, this.state.inputValue);
+            console.log('onChangeFromTabInput', this.state.categorizedValues, this.state.inputValue);
         });
     }
 
-    onChangeFromConfirmInputTab() {
+    onChangeFromTabConfigValue() {
         var strRegEx = '';
 
         this.state.categorizedValues.forEach(cVal => {
@@ -70,9 +67,24 @@ export class Generator extends Component {
         si('outputValue', strRegEx);
     }
 
-    onChangeFromOutputTab() {
+    onChangeFromTabConfigFlag() {
+        var strRegEx = '';
 
+        this.state.categorizedValues.forEach(cVal => {
+            if (cVal.canSplit && cVal.splitted && cVal.splitted.length) {
+                cVal.splitted.forEach((splt) => {
+                    strRegEx += splt.regEx;
+                }, this);
+            } else {
+                strRegEx += cVal.regEx;
+            }
+        });
+        console.log(strRegEx);
+        this.setState({ outputValue: strRegEx });
+        si('outputValue', strRegEx);
     }
+
+    onChangeFromTabOutput() { }
 
     handleConfirmInputBack() {
         this.setState({
@@ -87,11 +99,16 @@ export class Generator extends Component {
         switch (this.state.currentTab) {
             case 'input':
             default:
-                this.setState({ currentTab: 'confirmInput' });
-                si('currentTab', 'confirmInput');
+                this.setState({ currentTab: 'configValue' });
+                si('currentTab', 'configValue');
                 break;
-            case 'confirmInput':
-                this.onChangeFromConfirmInputTab();
+            case 'configValue':
+                this.onChangeFromTabConfigValue();
+                this.setState({ currentTab: 'configFlag' });
+                si('currentTab', 'configFlag');
+                break;
+            case 'configFlag':
+                this.onChangeFromTabConfigFlag();
                 this.setState({ currentTab: 'output' });
                 si('currentTab', 'output');
                 break;
@@ -103,19 +120,19 @@ export class Generator extends Component {
             case 'input':
             default:
                 break;
-            case 'confirmInput':
+            case 'configValue':
                 this.setState({ currentTab: 'input' });
                 si('currentTab', 'input');
                 break;
+            case 'configFlag':
+                this.setState({ currentTab: 'configValue' });
+                si('currentTab', 'configValue');
+                break;
             case 'output':
-                this.setState({ currentTab: 'confirmInput' });
-                si('currentTab', 'confirmInput');
+                this.setState({ currentTab: 'configFlag' });
+                si('currentTab', 'configFlag');
                 break;
         }
-    }
-
-    doHelp() {
-        // this.setState({ showGuide: !this.state.showGuide });
     }
 
     render() {
@@ -123,29 +140,30 @@ export class Generator extends Component {
             <div className="generator">
                 <ToolBar
                     currentTab={this.state.currentTab}
-                    /* showGuide={this.state.showGuide} */
                     doNext={this.doNext}
-                    doBack={this.doBack}
-                    /* doHelp={this.doHelp} */ />
-
+                    doBack={this.doBack} />
                 {this.state.currentTab === 'input' &&
-                    <InputTab
-                        /* styles={styles} */
+                    <TabInput
                         categorizedValues={this.state.categorizedValues}
                         inputValue={this.state.inputValue}
-                        onChange={this.onChangeFromInputTab}
+                        onChange={this.onChangeFromTabInput}
                         onSubmit={this.doNext} />}
-                {this.state.currentTab === 'confirmInput' &&
-                    <ConfirmInputTab
-                        /*  styles={styles} */
+                {this.state.currentTab === 'configValue' &&
+                    <TabConfigValue
                         categorizedValues={this.state.categorizedValues}
-                        onChange={this.onChangeFromConfirmInputTab}
+                        onChange={this.onChangeFromTabConfigValue}
+                        onSubmit={this.doNext}
+                        onBack={this.doBack} />}
+                {this.state.currentTab === 'configFlag' &&
+                    <TabConfigFlag
+                        categorizedValues={this.state.categorizedValues}
+                        onChange={this.onChangeFromTabConfigFlag}
                         onSubmit={this.doNext}
                         onBack={this.doBack} />}
                 {this.state.currentTab === 'output' &&
-                    <OutputTab
+                    <TabOutput
                         outputValue={this.state.outputValue}
-                        onChange={this.onChangeFromOutputTab}
+                        onChange={this.onChangeFromTabOutput}
                         onBack={this.doBack} />}
             </div>
         );

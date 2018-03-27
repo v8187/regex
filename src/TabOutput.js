@@ -18,12 +18,14 @@ const _renderTests = (ctx) => {
             <input type="text"
                 value={test.value}
                 onChange={(evt) => ctx.updateTest(i, evt.target.value, evt)} />
-            {test.passed && test.value && <span className="passed">
-                <i className="fa fa-check"></i> Passed
-            </span>}
-            {!test.passed && test.value && <span className="failed">
-                <i className="fa fa-times"></i> Failed
-            </span>}
+            <span>
+                {test.passed && test.value && <span className="passed">
+                    <i className="fa fa-check"></i> Passed
+                </span>}
+                {!test.passed && test.value && <span className="failed">
+                    <i className="fa fa-times"></i> Failed
+                </span>}
+            </span>
             {tests.length < 10 && <button className="btn-add" onClick={(evt) => ctx.addTest(evt)}>
                 <i className="fa fa-plus"></i>
             </button>}
@@ -34,7 +36,7 @@ const _renderTests = (ctx) => {
     }, ctx);
 };
 
-export class OutputTab extends Component {
+export class TabOutput extends Component {
 
     constructor(props) {
 
@@ -76,11 +78,11 @@ export class OutputTab extends Component {
 
     updateTest(i, val, evt) {
         evt && evt.preventDefault();
-
-        this.state.tests[i].value = val;
-        this.state.tests[i].passed = this.regExp.test(val);
-        this.setState({ tests: this.state.tests });
-        si('regexp-tests', JSON.stringify(this.state.tests));
+        var _tests = this.state.tests;
+        _tests[i].value = val;
+        _tests[i].passed = this.regExp.test(val);
+        this.setState({ tests: _tests });
+        si('regexp-tests', JSON.stringify(_tests));
     }
 
     addTest(evt) {
@@ -100,12 +102,13 @@ export class OutputTab extends Component {
     handleSubmit(evt) {
         evt.preventDefault();
         this.props.onSubmit();
-        // srvcData.data('currentTab', 'confirmInput');
+        // srvcData.data('currentTab', 'configValue');
     }
 
     render() {
         return (
             <form onSubmit={this.handleSubmit} className="output-tab">
+                <h1>Test The Values:</h1>
                 <input type="text"
                     readOnly
                     ref={textarea => this.elTA = textarea}
