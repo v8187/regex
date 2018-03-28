@@ -20,6 +20,9 @@ export class Generator extends Component {
         this.state = {
             categorizedValues: _categorizedValues,
             inputValue: gi('inputValue') || 'vikrAM-1234gupta@yhaoo.com',
+            hasBegin: gi('flag:hasBegin') || false,
+            hasEnd: gi('flag:hasEnd') || false,
+            global: gi('flag:global') || false,
             outputValue: gi('outputValue') || null,
             currentTab: gi('currentTab') || 'input'
         };
@@ -28,7 +31,8 @@ export class Generator extends Component {
         this.onChangeFromTabConfigValue = this.onChangeFromTabConfigValue.bind(this);
         this.onChangeFromTabConfigFlag = this.onChangeFromTabConfigFlag.bind(this);
         this.onChangeFromTabOutput = this.onChangeFromTabOutput.bind(this);
-        this.handleConfirmInputBack = this.handleConfirmInputBack.bind(this);
+        this.updateFlags = this.updateFlags.bind(this);
+        this.resetFlags = this.resetFlags.bind(this);
         this.doNext = this.doNext.bind(this);
         this.doBack = this.doBack.bind(this);
     }
@@ -67,33 +71,44 @@ export class Generator extends Component {
         si('outputValue', strRegEx);
     }
 
-    onChangeFromTabConfigFlag() {
-        var strRegEx = '';
+    onChangeFromTabConfigFlag(prop, value) {
 
-        this.state.categorizedValues.forEach(cVal => {
-            if (cVal.canSplit && cVal.splitted && cVal.splitted.length) {
-                cVal.splitted.forEach((splt) => {
-                    strRegEx += splt.regEx;
-                }, this);
-            } else {
-                strRegEx += cVal.regEx;
-            }
-        });
-        console.log(strRegEx);
-        this.setState({ outputValue: strRegEx });
-        si('outputValue', strRegEx);
+        if (prop) {
+            var obj = {};
+            obj[prop] = value;
+            si(`flag:${prop}`, value);
+            this.setState(obj, this.updateFlags);
+        } else {
+            this.updateFlags();
+        }
+    }
+
+    resetFlags() {
+        var { outputValue } = this.state;
+
+        outputValue = outputValue.replace(/(.+\/)g$/, '$1');
+        outputValue = outputValue.replace(/^\/\^(.+)/, '/$1');
+        return outputValue.replace(/(.+)\$\/$/, '$1/');
+    }
+
+    updateFlags() {
+
+        var outputValue = this.resetFlags();
+
+        if (this.state.hasBegin) {
+            outputValue = outputValue.replace(/^\/(.+)/, '/^$1');
+        }
+        if (this.state.hasEnd) {
+            outputValue = outputValue.replace(/(.+)\/$/, '/$1\$/');
+        }
+        if (this.state.global) {
+            outputValue = `${outputValue}g`;
+        }
+        this.setState({ outputValue: outputValue });
+        si('outputValue', outputValue);
     }
 
     onChangeFromTabOutput() { }
-
-    handleConfirmInputBack() {
-        this.setState({
-            currentTab: 'input'
-        }, () => {
-            si('currentTab', 'input');
-            console.log('handleConfirmInputBack');
-        });
-    }
 
     doNext() {
         switch (this.state.currentTab) {
@@ -157,6 +172,9 @@ export class Generator extends Component {
                 {this.state.currentTab === 'configFlag' &&
                     <TabConfigFlag
                         categorizedValues={this.state.categorizedValues}
+                        hasBegin={this.state.hasBegin}
+                        hasEnd={this.state.hasEnd}
+                        global={this.state.global}
                         onChange={this.onChangeFromTabConfigFlag}
                         onSubmit={this.doNext}
                         onBack={this.doBack} />}
