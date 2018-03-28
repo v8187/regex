@@ -79,12 +79,6 @@ export class ToolBar extends Component {
                         <i className="fa fa-angle-double-right" />
                     </button>}
             </div>
-
-            {/*  <div className="rx-help-btns">
-                <button type="button" onClick={this.props.doHelp} className={this.props.showGuide ? 'active' : ''}>
-                    <i className="fa fa-question" />
-                </button>
-            </div> */}
         </div>);
     }
 }

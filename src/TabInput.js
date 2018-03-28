@@ -82,11 +82,13 @@ export class TabInput extends Component {
         return (
             <form onSubmit={this.handleSubmit} className="input-tab">
                 <h1>Provide a value:</h1>
-                <p>Enter a valid value for which Regular Expression needs to be created.</p>
-                <input type="text"
-                    ref={textarea => this.elTA = textarea}
-                    onChange={this.handleInputChange}
-                    value={this.state.inputValue} />
+                <div>
+                    <p>Enter a valid value for which Regular Expression needs to be created.</p>
+                    <input type="text"
+                        ref={textarea => this.elTA = textarea}
+                        onChange={this.handleInputChange}
+                        value={this.state.inputValue} />
+                </div>
             </form>
         );
     }

@@ -109,14 +109,16 @@ export class TabOutput extends Component {
         return (
             <form onSubmit={this.handleSubmit} className="output-tab">
                 <h1>Test The Values:</h1>
-                <input type="text"
-                    readOnly
-                    ref={textarea => this.elTA = textarea}
-                    onChange={this.handleInputChange}
-                    value={this.state.outputValue} />
-                <ul>
-                    {_renderTests(this)}
-                </ul>
+                <div>
+                    <input type="text"
+                        readOnly
+                        ref={textarea => this.elTA = textarea}
+                        onChange={this.handleInputChange}
+                        value={this.state.outputValue} />
+                    <ul>
+                        {_renderTests(this)}
+                    </ul>
+                </div>
             </form>
         );
     }

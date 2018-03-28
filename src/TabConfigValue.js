@@ -164,18 +164,20 @@ export class TabConfigValue extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <h1>Configure the values:</h1>
-                <p>Given value has been split based on: Upper/Lower case, Digits &amp; Special characters.
+                <div>
+                    <p>Given value has been split based on: Upper/Lower case, Digits &amp; Special characters.
                     <br /> Click on Chain icon to merge values.
                     <br /> Click on Edit icon to configure it.</p>
-                <ul>
-                    {_renderValues(this, this.state.categorizedValues)}
-                </ul>
-                {!!this.state.selectedCatVal && <div>
-                    <CategorizedValueSettings
-                        data={this.state.selectedCatVal}
-                        styles={this.props.styles}
-                        onChange={data => { this.onItemChnage(data, this.state.selectedI); }} />
-                </div>}
+                    <ul>
+                        {_renderValues(this, this.state.categorizedValues)}
+                    </ul>
+                    {!!this.state.selectedCatVal && <div>
+                        <CategorizedValueSettings
+                            data={this.state.selectedCatVal}
+                            styles={this.props.styles}
+                            onChange={data => { this.onItemChnage(data, this.state.selectedI); }} />
+                    </div>}
+                </div>
             </form>
         );
     }

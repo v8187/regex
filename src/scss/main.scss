@@ -43,9 +43,12 @@ li {
     vertical-align: middle;
     color: $COLOR_PRIMARY;
     background: white;
-    border: 1px solid #555;
+    border: 1px solid lighten($COLOR_PRIMARY, 50%);
     outline: 0 none;
     margin-right: 5px;
+    &:focus {
+        border-color: lighten($COLOR_PRIMARY, 25%);
+    }
     .guide-wrapper & {
         line-height: 20px;
     }
@@ -68,10 +71,12 @@ li {
 
 .rx-btn-icon,
 .rx-btn-text {
+    background: lighten($COLOR_PRIMARY, 65%);
     width: 32px;
     font-weight: bold;
     &.rx-checked {
-        background: lighten($COLOR_PRIMARY, 40%);
+        background: lighten($COLOR_PRIMARY, 45%);
+        border-color: lighten($COLOR_PRIMARY, 25%);
     }
     .fa-unlock,
     .fa-lock {
@@ -92,12 +97,19 @@ li {
 .rx-btn-edit {
     display: inline-block;
     font-size: 16px;
-    color: lighten($COLOR_PRIMARY, 50%);
+    color: lighten($COLOR_PRIMARY, 35%);
     cursor: pointer;
     padding: 0 0 0 10px;
     &:hover,
     &.active {
-        color: white;
+        color: $COLOR_PRIMARY;
+    }
+}
+
+.rx-btn-join {
+    color: lighten($COLOR_PRIMARY, 35%);
+    &:hover {
+        color: $COLOR_PRIMARY;
     }
 }
 
@@ -109,7 +121,7 @@ li {
 .cate-val-settings-wrapper {
     padding: 5px 10px;
     margin-top: 10px;
-    background: rgba(255, 255, 255, 0.3);
+    background: lighten($COLOR_PRIMARY, 60%);
     +a {
         display: inline-block;
         font-size: 21px;
@@ -147,20 +159,23 @@ li {
 }
 
 .rx-toolbar-wrapper {
+    position: absolute;
+    right: 10px;
+    top: 13px;
     button {
         display: inline-block;
-        padding: 0 20px;
-        font-size: 25px;
-        line-height: 25px;
+        padding: 0 12px;
+        font-size: 22px;
+        line-height: 24px;
         background: transparent;
-        border: 1px solid lighten($COLOR_PRIMARY, 50%);
-        color: lighten($COLOR_PRIMARY, 50%);
+        border: 1px solid lighten($COLOR_PRIMARY, 40%);
+        color: lighten($COLOR_PRIMARY, 40%);
         outline: 0 none;
         cursor: pointer;
         &:hover,
         &.active {
-            color: lighten($COLOR_PRIMARY, 10%);
-            background: lighten($COLOR_PRIMARY, 70%);
+            color: lighten($COLOR_PRIMARY, 5%);
+            background: lighten($COLOR_PRIMARY, 60%);
         }
         &:not(:first-child) {
             margin-left: 15px;
@@ -174,12 +189,7 @@ li {
     &:after {
         clear: both;
     }
-    .rx-help-btns {
-        float: right;
-        padding: 5px 10px;
-    }
     .rx-nav-btns {
-        float: left;
         padding: 5px 10px;
     }
     +* {
@@ -188,11 +198,6 @@ li {
             line-height: 25px;
             font-weight: normal;
             margin: 8px 0;
-        }
-        >p {
-            font-size: 14px;
-            line-height: 20px;
-            margin-bottom: 8px;
         }
     }
 }
@@ -225,19 +230,56 @@ li {
 
 .about-wrapper,
 .guide-wrapper,
-.list-wrapper {
+.list-wrapper,
+.generator-wrapper {
     background: lighten($COLOR_PRIMARY, 65%);
     color: $COLOR_PRIMARY;
     padding: 0 0 20px;
+    position: relative;
     >* {
         padding: 0 20px;
         box-sizing: border-box;
     }
     h1 {
         font-size: 18px;
-        line-height: 75px;
+        line-height: 60px;
         border-bottom: 2px solid $COLOR_PRIMARY;
         margin: 0 0 20px;
+    }
+}
+
+.generator-wrapper {
+    >* {
+        padding: 0;
+    }
+    form {
+        >* {
+            padding: 0 20px;
+            >input[type=text] {
+                color: $COLOR_PRIMARY;
+                font-size: 13px;
+                line-height: 35px;
+                box-sizing: border-box;
+                width: 100%;
+                padding: 0 10px;
+                margin: 15px 0;
+            }
+            >p,
+            >label {
+                font-size: 14px;
+                line-height: 20px;
+                margin-bottom: 8px;
+            }
+            >label {
+                display: block;
+                input {
+                    display: none;
+                }
+                .fa {
+                    margin-right: 10px;
+                }
+            }
+        }
     }
 }
 
@@ -376,13 +418,13 @@ li {
             background: lighten($COLOR_PRIMARY, 65%);
             color: $COLOR_PRIMARY;
             width: 100%;
-            padding: 10px;
+            padding: 10px 0;
             box-sizing: border-box;
             &:not(:last-child) {
                 border-bottom: 1px solid $COLOR_PRIMARY;
             }
             input {
-                width: calc(100% - 192px);
+                width: calc(100% - 182px);
                 border: 1px solid #aaa;
                 font-size: 13px;
                 line-height: 25px;
@@ -414,7 +456,7 @@ li {
                 outline: 0 none;
                 width: 30px;
                 height: 29px;
-                margin: 0 5px;
+                margin-left: 5px;
                 &:hover {
                     color: $COLOR_PRIMARY;
                     border: 1px solid lighten($COLOR_PRIMARY, 10%);

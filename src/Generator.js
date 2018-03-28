@@ -152,7 +152,7 @@ export class Generator extends Component {
 
     render() {
         return (
-            <div className="generator">
+            <div className="generator-wrapper">
                 <ToolBar
                     currentTab={this.state.currentTab}
                     doNext={this.doNext}

@@ -41,38 +41,33 @@ export class TabConfigFlag extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <h1>Configure the Expression:</h1>
-                <ul>
-                    <li>
-                        <label>
-                            <input
-                                type="checkbox"
-                                checked={hasBegin}
-                                onChange={(evt) => onChange('hasBegin', evt.target.checked)} />
-                            <i className={`fa ${hasBegin ? 'fa-check-square' : 'fa-square-o'}`}></i>
-                            Valid value must be start of the given string.
+                <div>
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={hasBegin}
+                            onChange={(evt) => onChange('hasBegin', evt.target.checked)} />
+                        <i className={`fa ${hasBegin ? 'fa-check-square' : 'fa-square-o'}`}></i>
+                        Valid value must be start of the given string.
                         </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input
-                                type="checkbox"
-                                checked={hasEnd}
-                                onChange={(evt) => onChange('hasEnd', evt.target.checked)} />
-                            <i className={`fa ${hasEnd ? 'fa-check-square' : 'fa-square-o'}`}></i>
-                            Valid value must be end of the given string.
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input
-                                type="checkbox"
-                                checked={global}
-                                onChange={(evt) => onChange('global', evt.target.checked)} />
-                            <i className={`fa ${global ? 'fa-check-square' : 'fa-square-o'}`}></i>
-                            Test the all occurances in the given string.
-                        </label>
-                    </li>
-                </ul>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={hasEnd}
+                            onChange={(evt) => onChange('hasEnd', evt.target.checked)} />
+                        <i className={`fa ${hasEnd ? 'fa-check-square' : 'fa-square-o'}`}></i>
+                        Valid value must be end of the given string.
+                    </label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={global}
+                            onChange={(evt) => onChange('global', evt.target.checked)} />
+                        <i className={`fa ${global ? 'fa-check-square' : 'fa-square-o'}`}></i>
+                        Test the all occurances in the given string.
+                    </label>
+                </div>
             </form>
         );
     }
