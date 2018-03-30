@@ -1,94 +1,73 @@
 import React from 'react';
 import { Popover } from 'react-bootstrap/lib';
 
-export const helpUAlpha = (
-    <Popover id="poHelpUAlpha">
-        {'Set Uppercase letter range in <Start> - <End> format.'}
-            <br />
-            A-Z means all letters from A to Z and custom value will be ignored if full range is set.
- </Popover>
-);
-export const helpLAlpha = (
-    <Popover id="poHelpLAlpha">
-         {'Set Lowercase letter range in <Start> - <End> format.'}
-            <br />
-            a-z means all letters from a to z and custom value will be ignored if full range is set.
- </Popover>
-);
-export const helpNumber = (
-    <Popover id="poHelpNumber">
-         {'Set Number range in <Start> - <End> format.'}
-            <br />
-            0-9 means all letters from 0 to 9 and custom value will be ignored if full range is set.
- </Popover>
-);
-export const helpSpecialChar = (
-    <Popover id="poHelpSpecialChar">
-        Can be any special character. Selected one will be ignored on selecting this.
- </Popover>
-);
-export const helpSpaceBefore = (
-    <Popover id="poHelpSpace">
-        Select it if value can have space before it.
- </Popover>
-);
-export const helpSpaceAfter = (
-    <Popover id="poHelpSpace">
-        Select it if value can have space after it.
- </Popover>
-);
-export const helpGroup = (
-    <Popover id="poHelpGroup">
-        Select it if given value is a Group.
- </Popover>
-);
-export const helpList = (
-    <Popover id="poHelpList">
-        Select it if given value is a list of characters, else it will be considered as single word.
- </Popover>
-);
-export const helpExclude = (
-    <Popover id="poHelpExclude">
-        Select it if given value needs to be exclude, else it will be considered as Included.
- </Popover>
-);
-export const helpRequired = (
-    <Popover id="poHelpRequired">
-        Select it if given value is Optional, else it will be considered as Required.
- </Popover>
-);
-export const helpInfinite = (
-    <Popover id="poHelpInfinite">
-        Select it if given value can appear infinite times, otherwise it will limited according to the min/max values.
- </Popover>
-);
-export const helpMin = (
-    <Popover id="poHelpMin">
-        Minimum times to repeat the value.
- </Popover>
-);
-export const helpMax = (
-    <Popover id="poHelpMax">
-        Maximum times to repeat the value.
- </Popover>
-);
-export const helpInput = (
-    <Popover id="poHelpInput">
-        Custom input values. It can include Alphabets, Numbers, Special characters and space.
- </Popover>
-);
-export const helpJoinNext = (
-    <Popover id="poHelpJoinNext">
-        Select it to place this sub-expression just next to the perviour one without any kind of linking.
- </Popover>
-);
-export const helpJoinOR = (
-    <Popover id="poHelpJoinOR">
-        Select "OR" to link this sub-expression with pervious one in such a way that 1 or more sub-expressions can be true.
- </Popover>
-);
-export const helpJoinXOR = (
-    <Popover id="poHelpJoinXOR">
-        Select "XOR" to link this sub-expression with pervious one in such a way that only 1 sub-expression can be true.
- </Popover>
-);
+export const helpEdit = <Popover id="poHelpEdit">
+    Click on <i className="fa fa-pencil"></i> icon to modify the configuration for this value.
+ </Popover>;
+
+export const helpJoin = <Popover id="poHelpJoin">
+    Merge the two values.
+</Popover>;
+
+export const helpSplit = <Popover id="poHelpSplit">
+    Split the value.
+</Popover>;
+
+export const helpConstant = <Popover id="poHelpConstant">
+    Make this a constant (If this value should appeare as it is).
+</Popover>;
+
+export const helpUppercase = <Popover id="poHelpUppercase">
+    Can include Uppercase letters.
+</Popover>;
+
+export const helpLowercase = <Popover id="poHelpLowercase">
+    Can include Lowercase letters.
+</Popover>;
+
+export const helpNumber = <Popover id="poHelpNumber">
+    Can include numbers.
+</Popover>;
+
+export const helpSpecial = <Popover id="poHelpSpecial">
+    Can include special characters.
+</Popover>;
+
+export const helpSpace = <Popover id="poHelpSpace">
+    Can include space characters.
+</Popover>;
+
+export const helpOptional = <Popover id="poHelpOptional">
+    This is an optional value.
+</Popover>;
+
+export const helpExclude = <Popover id="poHelpExclude">
+    Exclude the values given in "Custom values" field.
+</Popover>;
+
+export const helpCustValAny = <Popover id="poHelpCustValAny">
+    Enable it to provide any value in "Custom values" field.
+</Popover>;
+
+export const helpCustValList = <Popover id="poHelpCustValList">
+    Enable it to provide "Comma (,)" seperated list of words in "Custom values" field.
+    <br /> For example, <code>black,red,green,orange</code>
+</Popover>;
+
+export const helpCustValRange = <Popover id="poHelpCustValRange">
+    Enable it to provide values range in "Custom values" field.
+    <br /> For example, <code>a-g</code>, <code>d-l</code>, <code>3-6</code>
+</Popover>;
+
+export const helpMin = <Popover id="poHelpMin">
+    Set the minimum length for this value.
+</Popover>;
+
+export const helpMax = <Popover id="poHelpMax">
+    Set the maximum length for this value.
+</Popover>;
+
+export const helpCustom = <Popover id="poHelpCustom">
+    Provide the set of values here.
+    <br /> If set here, only these values will be consider for expression; not all the alphabets, digits etc.
+</Popover>;

@@ -85,7 +85,7 @@ export class Guide extends Component {
                     <p>
                         Click this button to allow Special character values<br />
                         Only the folllowing characters will be included.<br />
-                        ${'` ~ ! @ # $ % ^ & * ( ) - _ = + [ { ] } \\ | ; : \' " , < . > / ?'}
+                        <code>${'` ~ ! @ # $ % ^ & * ( ) - _ = + [ { ] } \\ | ; : \' " , < . > / ?'}</code>
                     </p>
                 </article>
                 <article>
@@ -124,8 +124,7 @@ export class Guide extends Component {
                         <span>Show</span><span>Hide</span> examples <i className="fa fa-sort-down"></i><i className="fa fa-sort-up"></i>
                     </label>
                     <p>
-                        "a-f" = any letter from a to f<br />
-                        "2-6" = any digit from 2 to 6
+                        <code>abcght569</code> = Only these characters will be allowed.
                     </p>
                 </article>
                 <article>
@@ -133,15 +132,15 @@ export class Guide extends Component {
                         <span className="rx-btn-text"> a|2 </span>  Custom Value: List
                     </h3>
                     <p>
-                        Enable this button to provide selected words (probably alphabets, but can be others too) to include/exclude.
+                        Enable this button to provide Comma ( , ) seperated selected words (probably alphabets, but can be others too) to include/exclude.
                     </p>
                     <input id="gcustomValTypeList" type="checkbox" />
                     <label htmlFor="gcustomValTypeList">
                         <span>Show</span><span>Hide</span> examples <i className="fa fa-sort-down"></i><i className="fa fa-sort-up"></i>
                     </label>
                     <p>
-                        "a-f" = any letter from a to f<br />
-                        "2-6" = any digit from 2 to 6
+                        <code>red, blue, green</code> = Only the red, blue and green words will be allowed, not others<br />
+                        <code>com, in, us, can</code> = Only the com, in, us and can words will be allowed, not others<br />
                     </p>
                 </article>
                 <article>
@@ -156,8 +155,8 @@ export class Guide extends Component {
                         <span>Show</span><span>Hide</span> examples <i className="fa fa-sort-down"></i><i className="fa fa-sort-up"></i>
                     </label>
                     <p>
-                        "a-f" = any letter from a to f<br />
-                        "2-6" = any digit from 2 to 6
+                        <code>a-f</code> = any letter from a to f<br />
+                        <code>2-6</code> = any digit from 2 to 6
                     </p>
                 </article>
             </div>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { OverlayTrigger } from 'react-bootstrap/lib';
 
 import { si, gi } from './utils';
+import { helpJoin } from './help_tips';
 
 // import srvcData from './data.service';
 import { CategorizedValue } from './CategorizedValue';
@@ -19,9 +21,13 @@ const _renderValues = (ctx, categorizedValues, j) => {
                 styles={ctx.props.styles}
                 onChange={data => { ctx.onItemChnage(data, i, j); }}
                 onEdit={() => { ctx.handleEditClick(i, j); }} />}
-            {(i < len - 1 || j !== undefined) && !item.splitted && (<a className="rx-btn-join" onClick={() => { ctx.handleJoinClick(i, j); }}>
-                <i className="fa fa-chain" />
-            </a>)}
+            {(i < len - 1 || j !== undefined) && !item.splitted &&
+                (<OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpJoin}>
+                    <a className="rx-btn-join" onClick={() => { ctx.handleJoinClick(i, j); }}>
+                        <i className="fa fa-chain" />
+                    </a>
+                </OverlayTrigger>
+                )}
             {item.splitted && item.splitted.length && <ul>
                 {_renderValues(ctx, item.splitted, i)}
             </ul>}
@@ -34,16 +40,16 @@ export class TabConfigValue extends Component {
     constructor(props) {
 
         super(props);
-        var _selectedCatVal = gi('selectedCatVal');
+        var _selectedCatVal = gi('selectedCatVal', null);
 
         if (_selectedCatVal !== null) {
             _selectedCatVal = new CategorizedValueClass(_selectedCatVal);
         }
 
         this.state = {
-            selectedI: gi('selectedI') || undefined,
-            selectedJ: gi('selectedJ') || undefined,
-            selectedCatVal: _selectedCatVal || undefined,
+            selectedI: gi('selectedI', undefined),
+            selectedJ: gi('selectedJ', undefined),
+            selectedCatVal: _selectedCatVal,
             categorizedValues: this.props.categorizedValues || []
         };
 

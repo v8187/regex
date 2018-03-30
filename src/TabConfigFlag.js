@@ -9,9 +9,9 @@ export class TabConfigFlag extends Component {
         super(props);
 
         this.state = {
-            hasBegin: gi('flag:hasBegin') || false,
-            hasEnd: gi('flag:hasEnd') || false,
-            global: gi('flag:global') || false
+            hasBegin: gi('flag:hasBegin', false),
+            hasEnd: gi('flag:hasEnd', false),
+            global: gi('flag:global', false)
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -48,7 +48,7 @@ export class TabConfigFlag extends Component {
                             checked={hasBegin}
                             onChange={(evt) => onChange('hasBegin', evt.target.checked)} />
                         <i className={`fa ${hasBegin ? 'fa-check-square' : 'fa-square-o'}`}></i>
-                        Valid value must be start of the given string.
+                        Include start of the string while Validation.
                         </label>
 
                     <label>
@@ -57,7 +57,7 @@ export class TabConfigFlag extends Component {
                             checked={hasEnd}
                             onChange={(evt) => onChange('hasEnd', evt.target.checked)} />
                         <i className={`fa ${hasEnd ? 'fa-check-square' : 'fa-square-o'}`}></i>
-                        Valid value must be end of the given string.
+                        Include end of the string while Validation.
                     </label>
                     <label>
                         <input

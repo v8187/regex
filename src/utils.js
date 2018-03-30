@@ -20,9 +20,13 @@ export const removeSpecialChars = val => {
 export const si = (key, data) => {
     localStorage.setItem(key, JSON.stringify(data));
 };
-export const gi = (key) => {
+export const gi = (key, altVal) => {
     var data = localStorage.getItem(key);
-    data = data === null ? data : JSON.parse(data);
-    console.log(key, typeof data, data);
+    data = data === null ? altVal : JSON.parse(data);
+    // console.log(key, typeof data, data);
     return data;
+};
+
+export const ri = (key) => {
+    localStorage.getItem(key) !== null && localStorage.removeItem(key);
 };

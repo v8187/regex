@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 // import srvcData from './data.service';
 
+import { si, gi, ri } from './utils';
 import { splitValue } from './regex.service';
 
 // var _subscriptions = [];
@@ -68,6 +69,12 @@ export class TabInput extends Component {
             inputValue: val
         }, () => {
             this.props.onChange(this.state.categorizedValues, this.state.inputValue);
+            si('inputValue', this.state.inputValue);
+            si('categorizedValues', this.state.categorizedValues);
+            if (evt) {
+                ri('selectedCatVal');
+                ri('selectedI');
+            }
             /* console.log(this.state.categorizedValues); */
         });
     }

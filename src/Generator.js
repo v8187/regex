@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { si, gi } from './utils';
+import { si, gi, ri } from './utils';
 import { ToolBar } from './ToolBar';
 import { TabInput } from './TabInput';
 import { TabConfigValue } from './TabConfigValue';
@@ -13,18 +13,18 @@ export class Generator extends Component {
     constructor(props) {
 
         super(props);
-        var _categorizedValues = (gi('categorizedValues') || []).map(catVal => {
+        var _categorizedValues = gi('categorizedValues', []).map(catVal => {
             return new CategorizedValueClass(catVal);
         });
 
         this.state = {
             categorizedValues: _categorizedValues,
-            inputValue: gi('inputValue') || 'vikrAM-1234gupta@yhaoo.com',
-            hasBegin: gi('flag:hasBegin') || false,
-            hasEnd: gi('flag:hasEnd') || false,
-            global: gi('flag:global') || false,
-            outputValue: gi('outputValue') || null,
-            currentTab: gi('currentTab') || 'input'
+            inputValue: gi('inputValue', 'vikrAM-1234gupta@yhaoo.com'),
+            hasBegin: gi('flag:hasBegin', false),
+            hasEnd: gi('flag:hasEnd', false),
+            global: gi('flag:global', false),
+            outputValue: gi('outputValue', null),
+            currentTab: gi('currentTab', 'input')
         };
 
         this.onChangeFromTabInput = this.onChangeFromTabInput.bind(this);
@@ -32,7 +32,6 @@ export class Generator extends Component {
         this.onChangeFromTabConfigFlag = this.onChangeFromTabConfigFlag.bind(this);
         this.onChangeFromTabOutput = this.onChangeFromTabOutput.bind(this);
         this.updateFlags = this.updateFlags.bind(this);
-        this.resetFlags = this.resetFlags.bind(this);
         this.doNext = this.doNext.bind(this);
         this.doBack = this.doBack.bind(this);
     }
@@ -46,10 +45,7 @@ export class Generator extends Component {
         this.setState({
             inputValue: inputValue,
             categorizedValues: categorizedValues
-
         }, () => {
-            si('inputValue', inputValue);
-            si('categorizedValues', categorizedValues);
             console.log('onChangeFromTabInput', this.state.categorizedValues, this.state.inputValue);
         });
     }
@@ -83,29 +79,18 @@ export class Generator extends Component {
         }
     }
 
-    resetFlags() {
-        var { outputValue } = this.state;
-
-        outputValue = outputValue.replace(/(.+\/)g$/, '$1');
-        outputValue = outputValue.replace(/^\/\^(.+)/, '/$1');
-        return outputValue.replace(/(.+)\$\/$/, '$1/');
-    }
-
     updateFlags() {
 
-        var outputValue = this.resetFlags();
+        var outputValue = this.state.outputValue.replace(/^\/\^?([^$]+)\$?\/g?$/, '$1'),
+            strRegEx = '';
 
-        if (this.state.hasBegin) {
-            outputValue = outputValue.replace(/^\/(.+)/, '/^$1');
-        }
-        if (this.state.hasEnd) {
-            outputValue = outputValue.replace(/(.+)\/$/, '/$1\$/');
-        }
-        if (this.state.global) {
-            outputValue = `${outputValue}g`;
-        }
-        this.setState({ outputValue: outputValue });
-        si('outputValue', outputValue);
+        strRegEx += this.state.hasBegin ? '/^' : '/';
+        strRegEx += outputValue;
+        strRegEx += this.state.hasEnd ? '$/' : '/';
+        strRegEx += this.state.global ? 'g' : '';
+
+        this.setState({ outputValue: strRegEx });
+        si('outputValue', strRegEx);
     }
 
     onChangeFromTabOutput() { }

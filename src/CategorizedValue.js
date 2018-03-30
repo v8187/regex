@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { OverlayTrigger } from 'react-bootstrap/lib';
 
 // import { CategorizedValueClass } from './CategorizedValue.class';
 import { updateRegEx } from './regex.service';
+import { helpEdit } from './help_tips';
 
 export class CategorizedValue extends Component {
 
@@ -21,13 +23,15 @@ export class CategorizedValue extends Component {
     }
 
     render() {
-        return (<div className="cate-val-wrapper">
-            <p>
-                {`${this.state.data.chars}`}
-                <a className="rx-btn-edit" onClick={this.props.onEdit}>
-                    <i className="fa fa-pencil" />
-                </a>
-            </p>
-        </div>);
+        return (<OverlayTrigger trigger={['hover', 'focus']} placement="top" overlay={helpEdit}>
+            <div className="cate-val-wrapper">
+                <p>
+                    {`${this.state.data.chars}`}
+                    <a className="rx-btn-edit" onClick={this.props.onEdit}>
+                        <i className="fa fa-pencil" />
+                    </a>
+                </p>
+            </div>
+        </OverlayTrigger>);
     }
 }

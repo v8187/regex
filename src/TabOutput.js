@@ -41,7 +41,7 @@ export class TabOutput extends Component {
     constructor(props) {
 
         super(props);
-        var _tests = gi('regexp-tests');
+        var _tests = gi('regexp-tests', null);
         if (_tests !== null) {
             _tests = JSON.parse(_tests);
             _tests = _tests.map(test => {
