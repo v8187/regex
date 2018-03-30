@@ -2333,6 +2333,8 @@ li {
 
 .cate-val-wrapper {
   display: inline-block; }
+  .cate-val-wrapper p {
+    margin: 0; }
 
 .cate-val-settings-wrapper p {
   margin: 5px 0 10px;
@@ -2385,6 +2387,47 @@ li {
   padding: 15px 10px;
   margin: 10px 0 15px;
   box-sizing: border-box; }
+
+.output-tab ul li {
+  background: #ebe9ef;
+  color: #423c51;
+  width: 100%;
+  padding: 10px 0;
+  box-sizing: border-box; }
+  .output-tab ul li:not(:last-child) {
+    border-bottom: 1px solid #423c51; }
+  .output-tab ul li input {
+    width: calc(100% - 182px);
+    border: 1px solid #aaa;
+    font-size: 13px;
+    line-height: 25px;
+    padding: 0 5px; }
+    .output-tab ul li input:focus {
+      outline: 0 none;
+      border-color: #423c51; }
+    .output-tab ul li input + span {
+      display: inline-block;
+      line-height: 25px;
+      font-size: 14px;
+      font-weight: bold;
+      width: 100px;
+      text-align: center; }
+      .output-tab ul li input + span .failed {
+        color: red; }
+      .output-tab ul li input + span .passed {
+        color: green; }
+  .output-tab ul li button {
+    background: transparent;
+    border: 1px solid #a7a0b9;
+    color: #72678c;
+    cursor: pointer;
+    outline: 0 none;
+    width: 30px;
+    height: 29px;
+    margin-left: 5px; }
+    .output-tab ul li button:hover {
+      color: #423c51;
+      border: 1px solid #5a526e; }
 
 .fa-list-remove {
   position: relative; }
@@ -2515,62 +2558,28 @@ li {
     width: 150px;
     vertical-align: middle; }
 
-.list-wrapper table {
-  width: calc(100% - 40px);
-  margin: 0px auto 20px;
-  border-collapse: collapse;
-  font-size: 14px;
-  line-height: 20px; }
-  .list-wrapper table tr {
-    border-bottom: 2px solid #c2bece; }
-  .list-wrapper table thead tr th {
-    padding: 10px 0;
-    text-align: left; }
-  .list-wrapper table tbody tr {
-    border-width: 1px; }
-    .list-wrapper table tbody tr td {
-      padding: 5px 0; }
+.list-wrapper h1 {
+  margin-bottom: 0; }
 
-.output-tab ul li {
-  background: #ebe9ef;
-  color: #423c51;
-  width: 100%;
-  padding: 10px 0;
-  box-sizing: border-box; }
-  .output-tab ul li:not(:last-child) {
-    border-bottom: 1px solid #423c51; }
-  .output-tab ul li input {
-    width: calc(100% - 182px);
-    border: 1px solid #aaa;
-    font-size: 13px;
-    line-height: 25px;
-    padding: 0 5px; }
-    .output-tab ul li input:focus {
-      outline: 0 none;
-      border-color: #423c51; }
-    .output-tab ul li input + span {
-      display: inline-block;
-      line-height: 25px;
-      font-size: 14px;
-      font-weight: bold;
-      width: 100px;
-      text-align: center; }
-      .output-tab ul li input + span .failed {
-        color: red; }
-      .output-tab ul li input + span .passed {
-        color: green; }
-  .output-tab ul li button {
-    background: transparent;
-    border: 1px solid #a7a0b9;
-    color: #72678c;
-    cursor: pointer;
-    outline: 0 none;
-    width: 30px;
-    height: 29px;
-    margin-left: 5px; }
-    .output-tab ul li button:hover {
-      color: #423c51;
-      border: 1px solid #5a526e; }
+.list-wrapper > p {
+  background: #5a526e;
+  color: white;
+  font-size: 14px;
+  line-height: 30px;
+  border-bottom: 2px solid #423c51;
+  margin-bottom: 15px; }
+
+.list-wrapper section {
+  margin-bottom: 15px; }
+  .list-wrapper section:not(:last-child) {
+    border-bottom: 1px solid #c2bece; }
+  .list-wrapper section h4 {
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: bold; }
+  .list-wrapper section p {
+    font-size: 14px;
+    line-height: 20px; }
 
 code {
   display: inline-block;
@@ -2582,4 +2591,15 @@ code {
   line-height: 22px;
   font-size: 13px; }
 
-/*# sourceMappingURL=main.7ef080cc.css.map*/
+.popover {
+  background: #e3e1e9;
+  border-radius: 0;
+  box-shadow: 0px 1px 2px -1px #c2bece;
+  color: #2a2634;
+  font-size: 12px;
+  line-height: 20px;
+  padding: 5px; }
+  .popover.top > .arrow:after {
+    border-top-color: #e3e1e9; }
+
+/*# sourceMappingURL=main.8ab93525.css.map*/
