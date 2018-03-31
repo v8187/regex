@@ -2374,7 +2374,13 @@ li {
   .rx-toolbar-wrapper:after {
     clear: both; }
   .rx-toolbar-wrapper .rx-nav-btns {
-    padding: 5px 10px; }
+    padding: 5px 10px;
+    display: inline-block; }
+    .rx-toolbar-wrapper .rx-nav-btns > a {
+      display: inline-block;
+      font-size: 12px;
+      line-height: 26px;
+      vertical-align: top; }
   .rx-toolbar-wrapper + * > h1 {
     font-size: 18px;
     line-height: 25px;
@@ -2602,4 +2608,4 @@ code {
   .popover.top > .arrow:after {
     border-top-color: #e3e1e9; }
 
-/*# sourceMappingURL=main.8ab93525.css.map*/
+/*# sourceMappingURL=main.7d4d5d72.css.map*/
