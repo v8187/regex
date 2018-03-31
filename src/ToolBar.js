@@ -70,6 +70,7 @@ export class ToolBar extends Component {
     render() {
         return (<div className="rx-toolbar-wrapper">
             <div className="rx-nav-btns">
+                <a href="https://github.com/v8187/regex-generator/issues/new" target="_blank">Report a Bug</a>
                 {this.props.currentTab !== 'input' &&
                     <button type="button" onClick={this.props.doBack}>
                         <i className="fa fa-angle-double-left" />
