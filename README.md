@@ -14,3 +14,7 @@ This tool is currently supported for [JavaScript](https://developer.mozilla.org/
 This tool is still in development mode and may have few bugs.
 
 It is an Open Source Project. Feel free to contrinute to it.
+
+Examples given in the Library are for learning purposes only and may fail for few use-cases.
+
+
