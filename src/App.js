@@ -39,7 +39,7 @@ class App extends Component {
                             </li>
                             <li>
                                 <NavLink to="/list" activeClassName="active" title="Contact Me">
-                                    <i className="fa fa-list"></i> RegExps
+                                    <i className="fa fa-list"></i> Library
                                 </NavLink>
                             </li>
                             <li>
