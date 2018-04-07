@@ -2428,9 +2428,10 @@ li {
     color: #72678c;
     cursor: pointer;
     outline: 0 none;
-    width: 30px;
-    height: 29px;
-    margin-left: 5px; }
+    width: 25px;
+    height: 24px;
+    margin-left: 16px;
+    font-size: 14px; }
     .output-tab ul li button:hover {
       color: #423c51;
       border: 1px solid #5a526e; }
@@ -2536,25 +2537,27 @@ li {
       .guide-wrapper article ol li {
         display: list-item; }
 
-.main-nav li {
-  width: 25%;
-  box-sizing: border-box; }
-  .main-nav li a {
-    display: block;
-    text-align: center;
-    font-size: 16px;
-    line-height: 50px;
-    text-decoration: none;
-    border-bottom: 5px solid #72678c; }
-    .main-nav li a, .main-nav li a:active, .main-nav li a:visited {
-      color: #72678c; }
-    .main-nav li a:hover, .main-nav li a.active {
-      color: #ebe9ef;
-      border-color: #ebe9ef; }
-    .main-nav li a .fa {
-      font-size: 24px;
-      vertical-align: middle;
-      margin-right: 10px; }
+.main-nav {
+  margin: 0; }
+  .main-nav li {
+    width: 25%;
+    box-sizing: border-box; }
+    .main-nav li a {
+      display: block;
+      text-align: center;
+      font-size: 16px;
+      line-height: 50px;
+      text-decoration: none;
+      border-bottom: 5px solid #72678c; }
+      .main-nav li a, .main-nav li a:active, .main-nav li a:visited {
+        color: #72678c; }
+      .main-nav li a:hover, .main-nav li a.active {
+        color: #ebe9ef;
+        border-color: #ebe9ef; }
+      .main-nav li a .fa {
+        font-size: 24px;
+        vertical-align: middle;
+        margin-right: 10px; }
 
 .about-wrapper p {
   font-size: 16px;
@@ -2608,4 +2611,4 @@ code {
   .popover.top > .arrow:after {
     border-top-color: #e3e1e9; }
 
-/*# sourceMappingURL=main.7d4d5d72.css.map*/
+/*# sourceMappingURL=main.461aada0.css.map*/
