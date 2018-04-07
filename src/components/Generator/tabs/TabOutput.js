@@ -41,11 +41,14 @@ export class TabOutput extends Component {
                 return new TestModel(test);
             });
         }
+
+
+
         this.state = {
-            outputValue: this.props.outputValue || '',
+            // regExp: new RegExp(matches[1], matches[2]),
+            // outputRegExStr: this.props.outputRegExStr || '',
             tests: _tests || [new TestModel()]
         };
-        this.regExp = new RegExp(this.state.outputValue);
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,9 +57,16 @@ export class TabOutput extends Component {
         this.removeTest = this.removeTest.bind(this);
     }
 
+    get regExp() {
+        var matches = this.props.outputRegExStr.match(/^\/(\^?[^$]+\$?)\/(g?)$/);
+        console.log(new RegExp(matches[1], matches[2]));
+
+        return new RegExp(matches[1], matches[2]);
+    }
+
     handleInputChange(evt) {
         evt && evt.preventDefault();
-        this.setState({ outputValue: this.elTA.value });
+        this.setState({ outputRegExStr: this.elTA.value });
     }
 
     updateTest(i, val, evt) {
@@ -96,7 +106,7 @@ export class TabOutput extends Component {
                         readOnly
                         ref={textarea => this.elTA = textarea}
                         onChange={this.handleInputChange}
-                        value={this.state.outputValue} />
+                        value={this.props.outputRegExStr} />
                     <ul>
                         {_renderTests(this)}
                     </ul>

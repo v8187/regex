@@ -23,7 +23,7 @@ export class Generator extends Component {
             hasBegin: gi('flag:hasBegin', false),
             hasEnd: gi('flag:hasEnd', false),
             global: gi('flag:global', false),
-            outputValue: gi('outputValue', null),
+            outputRegExStr: gi('outputRegExStr', null),
             currentTab: gi('currentTab', 'input')
         };
 
@@ -59,8 +59,8 @@ export class Generator extends Component {
             }
         });
         console.log(strRegEx);
-        this.setState({ outputValue: strRegEx });
-        si('outputValue', strRegEx);
+        this.setState({ outputRegExStr: strRegEx });
+        si('outputRegExStr', strRegEx);
     }
 
     onChangeFromTabConfigFlag(prop, value) {
@@ -77,16 +77,16 @@ export class Generator extends Component {
 
     updateFlags() {
 
-        var outputValue = this.state.outputValue.replace(/^\/\^?([^$]+)\$?\/g?$/, '$1'),
+        var outputRegExStr = this.state.outputRegExStr.replace(/^\/\^?([^$]+)\$?\/g?$/, '$1'),
             strRegEx = '';
 
         strRegEx += this.state.hasBegin ? '/^' : '/';
-        strRegEx += outputValue;
+        strRegEx += outputRegExStr;
         strRegEx += this.state.hasEnd ? '$/' : '/';
         strRegEx += this.state.global ? 'g' : '';
 
-        this.setState({ outputValue: strRegEx });
-        si('outputValue', strRegEx);
+        this.setState({ outputRegExStr: strRegEx });
+        si('outputRegExStr', strRegEx);
     }
 
     onChangeFromTabOutput() { }
@@ -161,7 +161,7 @@ export class Generator extends Component {
                         onBack={this.doBack} />}
                 {this.state.currentTab === 'output' &&
                     <TabOutput
-                        outputValue={this.state.outputValue}
+                        outputRegExStr={this.state.outputRegExStr}
                         onChange={this.onChangeFromTabOutput}
                         onBack={this.doBack} />}
             </div>
