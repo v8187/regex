@@ -16,7 +16,7 @@ class App extends Component {
 
         this.state = {
             categorizedValues: [],
-            inputValue: 'vikrAM-1234gupta@yhaoo.com',
+            inputValue: process.env.NODE_ENV === 'development' ? 'vikrAM-1234gupta@yhaoo.com' : '',
             currentTab: 'input',
             showGuide: false
         };

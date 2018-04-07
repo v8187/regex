@@ -19,7 +19,7 @@ export class Generator extends Component {
 
         this.state = {
             categorizedValues: _categorizedValues,
-            inputValue: gi('inputValue', 'vikrAM-1234gupta@yhaoo.com'),
+            inputValue: gi('inputValue', process.env.NODE_ENV === 'development' ? 'vikrAM-1234gupta@yhaoo.com' : ''),
             hasBegin: gi('flag:hasBegin', false),
             hasEnd: gi('flag:hasEnd', false),
             global: gi('flag:global', false),
@@ -95,8 +95,10 @@ export class Generator extends Component {
         switch (this.state.currentTab) {
             case 'input':
             default:
-                this.setState({ currentTab: 'configValue' });
-                si('currentTab', 'configValue');
+                if (this.state.inputValue) {
+                    this.setState({ currentTab: 'configValue' });
+                    si('currentTab', 'configValue');
+                }
                 break;
             case 'configValue':
                 this.onChangeFromTabConfigValue();
@@ -162,6 +164,7 @@ export class Generator extends Component {
                 {this.state.currentTab === 'output' &&
                     <TabOutput
                         outputRegExStr={this.state.outputRegExStr}
+                        inputValue={this.state.inputValue}
                         onChange={this.onChangeFromTabOutput}
                         onBack={this.doBack} />}
             </div>

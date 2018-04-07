@@ -41,13 +41,19 @@ export class TabOutput extends Component {
                 return new TestModel(test);
             });
         }
+        _tests = _tests || [new TestModel({ value: this.props.inputValue })];
 
+        _tests = _tests.map((test, i) => {
+            test.passed = this.regExp.test(test.value);
+            return test;
+        }, this);
 
+        si('regexp-tests', JSON.stringify(_tests));
 
         this.state = {
             // regExp: new RegExp(matches[1], matches[2]),
             // outputRegExStr: this.props.outputRegExStr || '',
-            tests: _tests || [new TestModel()]
+            tests: _tests
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -59,7 +65,6 @@ export class TabOutput extends Component {
 
     get regExp() {
         var matches = this.props.outputRegExStr.match(/^\/(\^?[^$]+\$?)\/(g?)$/);
-        console.log(new RegExp(matches[1], matches[2]));
 
         return new RegExp(matches[1], matches[2]);
     }
