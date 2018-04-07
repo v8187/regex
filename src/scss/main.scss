@@ -264,9 +264,10 @@ li {
                 color: lighten($COLOR_PRIMARY, 20%);
                 cursor: pointer;
                 outline: 0 none;
-                width: 30px;
-                height: 29px;
-                margin-left: 5px;
+                width: 25px;
+                height: 24px;
+                margin-left: 16px;
+                font-size: 14px;
                 &:hover {
                     color: $COLOR_PRIMARY;
                     border: 1px solid lighten($COLOR_PRIMARY, 10%);
@@ -406,6 +407,7 @@ li {
 }
 
 .main-nav {
+    margin: 0;
     li {
         width: 25%;
         box-sizing: border-box;
