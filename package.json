@@ -2,7 +2,7 @@
   "name": "regex-generator-ai",
   "version": "0.0.1",
   "private": true,
-  "homepage": "https://v8187.github.io/regex-generator",
+  "homepage": "https://v8187.github.io/regex",
   "scripts": {
     "build-css": "node-sass-chokidar scss/ -o public/css/",
     "watch-css": "npm run build-css && node-sass-chokidar scss/ -o public/css/ --watch",

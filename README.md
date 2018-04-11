@@ -1,7 +1,7 @@
 # Online Regular Expression Generator
 
 
-[Try the App](https://v8187.github.io/regex-generator)
+[Try the App](https://v8187.github.io/regex)
 
 ## About
 
